@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
-project(HM_NET)
+project(NMCS)
 
-add_subdirectory(CoreServer)
+add_subdirectory(KernelMod)
+add_subdirectory(NetD)
 add_subdirectory(NetManagementService)

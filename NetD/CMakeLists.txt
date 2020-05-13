@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(NMCS)
+project(NetD)
 
 set(CMAKE_CXX_STANDARD 14)
 
@@ -16,4 +16,4 @@ SET(Sources
 
 set(SRC_LIST ${SEC_LIST} ${Sources})
 
-add_executable(NMCS ${SRC_LIST})
+add_executable(NetD ${SRC_LIST})
