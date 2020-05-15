@@ -6,10 +6,10 @@
 #define NMCS_NETMANAGEMENTCORESERVER_H
 
 #include <memory>
-#include "CommandListener.h"
-#include "DnsProxyListener.h"
-#include "MDnsSdListener.h"
-#include "FwmarkServer.h"
+#include "listener/CommandListener.h"
+#include "listener/DnsProxyListener.h"
+#include "listener/MDnsSdListener.h"
+#include "listener/FwmarkServer.h"
 
 namespace hm {
     namespace netd {
@@ -35,6 +35,8 @@ namespace hm {
             std::shared_ptr<DnsProxyListener> dnsProxyListener;
             std::shared_ptr<MDnsSdListener> mdnsSdListener;
             std::shared_ptr<FwmarkServer> fwmarkServer;
+
+            std::shared_ptr<NetlinkManager> netlinkManager;
         };
     }
 };

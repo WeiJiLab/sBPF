@@ -6,7 +6,7 @@
 #define NMCS_COMMANDLISTENER_H
 
 #include <memory>
-#include "NetlinkManager.h"
+#include "../netlink/NetlinkManager.h"
 #include "AbstractServiceListener.h"
 
 

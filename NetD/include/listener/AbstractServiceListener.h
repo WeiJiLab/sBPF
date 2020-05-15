@@ -6,7 +6,7 @@
 #define HM_NET_ABSTRACTSERVICELISTENER_H
 
 #include <memory>
-#include "NetlinkManager.h"
+#include "../netlink/NetlinkManager.h"
 
 namespace hm {
     namespace netd {

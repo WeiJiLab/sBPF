@@ -3,7 +3,7 @@
 //
 
 #include "../include/NetManagementCoreServer.h"
-#include "../include/Log.h"
+#include "../include/log/Log.h"
 
 hm::netd::NetManagementCoreServer::~NetManagementCoreServer() noexcept = default;
 
@@ -15,7 +15,8 @@ hm::netd::NetManagementCoreServer::NetManagementCoreServer() :
         commandListener(std::shared_ptr<CommandListener>()),
         dnsProxyListener(std::shared_ptr<DnsProxyListener>()),
         mdnsSdListener(std::shared_ptr<MDnsSdListener>()),
-        fwmarkServer(std::shared_ptr<FwmarkServer>()) {
+        fwmarkServer(std::shared_ptr<FwmarkServer>()),
+        netlinkManager(std::shared_ptr<NetlinkManager>()) {
 
 }
 

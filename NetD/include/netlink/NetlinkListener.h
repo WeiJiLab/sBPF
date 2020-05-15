@@ -5,7 +5,7 @@
 #ifndef NMCS_NETLINKLISTENER_H
 #define NMCS_NETLINKLISTENER_H
 
-#include "SocketOps.h"
+#include "../connect/SocketOps.h"
 
 namespace hm {
     namespace netd {

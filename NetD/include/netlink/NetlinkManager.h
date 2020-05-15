@@ -6,7 +6,7 @@
 #define HM_NET_NETLINKMANAGER_H
 
 #include <memory>
-#include "SocketOps.h"
+#include "../connect/SocketOps.h"
 
 namespace hm {
     namespace netd {
