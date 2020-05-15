@@ -9,6 +9,10 @@ hm::netd::SocketOps::SocketOps() {
 
 }
 
+hm::netd::SocketOps::SocketOps(std::string &sockName) : sockName(sockName) {
+
+}
+
 int hm::netd::SocketOps::Config(hm::netd::NetDConfiguration netDConfiguration) {
     return 0;
 }
@@ -33,6 +37,7 @@ int hm::netd::SocketOps::Connect(int port) {
     return 0;
 }
 
-int hm::netd::SocketOps::Send(char *buf) {
+ssize_t hm::netd::SocketOps::Send(int fd, const struct msghdr *msg, int flags) {
     return 0;
 }
+

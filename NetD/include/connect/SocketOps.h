@@ -11,10 +11,12 @@
 #include <asm/types.h>
 #include <linux/netlink.h>
 
+#include <string>
+
 namespace hm {
     namespace netd {
 
-        using SocketAcceptEventHandler = std::function<void(char *buffer, int fdc)>;
+        using SocketAcceptEventHandler = std::function<void(int fd, void *buffer, size_t len, int flags)>;
 
         struct NetDConfiguration {
             struct sockaddr_nl {
@@ -36,6 +38,7 @@ namespace hm {
         class SocketOps {
         public:
             SocketOps();
+            SocketOps(std::string &sockName);
 
             int Config(NetDConfiguration netDConfiguration);
 
@@ -51,10 +54,12 @@ namespace hm {
 
             int Connect(int port);
 
-            virtual int Send(char *buf);
+            virtual ssize_t Send(int fd, const struct msghdr *msg, int flags);
 
         private:
             SocketAcceptEventHandler socketAcceptEventHandler;
+
+            std::string sockName;
         };
     };
 };
