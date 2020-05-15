@@ -3,3 +3,7 @@
 //
 
 #include "../../include/connect/SocketListener.h"
+
+hm::netd::SocketListener::SocketListener() {
+
+}

@@ -6,8 +6,9 @@
 #define NMCS_SOCKETOPS_H
 
 #include <functional>
-#include <bits/sockaddr.h>
 #include <sys/socket.h>
+
+#include <bits/sockaddr.h>
 #include <asm/types.h>
 #include <linux/netlink.h>
 
@@ -18,48 +19,73 @@ namespace hm {
 
         using SocketAcceptEventHandler = std::function<void(int fd, void *buffer, size_t len, int flags)>;
 
-        struct NetDConfiguration {
-            struct sockaddr_nl {
-                sa_family_t nl_family; //AF_NETLINK
-                unsigned short nl_pad;
-                unsigned int nl_pid;
-                unsigned int nl_group;
-            };
 
-            struct nlmsghdr {
-                unsigned int nlmsg_len;
-                unsigned short nlmsg_type;
-                unsigned short nlmsg_flags;
-                unsigned int nlmsg_seq;
-                unsigned int nlmsg_pid;
-            };
+        struct sockaddr_nl {
+            sa_family_t nl_family; //AF_NETLINK
+            unsigned short nl_pad;
+            unsigned int nl_pid;
+
+            /**
+             * NETLINK_ROUTE
+             *
+             * RTMGRP_LINK          ; when network changed
+             * RTMGRP_IPV4_IFADDR   ; when ipv4 address changed
+             * RTMGRP_IPV4_ROUTE    ; when ipv4 route changed
+             * RTMGRP_IPV6_IFADDR   ; when ipv6 address changed
+             * RTMGRP_IPV6_ROUTE    ; when ipv6 route changed
+             */
+            unsigned int nl_group;
+        };
+
+
+        struct nlmsghdr {
+            unsigned int nlmsg_len;
+
+            /**
+             * RTM_NEWLINK/RTM_DELLINK      ; from kernel when network changed
+             * RTM_NEWADDR/RTM_DELADDR      ; from kernel when ip address changed
+             * RTM_NEWROUTE/RTM_DELROUTE    ; form kernel when route changed
+             */
+            unsigned short nlmsg_type;
+            unsigned short nlmsg_flags;
+            unsigned int nlmsg_seq;
+            unsigned int nlmsg_pid;
+        };
+        struct NetDConfiguration {
+            int type;
+            sockaddr_nl bindAddr;
         };
 
         class SocketOps {
         public:
             SocketOps();
+
             SocketOps(std::string &sockName);
 
             int Config(NetDConfiguration netDConfiguration);
 
-            int SetUp();
+            int CreateSock();
 
             int Bind();
 
             int Listen();
 
-            virtual int Accept(SocketAcceptEventHandler acceptEventHandler) = 0;
+            virtual int Receive(SocketAcceptEventHandler acceptEventHandler) = 0;
 
             void SetSocketAcceptEventHandler(SocketAcceptEventHandler acceptEventHandler);
 
             int Connect(int port);
 
-            virtual ssize_t Send(int fd, const struct msghdr *msg, int flags);
+            virtual ssize_t SendRequest(int fd, const struct msghdr *msg, int flags);
 
         private:
             SocketAcceptEventHandler socketAcceptEventHandler;
 
+            NetDConfiguration netDConfiguration;
+
+            int sockfd;
             std::string sockName;
+
         };
     };
 };
