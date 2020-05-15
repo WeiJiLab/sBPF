@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 14)
 SET(Sources
         src/connect/SocketOps.cpp
         src/listener/AbstractServiceListener.cpp
+        src/event/NetlinkEvent.cpp
         src/netlink/NetlinkListener.cpp
         src/netlink/NetlinkHandler.cpp
         src/netlink/NetlinkManager.cpp
