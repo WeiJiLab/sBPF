@@ -4,12 +4,18 @@
 
 #ifndef NMCS_SOCKETOPS_H
 #define NMCS_SOCKETOPS_H
+
 #include <functional>
 
 namespace hm {
     namespace netd {
 
         using SocketAcceptEventHandler = std::function<void(char *buffer, int fdc)>;
+
+
+        struct NetDConfiguration {
+
+        };
 
         class SocketOps {
             ~SocketOps() noexcept;
@@ -25,20 +31,24 @@ namespace hm {
         public:
             SocketOps();
 
+            int Config(NetDConfiguration netDConfiguration);
+
             int SetUp();
 
             int Bind();
 
             int Listen();
 
-            int Accept(SocketAcceptEventHandler acceptEventHandler);
+            virtual int Accept(SocketAcceptEventHandler acceptEventHandler) = 0;
 
             void SetSocketAcceptEventHandler(SocketAcceptEventHandler acceptEventHandler);
 
             int Connect(int port);
 
-            int Send(char *buf);
+            virtual int Send(char *buf);
 
+        private:
+            SocketAcceptEventHandler socketAcceptEventHandler;
         };
     };
 };
