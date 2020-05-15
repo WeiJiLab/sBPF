@@ -5,12 +5,6 @@
 #include "../../include/connect/SocketOps.h"
 
 
-hm::netd::SocketOps::~SocketOps() noexcept = default;
-
-hm::netd::SocketOps::SocketOps(hm::netd::SocketOps &&) noexcept = default;
-
-hm::netd::SocketOps &hm::netd::SocketOps::operator=(hm::netd::SocketOps &&) noexcept = default;
-
 hm::netd::SocketOps::SocketOps() {
 
 }

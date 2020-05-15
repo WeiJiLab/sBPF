@@ -18,16 +18,6 @@ namespace hm {
         };
 
         class SocketOps {
-            ~SocketOps() noexcept;
-
-            SocketOps(const SocketOps &) = delete;
-
-            SocketOps(SocketOps &&) noexcept;
-
-            SocketOps &operator=(const SocketOps &) = delete;
-
-            SocketOps &operator=(SocketOps &&) noexcept;
-
         public:
             SocketOps();
 

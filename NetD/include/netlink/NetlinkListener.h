@@ -5,11 +5,14 @@
 #ifndef NMCS_NETLINKLISTENER_H
 #define NMCS_NETLINKLISTENER_H
 
+#include <memory>
+
 #include "../connect/SocketOps.h"
+#include "../event/NetlinkEvent.h"
 
 namespace hm {
     namespace netd {
-        class NetlinkListener: public SocketOps {
+        class NetlinkListener : public SocketOps {
         public:
             ~NetlinkListener() noexcept;
 
@@ -23,6 +26,12 @@ namespace hm {
 
         public:
             NetlinkListener();
+
+
+            void SetNetlinkEvent(std::shared_ptr<NetlinkEvent> netlinkEvent);
+
+        private:
+            std::shared_ptr<NetlinkEvent> netlinkEvent;
         };
     }
 }

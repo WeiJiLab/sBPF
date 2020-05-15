@@ -13,3 +13,7 @@ hm::netd::NetlinkListener &hm::netd::NetlinkListener::operator=(hm::netd::Netlin
 hm::netd::NetlinkListener::NetlinkListener() {
 
 }
+
+void hm::netd::NetlinkListener::SetNetlinkEvent(std::shared_ptr<NetlinkEvent> netlinkEvent) {
+
+}
