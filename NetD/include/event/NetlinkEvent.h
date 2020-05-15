@@ -5,9 +5,11 @@
 #ifndef NMCS_NETLINKEVENT_H
 #define NMCS_NETLINKEVENT_H
 
+#include "SocketEvent.h"
+
 namespace hm {
     namespace netd {
-        class NetlinkEvent {
+        class NetlinkEvent : public SocketEvent {
         public:
             ~NetlinkEvent() noexcept;
 
@@ -22,10 +24,9 @@ namespace hm {
         public:
             NetlinkEvent();
 
-            void OnMessageSend();
+            virtual void OnMessageSend() = 0;
 
-            void OnMessageReceived();
-
+            virtual void OnMessageReceived() = 0;
 
         };
     }

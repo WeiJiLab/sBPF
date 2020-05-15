@@ -9,10 +9,11 @@
 
 #include "../connect/SocketOps.h"
 #include "../event/NetlinkEvent.h"
+#include "../connect/SocketListener.h"
 
 namespace hm {
     namespace netd {
-        class NetlinkListener : public SocketOps {
+        class NetlinkListener : public SocketListener {
         public:
             ~NetlinkListener() noexcept;
 
