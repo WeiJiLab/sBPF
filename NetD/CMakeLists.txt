@@ -4,15 +4,15 @@ project(NetD)
 set(CMAKE_CXX_STANDARD 14)
 
 SET(Sources
-        src/SocketOps.cpp
-        src/AbstractServiceListener.cpp
-        src/NetlinkListener.cpp
-        src/NetlinkHandler.cpp
-        src/NetlinkManager.cpp
-        src/CommandListener.cpp
-        src/FwmarkServer.cpp
-        src/MDnsSdListener.cpp
-        src/DnsProxyListener.cpp
+        src/connect/SocketOps.cpp
+        src/listener/AbstractServiceListener.cpp
+        src/netlink/NetlinkListener.cpp
+        src/netlink/NetlinkHandler.cpp
+        src/netlink/NetlinkManager.cpp
+        src/listener/CommandListener.cpp
+        src/listener/FwmarkServer.cpp
+        src/listener/MDnsSdListener.cpp
+        src/listener/DnsProxyListener.cpp
         src/NetManagementCoreServer.cpp
         main.cpp)
 

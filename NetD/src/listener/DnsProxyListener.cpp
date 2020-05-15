@@ -2,7 +2,7 @@
 // Created by XingfengYang on 2020/5/13.
 //
 
-#include "../include/listener/DnsProxyListener.h"
+#include "../../include/listener/DnsProxyListener.h"
 
 hm::netd::DnsProxyListener::~DnsProxyListener() noexcept = default;
 
