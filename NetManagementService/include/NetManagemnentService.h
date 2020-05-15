@@ -5,10 +5,25 @@
 #ifndef HM_NET_NETMANAGEMNENTSERVICE_H
 #define HM_NET_NETMANAGEMNENTSERVICE_H
 
+namespace hm {
+    namespace netd {
+        class NetManagemnentService {
+        public:
+            ~NetManagemnentService() noexcept;
 
-class NetManagemnentService {
+            NetManagemnentService(const NetManagemnentService &) = delete;
 
-};
+            NetManagemnentService(NetManagemnentService &&) noexcept;
+
+            NetManagemnentService &operator=(const NetManagemnentService &) = delete;
+
+            NetManagemnentService &operator=(NetManagemnentService &&) noexcept;
+
+        public:
+            NetManagemnentService();
+        };
+    }
+}
 
 
 #endif //HM_NET_NETMANAGEMNENTSERVICE_H
