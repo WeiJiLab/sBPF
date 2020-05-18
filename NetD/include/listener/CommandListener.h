@@ -13,6 +13,7 @@
 namespace hm {
     namespace netd {
         class CommandListener : public AbstractServiceListener {
+        public:
             ~CommandListener() noexcept;
 
             CommandListener(const CommandListener &) = delete;
