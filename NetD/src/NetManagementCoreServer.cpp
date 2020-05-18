@@ -21,10 +21,10 @@ void hm::netd::NetManagementCoreServer::Init() {
 
 
     // set initial
-    commandListener->SetNetlinkManager(netlinkManager);
-    dnsProxyListener->SetNetlinkManager(netlinkManager);
-    mdnsSdListener->SetNetlinkManager(netlinkManager);
-    fwmarkServer->SetNetlinkManager(netlinkManager);
+    commandListener->AbstractServiceListener::SetNetlinkManager(netlinkManager);
+    dnsProxyListener->AbstractServiceListener::SetNetlinkManager(netlinkManager);
+    mdnsSdListener->AbstractServiceListener::SetNetlinkManager(netlinkManager);
+    fwmarkServer->AbstractServiceListener::SetNetlinkManager(netlinkManager);
 }
 
 

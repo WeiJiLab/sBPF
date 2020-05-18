@@ -21,8 +21,6 @@ namespace hm {
 
             FwmarkServer &operator=(FwmarkServer &&) noexcept;
 
-            virtual void SetNetlinkManager(std::shared_ptr<NetlinkManager> netlinkManager);
-
         public:
             FwmarkServer();
 
