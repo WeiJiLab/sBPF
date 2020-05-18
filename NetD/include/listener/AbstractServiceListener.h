@@ -13,7 +13,8 @@ namespace hm {
         class AbstractServiceListener {
         public:
             virtual void SetNetlinkManager(std::shared_ptr<NetlinkManager> netlinkManager);
-        private:
+
+        protected:
             std::shared_ptr<NetlinkManager> netlinkManager;
         };
     }
