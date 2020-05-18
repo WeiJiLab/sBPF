@@ -28,12 +28,12 @@ int hm::netd::SocketOps::CreateSock() {
 }
 
 int hm::netd::SocketOps::Bind() {
-    int bind = bind(this->sockfd, (struct sockaddr *) &this->netDConfiguration.bindAddr, sizeof(this->netDConfiguration.bindAddr));
-    if (bind < 0) {
+    int bindfd = bind(this->sockfd, (struct sockaddr *) &this->netDConfiguration.bindAddr, sizeof(this->netDConfiguration.bindAddr));
+    if (bindfd < 0) {
         LogError("Socket bind failed for socket:'%s'", sockName.c_str())
         exit(0);
     }
-    return bind;
+    return bindfd;
 }
 
 int hm::netd::SocketOps::Listen() {
