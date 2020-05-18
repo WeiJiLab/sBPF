@@ -25,6 +25,9 @@ namespace hm {
 
             NetManagementCoreServer &operator=(NetManagementCoreServer &&) noexcept;
 
+
+
+            void Init();
             void Start();
 
         public:

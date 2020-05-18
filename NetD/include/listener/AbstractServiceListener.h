@@ -12,7 +12,7 @@ namespace hm {
     namespace netd {
         class AbstractServiceListener {
         public:
-            virtual void SetNetlink(std::shared_ptr<NetlinkManager> netlinkManager);
+            virtual void SetNetlinkManager(std::shared_ptr<NetlinkManager> netlinkManager);
         private:
             std::shared_ptr<NetlinkManager> netlinkManager;
         };

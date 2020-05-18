@@ -5,6 +5,6 @@
 #include "../../include/listener/AbstractServiceListener.h"
 
 
-void hm::netd::AbstractServiceListener::SetNetlink(std::shared_ptr<NetlinkManager> netlinkManager) {
+void hm::netd::AbstractServiceListener::SetNetlinkManager(std::shared_ptr<NetlinkManager> netlinkManager) {
     this->netlinkManager = netlinkManager;
 }
