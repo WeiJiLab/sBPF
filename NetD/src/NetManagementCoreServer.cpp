@@ -11,7 +11,13 @@ hm::netd::NetManagementCoreServer::NetManagementCoreServer(hm::netd::NetManageme
 
 hm::netd::NetManagementCoreServer &hm::netd::NetManagementCoreServer::operator=(hm::netd::NetManagementCoreServer &&) noexcept = default;
 
-hm::netd::NetManagementCoreServer::NetManagementCoreServer() : netlinkManager(std::make_shared<NetlinkManager>()) {
+hm::netd::NetManagementCoreServer::NetManagementCoreServer() : 
+
+commandListener(std::make_shared<CommandListener>()),
+dnsProxyListener(std::make_shared<DnsProxyListener>()),
+mdnsSdListener(std::make_shared<MDnsSdListener>()),
+fwmarkServer(std::make_shared<FwmarkServer>()),
+netlinkManager(std::make_shared<NetlinkManager>()) {
 
 }
 
