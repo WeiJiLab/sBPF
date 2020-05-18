@@ -21,6 +21,8 @@ namespace hm {
 
             DnsProxyListener &operator=(DnsProxyListener &&) noexcept;
 
+            virtual void SetNetlinkManager(std::shared_ptr<NetlinkManager> netlinkManager);
+
         public:
             DnsProxyListener();
 

@@ -21,7 +21,7 @@ void hm::netd::NetManagementCoreServer::Init() {
 
 
     // set initial
-    commandListener.SetNetlinkManger(netlinkManager);
+    commandListener.SetNetlinkManager(netlinkManager);
     dnsProxyListener.SetNetlinkManager(netlinkManager);
     mdnsSdListener.SetNetlinkManager(netlinkManager);
     fwmarkServer.SetNetlinkManager(netlinkManager);

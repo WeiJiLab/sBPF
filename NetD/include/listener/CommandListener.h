@@ -23,6 +23,8 @@ namespace hm {
 
             CommandListener &operator=(CommandListener &&) noexcept;
 
+            virtual void SetNetlinkManager(std::shared_ptr<NetlinkManager> netlinkManager);
+
         public:
             CommandListener();
 

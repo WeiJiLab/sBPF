@@ -22,6 +22,8 @@ namespace hm {
 
             MDnsSdListener &operator=(MDnsSdListener &&) noexcept;
 
+            virtual void SetNetlinkManager(std::shared_ptr<NetlinkManager> netlinkManager);
+
         public:
             MDnsSdListener();
 
