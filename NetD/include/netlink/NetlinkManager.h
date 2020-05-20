@@ -6,7 +6,9 @@
 #define HM_NET_NETLINKMANAGER_H
 
 #include <memory>
+#include <string>
 #include "../connect/SocketOps.h"
+#include "../netlink/NetlinkListener.h"
 
 namespace hm {
     namespace netd {
@@ -24,6 +26,9 @@ namespace hm {
 
         public:
             NetlinkManager();
+
+
+            std::shared_ptr<hm::netd::NetlinkListener> GetNetlinkListener(const std::string &name);
 
         private:
             std::shared_ptr<SocketOps> socketOps;

@@ -13,3 +13,7 @@ hm::netd::NetlinkManager &hm::netd::NetlinkManager::operator=(hm::netd::NetlinkM
 hm::netd::NetlinkManager::NetlinkManager() {
 
 }
+
+std::shared_ptr<hm::netd::NetlinkListener> hm::netd::NetlinkManager::GetNetlinkListener(const std::string &name) {
+    return std::shared_ptr<hm::netd::NetlinkListener>();
+}

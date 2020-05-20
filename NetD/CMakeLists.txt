@@ -9,6 +9,7 @@ SET(Sources
         src/listener/AbstractServiceListener.cpp
         src/event/SocketEvent.cpp
         src/event/NetlinkEvent.cpp
+        src/event/CommandNetlinkEvent.cpp
         src/netlink/NetlinkListener.cpp
         src/netlink/NetlinkHandler.cpp
         src/netlink/NetlinkManager.cpp
