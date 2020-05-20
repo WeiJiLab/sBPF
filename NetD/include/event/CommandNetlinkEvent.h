@@ -6,6 +6,7 @@
 #define NMCS_COMMANDNETLINKEVENT_H
 
 #include "NetlinkEvent.h"
+#include "../netlink/NetlinkHandler.h"
 
 
 namespace hm {
@@ -28,6 +29,10 @@ namespace hm {
             virtual void OnMessageSend() override;
 
             virtual void OnMessageReceived() override;
+
+
+        private:
+
         };
     };
 };

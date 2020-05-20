@@ -15,5 +15,5 @@ hm::netd::NetlinkManager::NetlinkManager() {
 }
 
 std::shared_ptr<hm::netd::NetlinkListener> hm::netd::NetlinkManager::GetNetlinkListener(const std::string &name) {
-    return std::shared_ptr<hm::netd::NetlinkListener>();
+    return std::make_shared<hm::netd::NetlinkListener>("command");
 }

@@ -7,3 +7,7 @@
 hm::netd::NetlinkEvent::NetlinkEvent() {
 
 }
+
+void hm::netd::NetlinkEvent::SetNetlinkHandler(std::shared_ptr<NetlinkHandler> netlinkHandler) {
+    this->netlinkHandler = netlinkHandler;
+}

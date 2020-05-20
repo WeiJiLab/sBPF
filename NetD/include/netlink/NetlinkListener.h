@@ -28,6 +28,8 @@ namespace hm {
         public:
             NetlinkListener();
 
+            NetlinkListener(const std::string &socketName);
+
 
             void SetNetlinkEvent(std::shared_ptr<NetlinkEvent> netlinkEvent);
 
@@ -36,6 +38,7 @@ namespace hm {
 
         private:
             std::shared_ptr<NetlinkEvent> netlinkEvent;
+            std::string socketName;
         };
     }
 }

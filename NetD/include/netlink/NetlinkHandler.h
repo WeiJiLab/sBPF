@@ -5,11 +5,9 @@
 #ifndef NMCS_NETLINKHANDLER_H
 #define NMCS_NETLINKHANDLER_H
 
-#include "NetlinkListener.h"
-
 namespace hm {
     namespace netd {
-        class NetlinkHandler : public NetlinkListener {
+        class NetlinkHandler {
         public:
             ~NetlinkHandler() noexcept;
 

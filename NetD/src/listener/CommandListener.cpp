@@ -17,10 +17,9 @@ hm::netd::CommandListener::CommandListener() {
 
 int hm::netd::CommandListener::StartListener() const {
 
-    const std::shared_ptr<hm::netd::NetlinkListener> &commandNetlinkListener = this->netlinkManager->GetNetlinkListener("command");
+    const std::shared_ptr<hm::netd::NetlinkListener> commandNetlinkListener = this->netlinkManager->GetNetlinkListener("command");
 
     std::shared_ptr<CommandNetlinkEvent> commandNetlinkEvent = std::make_shared<CommandNetlinkEvent>();
-
 
     commandNetlinkListener->SetNetlinkEvent(commandNetlinkEvent);
 

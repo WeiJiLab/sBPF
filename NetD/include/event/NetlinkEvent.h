@@ -5,7 +5,9 @@
 #ifndef NMCS_NETLINKEVENT_H
 #define NMCS_NETLINKEVENT_H
 
+#include <memory>
 #include "SocketEvent.h"
+#include "../netlink/NetlinkHandler.h"
 
 namespace hm {
     namespace netd {
@@ -17,6 +19,10 @@ namespace hm {
 
             virtual void OnMessageReceived() = 0;
 
+            virtual void SetNetlinkHandler(std::shared_ptr<NetlinkHandler> netlinkHandler);
+
+        private:
+            std::shared_ptr<NetlinkHandler> netlinkHandler;
         };
     }
 }

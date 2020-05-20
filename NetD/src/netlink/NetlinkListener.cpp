@@ -12,15 +12,29 @@ hm::netd::NetlinkListener::NetlinkListener(hm::netd::NetlinkListener &&) noexcep
 hm::netd::NetlinkListener &hm::netd::NetlinkListener::operator=(hm::netd::NetlinkListener &&) noexcept = default;
 
 hm::netd::NetlinkListener::NetlinkListener() {
-
+  LogInfo("Netlink constructor");
 }
 
-void hm::netd::NetlinkListener::SetNetlinkEvent(std::shared_ptr<NetlinkEvent> netlinkEvent) {
 
+hm::netd::NetlinkListener::NetlinkListener(const std::string &socketName):SocketListener(socketName){
+  this->socketName = socketName;
+  LogInfo("Netlink constructor");
+}
+
+
+void hm::netd::NetlinkListener::SetNetlinkEvent(std::shared_ptr<NetlinkEvent> netlinkEvent) {
+  this->netlinkEvent = netlinkEvent;
 }
 
 void hm::netd::NetlinkListener::StartListen() {
-    LogInfo("CommandNetlinkListener Listening...")
+  LogInfo("CommandNetlinkListener Listening...");
+  if(this->socketOps==nullptr){
+      LogError("socket op is null");
+    }
 
+  this->socketOps->CreateSock();
 
+  this->socketOps->Bind();
+
+  this->socketOps->Listen();
 }
