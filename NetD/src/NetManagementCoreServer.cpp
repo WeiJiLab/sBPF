@@ -26,12 +26,16 @@ void hm::netd::NetManagementCoreServer::Init() {
   // init netlink manager
 
 
+  unsigned int pid = (unsigned int)getpid();
+
+  LogInfo("Pid: %d",pid);
+
   // set initial
   commandListener->AbstractServiceListener::SetNetlinkManager(netlinkManager);
   sockaddr_nl netlinkCommandAddr{
     .nl_family=AF_NETLINK,
     .nl_pad=0,
-    .nl_pid=(unsigned int)getpid(),
+    .nl_pid=pid,
   };
   CommandListenerConfiguration commandListenerConfiguration{
     .netdConfiguration={

@@ -40,6 +40,4 @@ int hm::netd::CommandListener::StartListener() const {
   commandNetlinkListener->Config(this->commandListenerConfiguration.netdConfiguration);
 
   commandNetlinkListener->StartListen();
-
-  return 1;
 }
