@@ -11,30 +11,35 @@
 
 
 namespace hm {
-    namespace netd {
-        class CommandListener : public AbstractServiceListener {
-        public:
-            ~CommandListener() noexcept;
-
-            CommandListener(const CommandListener &) = delete;
-
-            CommandListener(CommandListener &&) noexcept;
-
-            CommandListener &operator=(const CommandListener &) = delete;
-
-            CommandListener &operator=(CommandListener &&) noexcept;
-
-        public:
-            CommandListener();
-
-
-            int StartListener() const;
-
-
-        private:
-            std::shared_ptr<NetlinkManager> netlinkManager;
-        };
+  namespace netd {
+    struct CommandListenerConfiguration {
+      NetDConfiguration netdConfiguration;
     };
+
+
+    class CommandListener : public AbstractServiceListener {
+    public:
+      ~CommandListener() noexcept;
+
+      CommandListener(const CommandListener &) = delete;
+
+      CommandListener(CommandListener &&) noexcept;
+
+      CommandListener &operator=(const CommandListener &) = delete;
+
+      CommandListener &operator=(CommandListener &&) noexcept;
+
+    public:
+      CommandListener();
+
+      void SetConfiguration(CommandListenerConfiguration commandListenerConfiguration);
+
+      int StartListener() const;
+
+    private:
+      CommandListenerConfiguration commandListenerConfiguration;
+    };
+  };
 };
 
 

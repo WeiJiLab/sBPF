@@ -7,6 +7,7 @@
 
 #include <memory>
 #include <string>
+#include <map>
 #include "../connect/SocketOps.h"
 #include "../netlink/NetlinkListener.h"
 
@@ -27,11 +28,10 @@ namespace hm {
         public:
             NetlinkManager();
 
-
             std::shared_ptr<hm::netd::NetlinkListener> GetNetlinkListener(const std::string &name);
 
         private:
-            std::shared_ptr<SocketOps> socketOps;
+            std::map<std::string,std::shared_ptr<NetlinkListener>> netlinks;
         };
     }
 }

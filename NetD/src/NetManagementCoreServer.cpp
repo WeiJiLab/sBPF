@@ -27,6 +27,14 @@ void hm::netd::NetManagementCoreServer::Init() {
 
   // set initial
   commandListener->AbstractServiceListener::SetNetlinkManager(netlinkManager);
+  CommandListenerConfiguration commandListenerConfiguration{
+    .netdConfiguration={
+      .type=31,
+      .bindAddr=sockaddr_nl{}
+    }
+  };
+  commandListener->SetConfiguration(commandListenerConfiguration);
+
   dnsProxyListener->AbstractServiceListener::SetNetlinkManager(netlinkManager);
   mdnsSdListener->AbstractServiceListener::SetNetlinkManager(netlinkManager);
   fwmarkServer->AbstractServiceListener::SetNetlinkManager(netlinkManager);

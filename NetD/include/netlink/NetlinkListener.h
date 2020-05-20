@@ -33,6 +33,7 @@ namespace hm {
 
             void SetNetlinkEvent(std::shared_ptr<NetlinkEvent> netlinkEvent);
 
+            void Config(NetDConfiguration netdConfiguration);
 
             void StartListen();
 

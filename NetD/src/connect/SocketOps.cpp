@@ -15,6 +15,7 @@ hm::netd::SocketOps::SocketOps(const std::string &sockName) : sockName(sockName)
 }
 
 int hm::netd::SocketOps::Config(hm::netd::NetDConfiguration netDConfiguration) {
+  this->netDConfiguration = netDConfiguration;
   return 0;
 }
 
