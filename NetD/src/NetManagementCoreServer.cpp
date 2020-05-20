@@ -4,6 +4,7 @@
 
 #include "../include/NetManagementCoreServer.h"
 #include "../include/log/Log.h"
+#include "unistd.h"
 
 hm::netd::NetManagementCoreServer::~NetManagementCoreServer() noexcept = default;
 
@@ -27,10 +28,15 @@ void hm::netd::NetManagementCoreServer::Init() {
 
   // set initial
   commandListener->AbstractServiceListener::SetNetlinkManager(netlinkManager);
+  sockaddr_nl netlinkCommandAddr{
+    .nl_family=AF_NETLINK,
+    .nl_pad=0,
+    .nl_pid=(unsigned int)getpid(),
+  };
   CommandListenerConfiguration commandListenerConfiguration{
     .netdConfiguration={
-      .type=31,
-      .bindAddr=sockaddr_nl{}
+      .type=NETLINK_ROUTE,
+      .bindAddr=netlinkCommandAddr
     }
   };
   commandListener->SetConfiguration(commandListenerConfiguration);

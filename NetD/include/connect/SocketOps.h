@@ -70,7 +70,7 @@ namespace hm {
 
             int Listen();
 
-            virtual int Receive(SocketAcceptEventHandler acceptEventHandler);
+            int Receive(SocketAcceptEventHandler acceptEventHandler);
 
             void SetSocketAcceptEventHandler(SocketAcceptEventHandler acceptEventHandler);
 
