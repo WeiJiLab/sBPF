@@ -11,17 +11,6 @@ namespace hm {
     namespace netd {
         class NetlinkEvent : public SocketEvent {
         public:
-            ~NetlinkEvent() noexcept;
-
-            NetlinkEvent(const NetlinkEvent &) = delete;
-
-            NetlinkEvent(NetlinkEvent &&) noexcept;
-
-            NetlinkEvent &operator=(const NetlinkEvent &) = delete;
-
-            NetlinkEvent &operator=(NetlinkEvent &&) noexcept;
-
-        public:
             NetlinkEvent();
 
             virtual void OnMessageSend() = 0;

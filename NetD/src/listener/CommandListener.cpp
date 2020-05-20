@@ -21,7 +21,10 @@ int hm::netd::CommandListener::StartListener() const {
 
     std::shared_ptr<CommandNetlinkEvent> commandNetlinkEvent = std::make_shared<CommandNetlinkEvent>();
 
+
     commandNetlinkListener->SetNetlinkEvent(commandNetlinkEvent);
+
+    commandNetlinkListener->StartListen();
 
     return 1;
 }

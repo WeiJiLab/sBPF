@@ -16,7 +16,7 @@ namespace hm {
 
             CommandNetlinkEvent(const CommandNetlinkEvent &) = delete;
 
-            CommandNetlinkEvent(NetlinkEvent &&) noexcept;
+            CommandNetlinkEvent(CommandNetlinkEvent &&) noexcept;
 
             CommandNetlinkEvent &operator=(const CommandNetlinkEvent &) = delete;
 

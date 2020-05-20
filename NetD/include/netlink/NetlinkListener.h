@@ -31,6 +31,9 @@ namespace hm {
 
             void SetNetlinkEvent(std::shared_ptr<NetlinkEvent> netlinkEvent);
 
+
+            void StartListen();
+
         private:
             std::shared_ptr<NetlinkEvent> netlinkEvent;
         };
