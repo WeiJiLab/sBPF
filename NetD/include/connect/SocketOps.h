@@ -44,10 +44,6 @@ namespace hm {
 
       int Receive(SocketAcceptEventHandler acceptEventHandler);
 
-      void SetSocketAcceptEventHandler(SocketAcceptEventHandler acceptEventHandler);
-
-      int Connect(int port);
-
     private:
       SocketAcceptEventHandler socketAcceptEventHandler;
 

@@ -74,12 +74,4 @@ int hm::netd::SocketOps::Receive(SocketAcceptEventHandler acceptEventHandler){
   return 0;
 }
 
-void hm::netd::SocketOps::SetSocketAcceptEventHandler(hm::netd::SocketAcceptEventHandler acceptEventHandler) {
-  this->socketAcceptEventHandler = socketAcceptEventHandler;
-}
-
-int hm::netd::SocketOps::Connect(int port) {
-  return 0;
-}
-
 
