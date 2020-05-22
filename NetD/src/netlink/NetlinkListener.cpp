@@ -37,6 +37,4 @@ void hm::netd::NetlinkListener::StartListen() {
   this->socketOps->CreateSock();
 
   this->socketOps->Bind();
-
-  this->socketOps->Listen();
 }

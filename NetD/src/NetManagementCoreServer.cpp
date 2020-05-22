@@ -6,6 +6,9 @@
 #include "../include/log/Log.h"
 #include "unistd.h"
 
+#include <linux/rtnetlink.h>
+
+
 hm::netd::NetManagementCoreServer::~NetManagementCoreServer() noexcept = default;
 
 hm::netd::NetManagementCoreServer::NetManagementCoreServer(hm::netd::NetManagementCoreServer &&) noexcept = default;
@@ -36,6 +39,7 @@ void hm::netd::NetManagementCoreServer::Init() {
     .nl_family=AF_NETLINK,
     .nl_pad=0,
     .nl_pid=pid,
+    .nl_groups = RTMGRP_IPV4_IFADDR
   };
   CommandListenerConfiguration commandListenerConfiguration{
     .netdConfiguration={
