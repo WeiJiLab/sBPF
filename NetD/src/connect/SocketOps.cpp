@@ -70,8 +70,99 @@ ssize_t hm::netd::SocketOps::SendRequest(int family,int type,int sockfd) {
   return 0;
 }
 
-int hm::netd::SocketOps::Receive(SocketAcceptEventHandler acceptEventHandler){
+int hm::netd::SocketOps::Receive(SocketAcceptEventHandler acceptEventHandler,int nlSockFd, void *arg){
+  char buffer[4096];
+
+  struct iovec iov = {buffer,sizeof buffer};
+  struct sockaddr_nl netlinkAddr;
+  struct msghdr msg = {(void *)&netlinkAddr,sizeof netlinkAddr,&iov,1,((void *)0),0,0};
+
+  int messageStatus = recvmsg(sockfd,&msg,0);
+  if(messageStatus<0){
+      LogWarnning("Socket '%s' receive message failed.",this->sockName.c_str());
+      return 0;
+    }
+
+  if(netlinkAddr.nl_pid!=0){
+      LogWarnning("Ignore non kernel message from pid:%d",netlinkAddr.nl_pid);
+      return 0;
+    }
+
+  if(messageStatus==0){
+      LogError("Socket '%s' EOF.",this->sockName.c_str());
+      return -1;
+    }
+
+
+  if(msg.msg_namelen!=sizeof netlinkAddr){
+      LogError("Socket '%s' sender address length error.",this->sockName.c_str());
+      return -1;
+    }
+
+  for(struct nlmsghdr* h = (struct nlmsghdr*)buffer;NLMSG_OK(h,messageStatus);h = NLMSG_NEXT(h,messageStatus)){
+      if(h->nlmsg_type==NLMSG_DONE){
+          return 0;
+        }
+      if(h->nlmsg_type==NLMSG_ERROR){
+          struct nlmsgerr *err = (struct nlmsgerr*)NLMSG_DATA(h);
+
+          if(err->error==0){
+              return 0;
+            }
+
+          if(h->nlmsg_len <NLMSG_LENGTH(sizeof (struct nlmsgerr))){
+              LogError("Socket '%s' error: message truncated",this->sockName.c_str());
+              return -1;
+            }
+
+          LogError("Socket '%s' error: %s, type=%u, seq=%u, pid=%d",
+                   this->sockName.c_str(),
+                   strerror(-err->error),
+                   err->msg.nlmsg_type,
+                   err->msg.nlmsg_seq,
+                   err->msg.nlmsg_pid);
+          return -1;
+        }
+
+      if(nlSockFd!=this->sockfd && h->nlmsg_pid == this->netDConfiguration.bindAddr.nl_pid){
+          return 0;
+        }
+
+      int error = acceptEventHandler(&netlinkAddr,h,arg);
+      if(error<0){
+          LogError("Socket '%s' handler function error",this->sockName.c_str());
+          return 0;
+        }
+    }
+
+  if(msg.msg_flags&MSG_TRUNC){
+      LogWarnning("Socket '%s' error: message truncated",this->sockName.c_str());
+      return 0;
+    }
+
+  if(messageStatus){
+      LogError("Socket '%s' error: data remnant size :%d",this->sockName.c_str(),messageStatus);
+      return -1;
+    }
+
   return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

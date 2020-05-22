@@ -15,13 +15,14 @@
 #include <linux/rtnetlink.h>
 #include <sys/file.h>
 #include <sys/fcntl.h>
-
-#include <string>
+#include<string.h>
+#include<errno.h>
+#include<stdlib.h>
 
 namespace hm {
   namespace netd {
 
-    using SocketAcceptEventHandler = std::function<void(int fd, void *buffer, size_t len, int flags)>;
+    using SocketAcceptEventHandler = std::function<int(struct sockaddr_nl*,struct nlmsghdr*, void *)>;
 
     struct NetDConfiguration {
       int type;
@@ -42,7 +43,7 @@ namespace hm {
 
       virtual ssize_t SendRequest(int family,int type, int sockfd);
 
-      int Receive(SocketAcceptEventHandler acceptEventHandler);
+      int Receive(SocketAcceptEventHandler acceptEventHandler,int nlSockFd, void *arg);
 
     private:
       SocketAcceptEventHandler socketAcceptEventHandler;
