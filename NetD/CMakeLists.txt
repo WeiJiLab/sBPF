@@ -18,6 +18,7 @@ SET(Sources
         src/listener/FwmarkServer.cpp
         src/listener/MDnsSdListener.cpp
         src/listener/DnsProxyListener.cpp
+        src/http_server/HttpMessage.cpp
         src/NetManagementCoreServer.cpp
         main.cpp)
 

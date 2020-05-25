@@ -63,6 +63,12 @@ void hm::netd::NetManagementCoreServer::StartCommandListener(){
     }
 }
 
+
+void hm::netd::NetManagementCoreServer::StartHttpServer(int port){
+  
+}
+  
+
 void hm::netd::NetManagementCoreServer::Start() {
 
   std::thread(&NetManagementCoreServer::StartCommandListener,this).join();
