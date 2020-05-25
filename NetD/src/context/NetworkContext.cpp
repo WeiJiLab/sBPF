@@ -19,6 +19,6 @@ hm::netd::NetworkContext::NetworkContext() :
 }
 
 void hm::netd::NetworkContext::AddRouteData(hm::netd::RouteData routeData) {
-    std::lock_guard<std::mutex> lock(*mutex);
+//    std::lock_guard<std::mutex> lock(*mutex);
     this->network->routes.push_back(routeData);
 }

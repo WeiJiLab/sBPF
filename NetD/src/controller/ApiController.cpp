@@ -3,6 +3,7 @@
 //
 
 #include "../../include/controller/ApiController.h"
+#include "../../include/log/Log.h"
 
 void hm::netd::ApiController::Init() {
 
@@ -18,4 +19,6 @@ void hm::netd::ApiController::SetServer(std::shared_ptr<HttpServer> server) {
 
 void hm::netd::ApiController::SetNetworkContext(std::shared_ptr<NetworkContext> networkContext) {
     this->networkContext = networkContext;
+
+    LogError("size: %d",this->networkContext->GetRoutesData().size());
 }
