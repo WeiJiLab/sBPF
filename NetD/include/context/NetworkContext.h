@@ -29,10 +29,6 @@ namespace hm {
 
             NetworkContext(const NetworkContext &) = delete;
 
-            NetworkContext(NetworkContext &&) noexcept;
-
-            NetworkContext &operator=(const NetworkContext &) = delete;
-
 
         public:
             NetworkContext();
