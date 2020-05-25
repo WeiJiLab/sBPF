@@ -163,7 +163,7 @@ hm::netd::HttpRequest hm::netd::HttpMessage::DecodeMessage(char *buf) {
         switch (processState) {
             case PROCESS_METHOD:
                 if (currentChr == ' ') {
-                    httpRequest.httpMethod = HttpMethodMap.find(buffer)->second;
+                    httpRequest.httpMethod = httpMethodMap.find(buffer)->second;
                     transformState(PROCESS_RESOURCE);
                 } else {
                     buffer.push_back(currentChr);
