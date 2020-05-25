@@ -3,6 +3,7 @@
 #include "../../include/log/Log.h"
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 
 hm::netd::HttpSocketOps::~HttpSocketOps() noexcept = default;
 
@@ -28,7 +29,7 @@ int hm::netd::HttpSocketOps::SetUp() {
     }
 
     epollFd=epoll_create(EPOLL_SIZE);
-    epEvents=malloc(sizeof(struct epoll_event)*EPOLL_SIZE);
+    epEvents=(struct epoll_event *)malloc(sizeof(struct epoll_event)*EPOLL_SIZE);
 
     event.events=EPOLLIN;
     event.data.fd=this->fd;
