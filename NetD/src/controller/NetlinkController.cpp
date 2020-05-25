@@ -23,5 +23,5 @@ hm::netd::HandlerResponse hm::netd::NetlinkController::GetRoute(hm::netd::HttpRe
     }
 
     result += "]";
-    return {OK, "xxx"};
+    return {OK, result};
 }
