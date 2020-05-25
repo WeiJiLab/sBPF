@@ -98,5 +98,7 @@ void hm::netd::NetManagementCoreServer::Start() {
         exit(1);
     }
 
+    this->StartHttpServer(8080);
+
     while (true);
 }
