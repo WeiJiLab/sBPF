@@ -2,7 +2,6 @@
 #define _NMCS_HTTP_MESSAGE_H_
 #include <memory>
 #include <map>
-#include <string>
 
 namespace hm
 {

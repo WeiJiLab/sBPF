@@ -10,7 +10,8 @@ namespace hm
 {
     namespace netd
     {
-        struct Route {
+        struct Route
+        {
             std::string uri;
             HttpMethod method;
 
@@ -23,21 +24,16 @@ namespace hm
             bool operator>=(const Route &rhs) const;
         };
 
-        struct HandlerResponse {
+        struct HandlerResponse
+        {
             HttpResponseStatus responseStatus;
             std::string body;
         };
 
+        using SendMessageDelegate = std::function<void(std::shared_ptr<HttpMessage> message, unsigned int receivedFd)>;
 
-        struct Configuration {
-            struct SocketConfiguration {
-                unsigned int port = 8899;
-            };
-        };
-
-        using SendMessageDelegate = std::function<void(std::shared_ptr<HttpMessage> message,unsigned int receivedFd)>;
-
-        class HttpServer {
+        class HttpServer
+        {
         public:
             ~HttpServer() noexcept;
 
@@ -58,7 +54,7 @@ namespace hm
             void SetSendMessageDelegate(SendMessageDelegate sendMessageDelegate);
 
             void ReceiveMessage(std::shared_ptr<HttpMessage> message,
-                                        unsigned int senderInstanceNumber);
+                                unsigned int senderInstanceNumber);
 
         public:
             void Mobilize();
@@ -70,7 +66,7 @@ namespace hm
         private:
             bool isRunning = false;
             std::shared_ptr<SocketOps> socketOps;
-        };    
+        };
     } // namespace netd
 } // namespace hm
 
