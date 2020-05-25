@@ -22,7 +22,9 @@ SET(Sources
         src/http_server/HttpSocketOps.cpp
         src/http_server/HttpServer.cpp
 
+        src/controller/ApiController.cpp
         src/controller/NetlinkController.cpp
+        src/controller/ApiConfig.cpp
 
         src/NetManagementCoreServer.cpp
         main.cpp)

@@ -5,10 +5,19 @@
 #ifndef NMCS_NETLINKCONTROLLER_H
 #define NMCS_NETLINKCONTROLLER_H
 
+#include "../http_server/HttpServer.h"
+#include "ApiController.h"
 
-class NetlinkController {
-
-};
+namespace hm {
+    namespace netd {
+        class NetlinkController : public ApiController {
+        public:
+            void Init();
+        public:
+            HandlerResponse GetRoute(HttpRequest request);
+        };
+    }
+}
 
 
 #endif //NMCS_NETLINKCONTROLLER_H

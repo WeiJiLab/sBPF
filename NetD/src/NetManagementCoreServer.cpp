@@ -5,6 +5,7 @@
 #include "../include/NetManagementCoreServer.h"
 #include "../include/log/Log.h"
 #include "unistd.h"
+#include "../include/controller/ApiConfig.h"
 
 #include <linux/rtnetlink.h>
 #include <thread>
@@ -65,7 +66,8 @@ void hm::netd::NetManagementCoreServer::StartHttpServer(unsigned int port) {
         }
     });
 
-//    httpServer->AddRoute();
+    hm::netd::ApiConfig apiConfig;
+    apiConfig.AttachApps(httpServer);
 
     httpServer->Start();
 }
