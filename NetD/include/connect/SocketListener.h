@@ -14,7 +14,7 @@ namespace hm {
         public:
             SocketListener();
 
-            SocketListener(const std::string& socketName);
+            SocketListener(const std::string &socketName);
 
         protected:
             std::shared_ptr<SocketOps> socketOps;

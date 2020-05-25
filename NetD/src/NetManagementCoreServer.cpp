@@ -16,78 +16,78 @@ hm::netd::NetManagementCoreServer::NetManagementCoreServer(hm::netd::NetManageme
 
 hm::netd::NetManagementCoreServer &hm::netd::NetManagementCoreServer::operator=(hm::netd::NetManagementCoreServer &&) noexcept = default;
 
-hm::netd::NetManagementCoreServer::NetManagementCoreServer() : 
-  commandListener(std::make_shared<CommandListener>()),
-  dnsProxyListener(std::make_shared<DnsProxyListener>()),
-  mdnsSdListener(std::make_shared<MDnsSdListener>()),
-  fwmarkServer(std::make_shared<FwmarkServer>()),
-  netlinkManager(std::make_shared<NetlinkManager>()),
-  networkContext(std::make_shared<NetworkContext>()){
+hm::netd::NetManagementCoreServer::NetManagementCoreServer() :
+        commandListener(std::make_shared<CommandListener>()),
+        dnsProxyListener(std::make_shared<DnsProxyListener>()),
+        mdnsSdListener(std::make_shared<MDnsSdListener>()),
+        fwmarkServer(std::make_shared<FwmarkServer>()),
+        netlinkManager(std::make_shared<NetlinkManager>()),
+        networkContext(std::make_shared<NetworkContext>()) {
 
 }
 
 
 void hm::netd::NetManagementCoreServer::Init() {
-  // init netlink manager
+    // init netlink manager
 
-  unsigned int pid = (unsigned int)getpid();
+    unsigned int pid = (unsigned int) getpid();
 
-  LogInfo("Pid: %d",pid);
+    LogInfo("Pid: %d", pid);
 
-  // set initial
-  commandListener->AbstractServiceListener::SetNetlinkManager(netlinkManager);
-  commandListener->AbstractServiceListener::SetNetworkContext(networkContext);
-  sockaddr_nl netlinkCommandAddr{
-    .nl_family=AF_NETLINK,
-    .nl_pad=0,
-    .nl_pid=pid,
-    .nl_groups = RTMGRP_IPV4_IFADDR
-  };
-  CommandListenerConfiguration commandListenerConfiguration{
-    .netdConfiguration={
-      .type=NETLINK_ROUTE,
-      .bindAddr=netlinkCommandAddr
-    }
-  };
-  commandListener->SetConfiguration(commandListenerConfiguration);
+    // set initial
+    commandListener->AbstractServiceListener::SetNetlinkManager(netlinkManager);
+    commandListener->AbstractServiceListener::SetNetworkContext(networkContext);
+    sockaddr_nl netlinkCommandAddr{
+            .nl_family=AF_NETLINK,
+            .nl_pad=0,
+            .nl_pid=pid,
+            .nl_groups = RTMGRP_IPV4_IFADDR
+    };
+    CommandListenerConfiguration commandListenerConfiguration{
+            .netdConfiguration={
+                    .type=NETLINK_ROUTE,
+                    .bindAddr=netlinkCommandAddr
+            }
+    };
+    commandListener->SetConfiguration(commandListenerConfiguration);
 
-  dnsProxyListener->AbstractServiceListener::SetNetlinkManager(netlinkManager);
-  mdnsSdListener->AbstractServiceListener::SetNetlinkManager(netlinkManager);
-  fwmarkServer->AbstractServiceListener::SetNetlinkManager(netlinkManager);
+    dnsProxyListener->AbstractServiceListener::SetNetlinkManager(netlinkManager);
+    mdnsSdListener->AbstractServiceListener::SetNetlinkManager(netlinkManager);
+    fwmarkServer->AbstractServiceListener::SetNetlinkManager(netlinkManager);
 }
 
-void hm::netd::NetManagementCoreServer::StartCommandListener(){
+void hm::netd::NetManagementCoreServer::StartCommandListener() {
     if (commandListener->StartListener()) {
-      LogError("Unable to start CommandListener")
-      exit(1);
+        LogError("Unable to start CommandListener")
+        exit(1);
     }
 }
 
 
-void hm::netd::NetManagementCoreServer::StartHttpServer(int port){
-  
+void hm::netd::NetManagementCoreServer::StartHttpServer(int port) {
+
 }
-  
+
 
 void hm::netd::NetManagementCoreServer::Start() {
 
-  std::thread(&NetManagementCoreServer::StartCommandListener,this).join();
+    std::thread(&NetManagementCoreServer::StartCommandListener, this).join();
 
 
-  if (dnsProxyListener->StartListener()) {
-      LogError("Unable to start DnsProxyListener")
-          exit(1);
+    if (dnsProxyListener->StartListener()) {
+        LogError("Unable to start DnsProxyListener")
+        exit(1);
     }
 
-  if (mdnsSdListener->StartListener()) {
-      LogError("Unable to start MdnsSdListener")
-          exit(1);
+    if (mdnsSdListener->StartListener()) {
+        LogError("Unable to start MdnsSdListener")
+        exit(1);
     }
 
-  if (fwmarkServer->StartListener()) {
-      LogError("Unable to start FwmarkServer")
-          exit(1);
+    if (fwmarkServer->StartListener()) {
+        LogError("Unable to start FwmarkServer")
+        exit(1);
     }
 
-  while(true);
+    while (true);
 }

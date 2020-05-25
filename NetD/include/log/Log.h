@@ -4,6 +4,7 @@
 
 #ifndef HM_NET_LOG_H
 #define HM_NET_LOG_H
+
 #include <stdio.h>
 
 #define LogError(fmt, arg  ...)    \

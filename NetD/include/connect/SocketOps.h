@@ -21,43 +21,44 @@
 #include <arpa/inet.h>
 
 namespace hm {
-  namespace netd {
+    namespace netd {
 
-    using SocketAcceptEventHandler = std::function<int(struct sockaddr_nl*,struct nlmsghdr*, void *)>;
+        using SocketAcceptEventHandler = std::function<int(struct sockaddr_nl *, struct nlmsghdr *, void *)>;
 
-    struct NetDConfiguration {
-      int type;
-      sockaddr_nl bindAddr;
+        struct NetDConfiguration {
+            int type;
+            sockaddr_nl bindAddr;
+        };
+
+        class SocketOps {
+        public:
+            SocketOps();
+
+            SocketOps(const std::string &sockName);
+
+            int Config(NetDConfiguration netDConfiguration);
+
+            int CreateSock();
+
+            int Bind();
+
+            virtual ssize_t SendRequest(int family, int type, int sockfd);
+
+            int Receive(SocketAcceptEventHandler acceptEventHandler, int nlSockFd, void *arg);
+
+            int GetSock() { return this->sockfd; }
+
+        private:
+            SocketAcceptEventHandler socketAcceptEventHandler;
+
+            NetDConfiguration netDConfiguration;
+
+            int sockfd;
+            int seq;
+            std::string sockName;
+
+        };
     };
-
-    class SocketOps {
-    public:
-      SocketOps();
-
-      SocketOps(const std::string &sockName);
-
-      int Config(NetDConfiguration netDConfiguration);
-
-      int CreateSock();
-
-      int Bind();
-
-      virtual ssize_t SendRequest(int family,int type, int sockfd);
-
-      int Receive(SocketAcceptEventHandler acceptEventHandler,int nlSockFd, void *arg);
-
-      int GetSock(){return this->sockfd;}
-    private:
-      SocketAcceptEventHandler socketAcceptEventHandler;
-
-      NetDConfiguration netDConfiguration;
-
-      int sockfd;
-      int seq;
-      std::string sockName;
-
-    };
-  };
 };
 
 

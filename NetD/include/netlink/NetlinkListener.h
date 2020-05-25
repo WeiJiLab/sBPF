@@ -39,7 +39,7 @@ namespace hm {
 
             void StartListen();
 
-            int ReceiveHandler(struct sockaddr_nl* nlAddr,struct nlmsghdr* msg, void *);
+            int ReceiveHandler(struct sockaddr_nl *nlAddr, struct nlmsghdr *msg, void *);
 
         private:
             std::shared_ptr<NetlinkEvent> netlinkEvent;

@@ -27,7 +27,9 @@ namespace hm {
 
 
             void Init();
+
             void StartHttpServer(int port);
+
             void Start();
 
             void StartCommandListener();

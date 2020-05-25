@@ -17,27 +17,27 @@ hm::netd::CommandListener::CommandListener() {
 }
 
 
-void  hm::netd::CommandListener::SetConfiguration(CommandListenerConfiguration commandListenerConfiguration){
-  this->commandListenerConfiguration = commandListenerConfiguration;
+void hm::netd::CommandListener::SetConfiguration(CommandListenerConfiguration commandListenerConfiguration) {
+    this->commandListenerConfiguration = commandListenerConfiguration;
 }
 
 int hm::netd::CommandListener::StartListener() const {
-  if(this->netlinkManager==nullptr){
-      LogError("Netlink manager for CommandListener not assigned.");
+    if (this->netlinkManager == nullptr) {
+        LogError("Netlink manager for CommandListener not assigned.");
     }
 
-  std::shared_ptr<hm::netd::NetlinkListener> commandNetlinkListener = this->netlinkManager->GetNetlinkListener("command");
+    std::shared_ptr<hm::netd::NetlinkListener> commandNetlinkListener = this->netlinkManager->GetNetlinkListener("command");
 
-  if(commandNetlinkListener==nullptr){
-      LogError("Command Netlink Listener not found!");
-      return 1;
+    if (commandNetlinkListener == nullptr) {
+        LogError("Command Netlink Listener not found!");
+        return 1;
     }
 
-  std::shared_ptr<CommandNetlinkEvent> commandNetlinkEvent = std::make_shared<CommandNetlinkEvent>();
+    std::shared_ptr<CommandNetlinkEvent> commandNetlinkEvent = std::make_shared<CommandNetlinkEvent>();
 
-  commandNetlinkListener->SetNetlinkEvent(commandNetlinkEvent);
+    commandNetlinkListener->SetNetlinkEvent(commandNetlinkEvent);
 
-  commandNetlinkListener->Config(this->commandListenerConfiguration.netdConfiguration);
+    commandNetlinkListener->Config(this->commandListenerConfiguration.netdConfiguration);
 
-  commandNetlinkListener->StartListen();
+    commandNetlinkListener->StartListen();
 }

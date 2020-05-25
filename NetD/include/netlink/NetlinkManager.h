@@ -31,7 +31,7 @@ namespace hm {
             std::shared_ptr<hm::netd::NetlinkListener> GetNetlinkListener(const std::string &name);
 
         private:
-            std::map<std::string,std::shared_ptr<NetlinkListener>> netlinks;
+            std::map<std::string, std::shared_ptr<NetlinkListener>> netlinks;
         };
     }
 }

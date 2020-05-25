@@ -32,6 +32,7 @@ namespace hm {
 
         public:
             NetworkContext();
+
         private:
             NetworkData network;
         };

@@ -4,6 +4,7 @@
 
 #ifndef NMCS_SOCKETEVENT_H
 #define NMCS_SOCKETEVENT_H
+
 #include <functional>
 #include <sys/socket.h>
 #include <linux/types.h>

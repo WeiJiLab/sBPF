@@ -1,13 +1,12 @@
 #ifndef _NMCS_HTTP_MESSAGE_H_
 #define _NMCS_HTTP_MESSAGE_H_
+
 #include <memory>
 #include <map>
 
-namespace hm
-{
-    namespace netd
-    {
-         enum HttpResponseStatus {
+namespace hm {
+    namespace netd {
+        enum HttpResponseStatus {
             CONTINUE = 100,
             SWITCHING_PROTOCOLS = 101,
             PROCESSING = 102,
@@ -95,38 +94,39 @@ namespace hm
             std::string name;
             std::string value;
         };
-    class HttpMessage {
-    public:
-        ~HttpMessage() noexcept;
 
-        HttpMessage(const HttpMessage &) = delete;
+        class HttpMessage {
+        public:
+            ~HttpMessage() noexcept;
 
-        HttpMessage(HttpMessage &&) noexcept;
+            HttpMessage(const HttpMessage &) = delete;
 
-        HttpMessage &operator=(const HttpMessage &) = delete;
+            HttpMessage(HttpMessage &&) noexcept;
 
-        HttpMessage &operator=(HttpMessage &&) noexcept;
+            HttpMessage &operator=(const HttpMessage &) = delete;
 
-    public:
-        std::string EncodeMessage(HttpResponseStatus responseStatus, const std::string &responseBody);
+            HttpMessage &operator=(HttpMessage &&) noexcept;
 
-        std::shared_ptr<HttpMessage> DecodeMessage(char *buf);
+        public:
+            std::string EncodeMessage(HttpResponseStatus responseStatus, const std::string &responseBody);
 
-    public:
-        HttpMessage();
+            std::shared_ptr<HttpMessage> DecodeMessage(char *buf);
 
-        std::string methodToString(HttpMethod method);
+        public:
+            HttpMessage();
 
-    private:
-        void SetProtocolPayload(const char *buf, char *baseLine, char *header, char *content, int processPhase) const;
+            std::string methodToString(HttpMethod method);
 
-    public:
-        std::map<std::string, std::string> httpRequestHeader;
+        private:
+            void SetProtocolPayload(const char *buf, char *baseLine, char *header, char *content, int processPhase) const;
 
-        std::map<std::string, HttpMethod> httpMethodMap;
+        public:
+            std::map<std::string, std::string> httpRequestHeader;
 
-        HttpRequest request;
-    };
-    } // namespace netd 
+            std::map<std::string, HttpMethod> httpMethodMap;
+
+            HttpRequest request;
+        };
+    } // namespace netd
 } // namespace hm
 #endif
