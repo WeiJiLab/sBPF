@@ -12,7 +12,7 @@ hm::netd::CommandListener::CommandListener(hm::netd::CommandListener &&) noexcep
 
 hm::netd::CommandListener &hm::netd::CommandListener::operator=(hm::netd::CommandListener &&) noexcept = default;
 
-hm::netd::CommandListener::CommandListener() {
+hm::netd::CommandListener::CommandListener() : commandListenerConfiguration({}) {
 
 }
 

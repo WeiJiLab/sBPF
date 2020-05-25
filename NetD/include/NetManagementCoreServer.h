@@ -7,9 +7,6 @@
 
 #include <memory>
 #include "listener/CommandListener.h"
-#include "listener/DnsProxyListener.h"
-#include "listener/MDnsSdListener.h"
-#include "listener/FwmarkServer.h"
 #include "http_server/HttpServer.h"
 
 namespace hm {
@@ -40,9 +37,6 @@ namespace hm {
 
         private:
             std::shared_ptr<CommandListener> commandListener;
-            std::shared_ptr<DnsProxyListener> dnsProxyListener;
-            std::shared_ptr<MDnsSdListener> mdnsSdListener;
-            std::shared_ptr<FwmarkServer> fwmarkServer;
 
             std::shared_ptr<NetlinkManager> netlinkManager;
             std::shared_ptr<NetworkContext> networkContext;

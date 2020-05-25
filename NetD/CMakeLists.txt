@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 14)
 SET(Sources
         src/connect/SocketOps.cpp
         src/connect/SocketListener.cpp
-        src/listener/AbstractServiceListener.cpp
+
         src/event/SocketEvent.cpp
         src/event/NetlinkEvent.cpp
         src/context/NetworkContext.cpp
@@ -14,13 +14,16 @@ SET(Sources
         src/netlink/NetlinkListener.cpp
         src/netlink/NetlinkHandler.cpp
         src/netlink/NetlinkManager.cpp
+
+        src/listener/AbstractServiceListener.cpp
         src/listener/CommandListener.cpp
-        src/listener/FwmarkServer.cpp
-        src/listener/MDnsSdListener.cpp
-        src/listener/DnsProxyListener.cpp
+
         src/http_server/HttpMessage.cpp
         src/http_server/HttpSocketOps.cpp
         src/http_server/HttpServer.cpp
+
+        src/controller/NetlinkController.cpp
+
         src/NetManagementCoreServer.cpp
         main.cpp)
 
