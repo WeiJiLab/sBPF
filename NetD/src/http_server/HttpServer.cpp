@@ -22,18 +22,18 @@ bool hm::netd::HttpServer::Configure(const hm::netd::HttpServerConfigguration &c
 void hm::netd::HttpServer::ReceiveMessage(hm::netd::HttpRequest request, unsigned int fdc) {
     std::string uri = request.uri;
     HttpMethod method = request.httpMethod;
-    LogInfo("[HttpServer] Request %s %s\n", HttpMessage::MethodToString(method).c_str(), uri.c_str())
+    LogInfo("[HttpServer] Request %s %s", HttpMessage::MethodToString(method).c_str(), uri.c_str())
     Route route{uri, method};
     HandlerResponse responseBody;
 
     if (router.count(route)) {
-        LogInfo("[HttpServer] Route found for %s\n", uri.c_str())
+        LogInfo("[HttpServer] Route found for %s", uri.c_str())
         std::function<HandlerResponse(HttpRequest)> &handler = this->router.find(route)->second;
         HttpRequest httpRequest = request;
         httpRequest.header = request.header;
         responseBody = handler(httpRequest);
     } else { // 404 Not Found
-        LogWarnning("[HttpServer] Route not found for %s\n", uri.c_str())
+        LogWarnning("[HttpServer] Route not found for %s", uri.c_str())
         responseBody = {NOT_FOUND, HTTP_RESPONSE_404};
     }
 
