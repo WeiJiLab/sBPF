@@ -14,6 +14,8 @@ hm::netd::NetworkContext::NetworkContext() :
         mutex(std::make_shared<std::mutex>()),
         network(std::make_shared<NetworkData>()) {
 
+    network->routes.resize(20);
+
 }
 
 void hm::netd::NetworkContext::AddRouteData(hm::netd::RouteData routeData) {

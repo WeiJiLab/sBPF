@@ -15,6 +15,7 @@ hm::netd::HandlerResponse hm::netd::NetlinkController::GetRoute(hm::netd::HttpRe
 
     assert(networkContext!=NULL);
 
+
     std::vector<RouteData> routes = networkContext->GetRoutesData();
 
 
