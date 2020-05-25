@@ -4,6 +4,7 @@
 
 #include "../../include/controller/NetlinkController.h"
 #include "../../include/log/Log.h"
+#include <assert.h>
 
 
 void hm::netd::NetlinkController::Init() {
