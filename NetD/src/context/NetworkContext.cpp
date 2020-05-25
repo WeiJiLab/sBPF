@@ -10,7 +10,7 @@ hm::netd::NetworkContext::NetworkContext(hm::netd::NetworkContext &&) noexcept =
 
 hm::netd::NetworkContext &hm::netd::NetworkContext::operator=(hm::netd::NetworkContext &&) noexcept = default;
 
-hm::netd::NetworkContext::NetworkContext() {
+hm::netd::NetworkContext::NetworkContext():mutex(std::make_shared<std::mutex>()) {
 
 }
 
