@@ -55,12 +55,15 @@ using SocketAcceptEventHandler = std::function<void(char *buffer, int fdc)>;
 void hm::netd::HttpSocketOps::SetSocketAcceptEventHandler(SocketAcceptEventHandler socketAcceptEventHandler) {
     this->socketAcceptEventHandler = socketAcceptEventHandler;
 }
+
+
+#define BUF_SIZE 1024
 int hm::netd::HttpSocketOps::Accept(SocketAcceptEventHandler socketAcceptEventHandler) {
     socklen_t adr_sz;
     struct sockaddr_in clnt_adr;
     int clnt_sock;
     int str_len;
-    char buf[100];
+    char buf[BUF_SIZE];
     while(1)
     {
         eventCnt=epoll_wait(epollFd, epEvents, EPOLL_SIZE, -1);
