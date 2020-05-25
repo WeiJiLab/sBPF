@@ -169,22 +169,3 @@ int hm::netd::SocketOps::Receive(SocketAcceptEventHandler acceptEventHandler, in
 
     return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
