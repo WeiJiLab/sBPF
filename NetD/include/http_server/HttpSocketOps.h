@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <functional>
+#include <string>
 #include <netinet/in.h>
 
 namespace hm {
@@ -44,7 +45,6 @@ namespace hm {
 
         private:
             int fd = 0;
-            int kq = 0;
 
             struct sockaddr_in addr{};
 
