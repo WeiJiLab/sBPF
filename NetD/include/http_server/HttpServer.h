@@ -15,6 +15,18 @@ namespace hm {
         struct Route {
             std::string uri;
             HttpMethod method;
+
+            bool operator==(const Route &rhs) const;
+
+            bool operator!=(const Route &rhs) const;
+
+            bool operator<(const Route &rhs) const;
+
+            bool operator>(const Route &rhs) const;
+
+            bool operator<=(const Route &rhs) const;
+
+            bool operator>=(const Route &rhs) const;
         };
 
         struct HandlerResponse {

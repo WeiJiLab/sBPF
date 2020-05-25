@@ -71,3 +71,32 @@ void hm::netd::HttpServer::Handler(char *buffer, int fdc) {
     message = httpMessage->DecodeMessage(buffer);
     ReceiveMessage(message, fdc);
 }
+
+bool hm::netd::Route::operator==(const hm::netd::Route &rhs) const {
+    return uri == rhs.uri &&
+           method == rhs.method;
+}
+
+bool hm::netd::Route::operator!=(const hm::netd::Route &rhs) const {
+    return !(rhs == *this);
+}
+
+bool hm::netd::Route::operator<(const hm::netd::Route &rhs) const {
+    if (uri < rhs.uri)
+        return true;
+    if (rhs.uri < uri)
+        return false;
+    return method < rhs.method;
+}
+
+bool hm::netd::Route::operator>(const hm::netd::Route &rhs) const {
+    return rhs < *this;
+}
+
+bool hm::netd::Route::operator<=(const hm::netd::Route &rhs) const {
+    return !(rhs < *this);
+}
+
+bool hm::netd::Route::operator>=(const hm::netd::Route &rhs) const {
+    return !(*this < rhs);
+}
