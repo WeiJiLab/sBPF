@@ -3,6 +3,7 @@
 //
 
 #include "../../include/controller/NetlinkController.h"
+#include "../../include/log/Log.h"
 
 
 void hm::netd::NetlinkController::Init() {
@@ -13,10 +14,13 @@ hm::netd::HandlerResponse hm::netd::NetlinkController::GetRoute(hm::netd::HttpRe
 
     std::vector<RouteData> routes = networkContext->GetRoutesData();
 
+
+    LogInfo("[Controller] GetRoute size:%d",routes.size());
+
     std::string result = "{\"routes\":[";
-    for (auto &route:routes) {
-        result += "{\"destination\":\"" + route.destination + "\",\"gateway\":" + route.gateway + "\"},";
-    }
+//    for (auto &route:routes) {
+//        result += "{\"destination\":\"" + route.destination + "\",\"gateway\":" + route.gateway + "\"},";
+//    }
 
     result += "]";
     return {OK, result};
