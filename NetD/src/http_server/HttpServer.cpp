@@ -19,16 +19,16 @@ bool hm::netd::HttpServer::Configure(const hm::netd::HttpServerConfigguration &c
 
 #define HTTP_RESPONSE_404 "<h1>404 Not Found:</h1><p>What you are looking for is missed.</p>"
 
-void hm::netd::HttpServer::ReceiveMessage(std::shared_ptr<hm::netd::HttpMessage> message, unsigned int fdc) {
-    std::string uri = message->request.uri;
-    HttpMethod method = message->request.httpMethod;
-    LogInfo("[HttpServer] Request %s %s\n", message->methodToString(method).c_str(), uri.c_str())
+void hm::netd::HttpServer::ReceiveMessage(hm::netd::HttpRequest request, unsigned int fdc) {
+    std::string uri = request.uri;
+    HttpMethod method = request.httpMethod;
+    LogInfo("[HttpServer] Request %s %s\n", HttpMessage::MethodToString(method).c_str(), uri.c_str())
     Route route{uri, method};
     HandlerResponse responseBody;
     if (router.count(route)) {
         std::function<HandlerResponse(HttpRequest)> &handler = this->router.find(route)->second;
-        HttpRequest httpRequest = message->request;
-        httpRequest.header = message->httpRequestHeader;
+        HttpRequest httpRequest = request;
+        httpRequest.header = request.header;
         responseBody = handler(httpRequest);
     } else { // 404 Not Found
         responseBody = {NOT_FOUND, HTTP_RESPONSE_404};
@@ -67,12 +67,8 @@ void hm::netd::HttpServer::ServerWorker() {
 }
 
 void hm::netd::HttpServer::Handler(char *buffer, int fdc) {
-    auto *httpMessage = new HttpMessage();
-    std::shared_ptr<HttpMessage> message = std::make_shared<HttpMessage>();
-    HttpRequest httpRequest = httpMessage->DecodeMessage(buffer);
-
-    message->request = httpRequest;
-    ReceiveMessage(message, fdc);
+    HttpRequest httpRequest = HttpMessage::DecodeMessage(buffer);
+    ReceiveMessage(httpRequest, fdc);
 }
 
 bool hm::netd::Route::operator==(const hm::netd::Route &rhs) const {

@@ -15,15 +15,15 @@ hm::netd::HttpMessage::HttpMessage(hm::netd::HttpMessage &&) noexcept = default;
 hm::netd::HttpMessage &hm::netd::HttpMessage::operator=(hm::netd::HttpMessage &&) noexcept = default;
 
 hm::netd::HttpMessage::HttpMessage() {
-    httpMethodMap.insert(std::pair<std::string, HttpMethod>("GET", GET));
-    httpMethodMap.insert(std::pair<std::string, HttpMethod>("HEAD", HEAD));
-    httpMethodMap.insert(std::pair<std::string, HttpMethod>("POST", POST));
-    httpMethodMap.insert(std::pair<std::string, HttpMethod>("PUT", PUT));
-    httpMethodMap.insert(std::pair<std::string, HttpMethod>("DELETE", DELETE));
-    httpMethodMap.insert(std::pair<std::string, HttpMethod>("CONNECT", CONNECT));
-    httpMethodMap.insert(std::pair<std::string, HttpMethod>("OPTIONS", OPTIONS));
-    httpMethodMap.insert(std::pair<std::string, HttpMethod>("TRACE", TRACE));
-    httpMethodMap.insert(std::pair<std::string, HttpMethod>("PATCH", PATCH));
+    HttpMethodMap.insert(std::pair<std::string, HttpMethod>("GET", GET));
+    HttpMethodMap.insert(std::pair<std::string, HttpMethod>("HEAD", HEAD));
+    HttpMethodMap.insert(std::pair<std::string, HttpMethod>("POST", POST));
+    HttpMethodMap.insert(std::pair<std::string, HttpMethod>("PUT", PUT));
+    HttpMethodMap.insert(std::pair<std::string, HttpMethod>("DELETE", DELETE));
+    HttpMethodMap.insert(std::pair<std::string, HttpMethod>("CONNECT", CONNECT));
+    HttpMethodMap.insert(std::pair<std::string, HttpMethod>("OPTIONS", OPTIONS));
+    HttpMethodMap.insert(std::pair<std::string, HttpMethod>("TRACE", TRACE));
+    HttpMethodMap.insert(std::pair<std::string, HttpMethod>("PATCH", PATCH));
 
     responseReasonMap[hm::netd::HttpResponseStatus::CONTINUE] = "Continue";
     responseReasonMap[hm::netd::HttpResponseStatus::SWITCHING_PROTOCOLS] = "Switching Protocols";
@@ -97,10 +97,10 @@ std::string hm::netd::HttpMessage::EncodeMessage(HttpResponseStatus responseStat
 
     response.append("\r\n");
     // response header
-    for (auto it = httpRequestHeader.begin(); it != httpRequestHeader.end(); ++it) {
-        response.append(it->first);
+    for (auto & it : httpRequestHeader) {
+        response.append(it.first);
         response.append(":");
-        response.append(it->second);
+        response.append(it.second);
         response.append("\r\n");
     }
     response.append("\r\n");
@@ -164,7 +164,7 @@ hm::netd::HttpRequest hm::netd::HttpMessage::DecodeMessage(char *buf) {
         switch (processState) {
             case PROCESS_METHOD:
                 if (currentChr == ' ') {
-                    httpRequest.httpMethod = httpMethodMap.find(buffer)->second;
+                    httpRequest.httpMethod = HttpMethodMap.find(buffer)->second;
                     transformState(PROCESS_RESOURCE);
                 } else {
                     buffer.push_back(currentChr);
@@ -224,7 +224,7 @@ hm::netd::HttpRequest hm::netd::HttpMessage::DecodeMessage(char *buf) {
 void hm::netd::HttpMessage::SetProtocolPayload(const char *buf, char *baseLine, char *header, char *content, int processPhase) const {
 }
 
-std::string hm::netd::HttpMessage::methodToString(HttpMethod method) {
+std::string hm::netd::HttpMessage::MethodToString(HttpMethod method) {
     switch (method) {
         case GET:
             return "GET";

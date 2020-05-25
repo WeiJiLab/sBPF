@@ -52,7 +52,7 @@ namespace hm {
         public:
             bool Configure(const HttpServerConfigguration &configuration);
 
-            void ReceiveMessage(std::shared_ptr<HttpMessage> message,
+            void ReceiveMessage(hm::netd::HttpRequest request,
                                 unsigned int senderInstanceNumber);
 
             void ServerWorker();

@@ -7,6 +7,9 @@
 
 namespace hm {
     namespace netd {
+
+
+
         enum HttpResponseStatus {
             CONTINUE = 100,
             SWITCHING_PROTOCOLS = 101,
@@ -96,6 +99,8 @@ namespace hm {
             std::string value;
         };
 
+        std::map<std::string, HttpMethod> HttpMethodMap;
+
         class HttpMessage {
         public:
             ~HttpMessage() noexcept;
@@ -111,20 +116,18 @@ namespace hm {
         public:
             std::string EncodeMessage(HttpResponseStatus responseStatus, const std::string &responseBody);
 
-            hm::netd::HttpRequest DecodeMessage(char *buf);
+            static hm::netd::HttpRequest DecodeMessage(char *buf);
 
         public:
             HttpMessage();
 
-            std::string methodToString(HttpMethod method);
+            static std::string MethodToString(HttpMethod method);
 
         private:
             void SetProtocolPayload(const char *buf, char *baseLine, char *header, char *content, int processPhase) const;
 
         public:
             std::map<std::string, std::string> httpRequestHeader;
-
-            std::map<std::string, HttpMethod> httpMethodMap;
 
             HttpRequest request;
         };
