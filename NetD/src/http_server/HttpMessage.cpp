@@ -89,7 +89,7 @@ hm::netd::HttpMessage::HttpMessage() {
     responseReasonMap[hm::netd::HttpResponseStatus::NETWORK_AUTHENTICATION_REQUIRED] = "";
 }
 
-std::string hm::netd::HttpMessage::EncodeMessage(HttpResponseStatus responseStatus, const std::string &responseBody) {
+std::string hm::netd::HttpMessage::EncodeMessage(HttpResponseStatus responseStatus, const std::string &responseBody,std::map<std::string,std::string> headers) {
     std::string response;
     LogInfo("[HttpServer] Encode Http Request")
     // statusLine
@@ -99,7 +99,7 @@ std::string hm::netd::HttpMessage::EncodeMessage(HttpResponseStatus responseStat
 
     response.append("\r\n");
     // response header
-    for (auto & it : httpRequestHeader) {
+    for (auto & it : headers) {
         response.append(it.first);
         response.append(":");
         response.append(it.second);
@@ -222,9 +222,6 @@ hm::netd::HttpRequest hm::netd::HttpMessage::DecodeMessage(char *buf) {
     }
 
     return httpRequest;
-}
-
-void hm::netd::HttpMessage::SetProtocolPayload(const char *buf, char *baseLine, char *header, char *content, int processPhase) const {
 }
 
 std::string hm::netd::HttpMessage::MethodToString(HttpMethod method) {

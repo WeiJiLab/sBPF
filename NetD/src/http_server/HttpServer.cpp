@@ -37,8 +37,7 @@ void hm::netd::HttpServer::ReceiveMessage(hm::netd::HttpRequest request, unsigne
         responseBody = {NOT_FOUND, HTTP_RESPONSE_404};
     }
 
-    HttpMessage httpMessage;
-    const std::string &response = httpMessage.EncodeMessage(responseBody.responseStatus, responseBody.body);
+    const std::string &response = HttpMessage::EncodeMessage(responseBody.responseStatus, responseBody.body,request.header);
 
     write(fdc, response.c_str(), strlen(response.c_str()));
     close(fdc);

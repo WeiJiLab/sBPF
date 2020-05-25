@@ -112,7 +112,7 @@ namespace hm {
             HttpMessage &operator=(HttpMessage &&) noexcept;
 
         public:
-            std::string EncodeMessage(HttpResponseStatus responseStatus, const std::string &responseBody);
+            static std::string EncodeMessage(HttpResponseStatus responseStatus, const std::string &responseBody,std::map<std::string,std::string> headers);
 
             static hm::netd::HttpRequest DecodeMessage(char *buf);
 
@@ -120,14 +120,6 @@ namespace hm {
             HttpMessage();
 
             static std::string MethodToString(HttpMethod method);
-
-        private:
-            void SetProtocolPayload(const char *buf, char *baseLine, char *header, char *content, int processPhase) const;
-
-        public:
-            std::map<std::string, std::string> httpRequestHeader;
-
-            HttpRequest request;
         };
     } // namespace netd
 } // namespace hm
