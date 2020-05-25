@@ -112,14 +112,17 @@ namespace hm {
             HttpMessage &operator=(HttpMessage &&) noexcept;
 
         public:
-            static std::string EncodeMessage(HttpResponseStatus responseStatus, const std::string &responseBody,std::map<std::string,std::string> headers);
+            std::string EncodeMessage(HttpResponseStatus responseStatus, const std::string &responseBody,std::map<std::string,std::string> headers);
 
-            static hm::netd::HttpRequest DecodeMessage(char *buf);
+            hm::netd::HttpRequest DecodeMessage(char *buf);
 
         public:
             HttpMessage();
 
-            static std::string MethodToString(HttpMethod method);
+            std::string MethodToString(HttpMethod method);
+
+            std::string responseReasonMap[600];
+            std::map<std::string, hm::netd::HttpMethod> httpMethodMap;
         };
     } // namespace netd
 } // namespace hm

@@ -22,7 +22,8 @@ bool hm::netd::HttpServer::Configure(const hm::netd::HttpServerConfigguration &c
 void hm::netd::HttpServer::ReceiveMessage(hm::netd::HttpRequest request, unsigned int fdc) {
     std::string uri = request.uri;
     HttpMethod method = request.httpMethod;
-    LogInfo("[HttpServer] Request %s %s", HttpMessage::MethodToString(method).c_str(), uri.c_str())
+    HttpMessage httpMessage;
+    LogInfo("[HttpServer] Request %s %s", httpMessage.MethodToString(method).c_str(), uri.c_str())
     Route route{uri, method};
     HandlerResponse responseBody;
 
@@ -37,7 +38,7 @@ void hm::netd::HttpServer::ReceiveMessage(hm::netd::HttpRequest request, unsigne
         responseBody = {NOT_FOUND, HTTP_RESPONSE_404};
     }
 
-    const std::string &response = HttpMessage::EncodeMessage(responseBody.responseStatus, responseBody.body,request.header);
+    const std::string &response = httpMessage.EncodeMessage(responseBody.responseStatus, responseBody.body,request.header);
 
     write(fdc, response.c_str(), strlen(response.c_str()));
     close(fdc);
@@ -69,7 +70,8 @@ void hm::netd::HttpServer::ServerWorker() {
 }
 
 void hm::netd::HttpServer::Handler(char *buffer, int fdc) {
-    HttpRequest httpRequest = HttpMessage::DecodeMessage(buffer);
+    HttpMessage httpMessage;
+    HttpRequest httpRequest = httpMessage.DecodeMessage(buffer);
     ReceiveMessage(httpRequest, fdc);
 }
 
