@@ -40,7 +40,7 @@ namespace hm {
 
         public:
             std::vector<RouteData> GetRoutesData() {
-                std::lock_guard<std::mutex> lock(mutex);
+                std::lock_guard<std::mutex> lock(*mutex);
                 return this->network.routes;
             };
 
@@ -49,7 +49,7 @@ namespace hm {
         private:
             NetworkData network;
 
-            std::mutex mutex;
+            std::shared_ptr<std::mutex> mutex;
         };
     }
 }
