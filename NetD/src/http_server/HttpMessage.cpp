@@ -17,6 +17,11 @@ hm::netd::HttpMessage::HttpMessage(hm::netd::HttpMessage &&) noexcept = default;
 hm::netd::HttpMessage &hm::netd::HttpMessage::operator=(hm::netd::HttpMessage &&) noexcept = default;
 
 hm::netd::HttpMessage::HttpMessage() {
+
+}
+
+std::string hm::netd::HttpMessage::EncodeMessage(HttpResponseStatus responseStatus, const std::string &responseBody,std::map<std::string,std::string> headers) {
+
     HttpMethodMap.insert(std::pair<std::string, HttpMethod>("GET", GET));
     HttpMethodMap.insert(std::pair<std::string, HttpMethod>("HEAD", HEAD));
     HttpMethodMap.insert(std::pair<std::string, HttpMethod>("POST", POST));
@@ -87,9 +92,7 @@ hm::netd::HttpMessage::HttpMessage() {
     responseReasonMap[hm::netd::HttpResponseStatus::BANDWIDTH_LIMIT_EXCEEDED] = "";
     responseReasonMap[hm::netd::HttpResponseStatus::NOT_EXTENDED] = "";
     responseReasonMap[hm::netd::HttpResponseStatus::NETWORK_AUTHENTICATION_REQUIRED] = "";
-}
 
-std::string hm::netd::HttpMessage::EncodeMessage(HttpResponseStatus responseStatus, const std::string &responseBody,std::map<std::string,std::string> headers) {
     std::string response;
     LogInfo("[HttpServer] Encode Http Request")
     // statusLine
@@ -121,6 +124,77 @@ std::string hm::netd::HttpMessage::EncodeMessage(HttpResponseStatus responseStat
    * content
    */
 hm::netd::HttpRequest hm::netd::HttpMessage::DecodeMessage(char *buf) {
+
+    HttpMethodMap.insert(std::pair<std::string, HttpMethod>("GET", GET));
+    HttpMethodMap.insert(std::pair<std::string, HttpMethod>("HEAD", HEAD));
+    HttpMethodMap.insert(std::pair<std::string, HttpMethod>("POST", POST));
+    HttpMethodMap.insert(std::pair<std::string, HttpMethod>("PUT", PUT));
+    HttpMethodMap.insert(std::pair<std::string, HttpMethod>("DELETE", DELETE));
+    HttpMethodMap.insert(std::pair<std::string, HttpMethod>("CONNECT", CONNECT));
+    HttpMethodMap.insert(std::pair<std::string, HttpMethod>("OPTIONS", OPTIONS));
+    HttpMethodMap.insert(std::pair<std::string, HttpMethod>("TRACE", TRACE));
+    HttpMethodMap.insert(std::pair<std::string, HttpMethod>("PATCH", PATCH));
+
+    responseReasonMap[hm::netd::HttpResponseStatus::CONTINUE] = "Continue";
+    responseReasonMap[hm::netd::HttpResponseStatus::SWITCHING_PROTOCOLS] = "Switching Protocols";
+    responseReasonMap[hm::netd::HttpResponseStatus::PROCESSING] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::CHECKPOINT] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::OK] = "OK";
+    responseReasonMap[hm::netd::HttpResponseStatus::CREATED] = "Created";
+    responseReasonMap[hm::netd::HttpResponseStatus::ACCEPTED] = "Accepted";
+    responseReasonMap[hm::netd::HttpResponseStatus::NON_AUTHORITATIVE_INFORMATION] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::NO_CONTENT] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::RESET_CONTENT] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::PARTIAL_CONTENT] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::MULTI_STATUS] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::ALREADY_REPORTED] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::IM_USED] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::MULTIPLE_CHOICES] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::MOVED_PERMANENTLY] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::FOUND] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::SEE_OTHER] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::NOT_MODIFIED] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::TEMPORARY_REDIRECT] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::PERMANENT_REDIRECT] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::BAD_REQUEST] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::UNAUTHORIZED] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::PAYMENT_REQUIRED] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::FORBIDDEN] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::NOT_FOUND] = "Not Found";
+    responseReasonMap[hm::netd::HttpResponseStatus::METHOD_NOT_ALLOWED] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::NOT_ACCEPTABLE] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::PROXY_AUTHENTICATION_REQUIRED] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::REQUEST_TIMEOUT] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::CONFLICT] = "Conflict";
+    responseReasonMap[hm::netd::HttpResponseStatus::GONE] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::LENGTH_REQUIRED] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::PRECONDITION_FAILED] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::PAYLOAD_TOO_LARGE] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::URI_TOO_LONG] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::UNSUPPORTED_MEDIA_TYPE] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::REQUESTED_RANGE_NOT_SATISFIABLE] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::EXPECTATION_FAILED] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::I_AM_A_TEAPOT] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::UNPROCESSABLE_ENTITY] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::LOCKED] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::FAILED_DEPENDENCY] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::UPGRADE_REQUIRED] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::PRECONDITION_REQUIRED] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::TOO_MANY_REQUESTS] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::REQUEST_HEADER_FIELDS_TOO_LARGE] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::UNAVAILABLE_FOR_LEGAL_REASONS] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::INTERNAL_SERVER_ERROR] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::NOT_IMPLEMENTED] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::BAD_GATEWAY] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::SERVICE_UNAVAILABLE] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::GATEWAY_TIMEOUT] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::HTTP_VERSION_NOT_SUPPORTED] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::VARIANT_ALSO_NEGOTIATES] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::INSUFFICIENT_STORAGE] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::LOOP_DETECTED] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::BANDWIDTH_LIMIT_EXCEEDED] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::NOT_EXTENDED] = "";
+    responseReasonMap[hm::netd::HttpResponseStatus::NETWORK_AUTHENTICATION_REQUIRED] = "";
 
     std::string request(buf);
     std::map<std::string, std::string> httpRequestHeader;
