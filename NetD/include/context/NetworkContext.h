@@ -41,13 +41,13 @@ namespace hm {
         public:
             std::vector<RouteData> GetRoutesData() {
                 std::lock_guard<std::mutex> lock(*mutex);
-                return this->network->routes;
+                return this->network.routes;
             };
 
             void AddRouteData(RouteData routeData);
 
         private:
-            std::shared_ptr<NetworkData> network;
+            NetworkData network;
 
             std::shared_ptr<std::mutex> mutex;
         };
