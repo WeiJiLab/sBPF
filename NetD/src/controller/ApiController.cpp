@@ -15,3 +15,7 @@ void hm::netd::ApiController::AddRoute(Route route, std::function<HandlerRespons
 void hm::netd::ApiController::SetServer(std::shared_ptr<HttpServer> server) {
     this->httpServer = server;
 }
+
+void hm::netd::ApiController::SetNetworkContext(std::shared_ptr<NetworkContext> networkContext) {
+    this->networkContext = networkContext;
+}

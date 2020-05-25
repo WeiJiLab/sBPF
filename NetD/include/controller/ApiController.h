@@ -6,6 +6,7 @@
 #define NMCS_APICONTROLLER_H
 
 #include "../http_server/HttpServer.h"
+#include "../context/NetworkContext.h"
 
 
 namespace hm {
@@ -15,9 +16,11 @@ namespace hm {
             virtual void Init();
 
             void SetServer(std::shared_ptr<HttpServer> server);
+            void SetNetworkContext(std::shared_ptr<NetworkContext> networkContext);
 
         protected:
             std::shared_ptr<HttpServer> httpServer;
+            std::shared_ptr<NetworkContext> networkContext;
 
             void AddRoute(Route route, std::function<HandlerResponse(HttpRequest)> handler);
         };

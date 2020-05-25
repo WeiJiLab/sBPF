@@ -10,5 +10,14 @@ void hm::netd::NetlinkController::Init() {
 }
 
 hm::netd::HandlerResponse hm::netd::NetlinkController::GetRoute(hm::netd::HttpRequest request) {
-    return {OK, "{\"route\":[]}"};
+
+    std::vector<RouteData> routes = networkContext->GetRoutesData();
+
+    std::string result = "{\"routes\":[";
+    for (auto &route:routes) {
+        result += "{\"destination\":\"" + route.destination + "\",\"gateway\":" + route.gateway + "\"},";
+    }
+
+    result += "]";
+    return {OK, result};
 }

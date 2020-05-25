@@ -21,7 +21,7 @@ hm::netd::NetManagementCoreServer::NetManagementCoreServer() :
         commandListener(std::make_shared<CommandListener>()),
         netlinkManager(std::make_shared<NetlinkManager>()),
         networkContext(std::make_shared<NetworkContext>()),
-        httpServer(std::make_shared<HttpServer>()){
+        httpServer(std::make_shared<HttpServer>()) {
 
 }
 
@@ -61,13 +61,13 @@ void hm::netd::NetManagementCoreServer::StartCommandListener() {
 
 void hm::netd::NetManagementCoreServer::StartHttpServer(unsigned int port) {
     httpServer->Configure({
-        .socketConfiguration={
-                .port=port
-        }
-    });
+                                  .socketConfiguration={
+                                          .port=port
+                                  }
+                          });
 
     hm::netd::ApiConfig apiConfig;
-    apiConfig.AttachApps(httpServer);
+    apiConfig.AttachApps(httpServer, networkContext);
 
     httpServer->Start();
 }
