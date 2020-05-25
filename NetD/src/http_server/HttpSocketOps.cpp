@@ -80,13 +80,13 @@ int hm::netd::HttpSocketOps::Accept(SocketAcceptEventHandler socketAcceptEventHa
                 event.events = EPOLLIN;
                 event.data.fd = clnt_sock;
                 epoll_ctl(epollFd, EPOLL_CTL_ADD, clnt_sock, &event);
-                LogInfo("[HttpServer] connected client: %d \n", clnt_sock);
+                LogInfo("[HttpServer] connected client: %d", clnt_sock);
             } else {
                 str_len = read(epEvents[i].data.fd, buf, BUF_SIZE);
                 if (str_len == 0) {
                     epoll_ctl(epollFd, EPOLL_CTL_DEL, epEvents[i].data.fd, NULL);
                     close(epEvents[i].data.fd);
-                    LogInfo("[HttpServer]  closed client: %d \n", epEvents[i].data.fd);
+                    LogInfo("[HttpServer]  closed client: %d", epEvents[i].data.fd);
                 } else {
                     socketAcceptEventHandler(buf, clnt_sock);
                 }

@@ -15,5 +15,7 @@ hm::netd::NetworkContext::NetworkContext() {
 }
 
 void hm::netd::NetworkContext::AddRouteData(hm::netd::RouteData routeData) {
+    mutex.lock();
     this->network.routes.push_back(routeData);
+    mutex.unlock();
 }

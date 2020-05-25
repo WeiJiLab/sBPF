@@ -15,7 +15,7 @@ hm::netd::HandlerResponse hm::netd::NetlinkController::GetRoute(hm::netd::HttpRe
     std::vector<RouteData> routes = networkContext->GetRoutesData();
 
 
-    LogInfo("[Controller] GetRoute size:%d",routes.size());
+//    LogInfo("[Controller] GetRoute size:%d",routes.size());
 
     std::string result = "{\"routes\":[";
 //    for (auto &route:routes) {

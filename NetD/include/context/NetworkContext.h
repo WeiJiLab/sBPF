@@ -8,6 +8,7 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include <mutex>
 
 namespace hm {
     namespace netd {
@@ -38,12 +39,19 @@ namespace hm {
             NetworkContext();
 
         public:
-            std::vector<RouteData> GetRoutesData() { return this->network.routes; };
+            std::vector<RouteData> GetRoutesData() {
+                mutex.lock();
+                std::vector<RouteData> routes = this->network.routes;
+                mutex.unlock();
+                return routes;
+            };
 
             void AddRouteData(RouteData routeData);
 
         private:
             NetworkData network;
+
+            std::mutex mutex;
         };
     }
 }
