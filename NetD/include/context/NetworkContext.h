@@ -33,7 +33,6 @@ namespace hm {
 
             NetworkContext &operator=(const NetworkContext &) = delete;
 
-            NetworkContext &operator=(NetworkContext &&) noexcept;
 
         public:
             NetworkContext();

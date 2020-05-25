@@ -8,8 +8,6 @@ hm::netd::NetworkContext::~NetworkContext() noexcept = default;
 
 hm::netd::NetworkContext::NetworkContext(hm::netd::NetworkContext &&) noexcept = default;
 
-hm::netd::NetworkContext &hm::netd::NetworkContext::operator=(hm::netd::NetworkContext &&) noexcept = delete;
-
 hm::netd::NetworkContext::NetworkContext() :
         network(std::make_shared<NetworkData>()) {
 
