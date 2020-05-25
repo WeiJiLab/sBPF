@@ -10,6 +10,7 @@
 #include "listener/DnsProxyListener.h"
 #include "listener/MDnsSdListener.h"
 #include "listener/FwmarkServer.h"
+#include "http_server/HttpServer.h"
 
 namespace hm {
     namespace netd {
@@ -28,7 +29,7 @@ namespace hm {
 
             void Init();
 
-            void StartHttpServer(int port);
+            void StartHttpServer(unsigned int port);
 
             void Start();
 
@@ -45,6 +46,8 @@ namespace hm {
 
             std::shared_ptr<NetlinkManager> netlinkManager;
             std::shared_ptr<NetworkContext> networkContext;
+
+            std::shared_ptr<HttpServer> httpServer;
         };
     }
 };

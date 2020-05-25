@@ -3,7 +3,9 @@
 
 #include <memory>
 #include <map>
+#include <string>
 #include <functional>
+#include <thread>
 
 #include "HttpSocketOps.h"
 #include "HttpMessage.h"
@@ -13,22 +15,12 @@ namespace hm {
         struct Route {
             std::string uri;
             HttpMethod method;
-
-            bool operator<(const Route &rhs) const;
-
-            bool operator>(const Route &rhs) const;
-
-            bool operator<=(const Route &rhs) const;
-
-            bool operator>=(const Route &rhs) const;
         };
 
         struct HandlerResponse {
             HttpResponseStatus responseStatus;
             std::string body;
         };
-
-        using SendMessageDelegate = std::function<void(std::shared_ptr<HttpMessage> message, unsigned int receivedFd)>;
 
         class HttpServer {
         public:
@@ -46,12 +38,12 @@ namespace hm {
             HttpServer();
 
         public:
-            bool Configure(const SocketConfiguration &configuration);
-
-            void SetSendMessageDelegate(SendMessageDelegate sendMessageDelegate);
+            bool Configure(const HttpServerConfigguration &configuration);
 
             void ReceiveMessage(std::shared_ptr<HttpMessage> message,
                                 unsigned int senderInstanceNumber);
+
+            void ServerWorker();
 
         public:
             void Start();
@@ -63,6 +55,12 @@ namespace hm {
         private:
             bool isRunning = false;
             std::shared_ptr<HttpSocketOps> socketOps;
+            std::thread worker;
+            HttpServerConfigguration configguration;
+            std::map<Route, std::function<HandlerResponse(HttpRequest)>> router;
+
+        private:
+            void Handler(char *buffer, int fdc);
         };
     } // namespace netd
 } // namespace hm

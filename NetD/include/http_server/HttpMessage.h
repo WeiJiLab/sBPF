@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <map>
+#include <string>
 
 namespace hm {
     namespace netd {

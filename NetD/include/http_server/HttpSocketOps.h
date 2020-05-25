@@ -3,11 +3,15 @@
 
 #include <memory>
 #include <functional>
+#include <netinet/in.h>
+#include <sys/event.h>
 
 namespace hm {
     namespace netd {
-        struct SocketConfiguration {
-            unsigned int port = 8899;
+        struct HttpServerConfigguration {
+            struct SocketConfiguration {
+                unsigned int port = 8899;
+            } socketConfiguration;
         };
 
         class HttpSocketOps {
@@ -25,7 +29,7 @@ namespace hm {
         public:
             HttpSocketOps();
 
-            bool Configure(const SocketConfiguration &configuration);
+            bool Configure(const HttpServerConfigguration::SocketConfiguration &configuration);
 
             int SetUp();
 
@@ -43,17 +47,12 @@ namespace hm {
             int fd = 0;
             int kq = 0;
 
-            struct sockaddr_in addr
-                    {
-                    };
+            struct sockaddr_in addr{};
 
-            // TODO : kqueue just work on osx, should replace with epoll on linux
-            struct kevent eventSet
-                    {
-                    };
+            struct kevent eventSet{};
             struct kevent eventList[32]{};
 
-            SocketConfiguration configuration;
+            HttpServerConfigguration::SocketConfiguration configuration;
 
             SocketAcceptEventHandler socketAcceptEventHandler;
         };

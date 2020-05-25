@@ -22,7 +22,8 @@ hm::netd::NetManagementCoreServer::NetManagementCoreServer() :
         mdnsSdListener(std::make_shared<MDnsSdListener>()),
         fwmarkServer(std::make_shared<FwmarkServer>()),
         netlinkManager(std::make_shared<NetlinkManager>()),
-        networkContext(std::make_shared<NetworkContext>()) {
+        networkContext(std::make_shared<NetworkContext>()),
+        httpServer(std::make_shared<HttpServer>()){
 
 }
 
@@ -64,8 +65,16 @@ void hm::netd::NetManagementCoreServer::StartCommandListener() {
 }
 
 
-void hm::netd::NetManagementCoreServer::StartHttpServer(int port) {
+void hm::netd::NetManagementCoreServer::StartHttpServer(unsigned int port) {
+    httpServer->Configure({
+        .socketConfiguration={
+                .port=port
+        }
+    });
 
+//    httpServer->AddRoute();
+
+    httpServer->Start();
 }
 
 

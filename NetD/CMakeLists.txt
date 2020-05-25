@@ -19,6 +19,8 @@ SET(Sources
         src/listener/MDnsSdListener.cpp
         src/listener/DnsProxyListener.cpp
         src/http_server/HttpMessage.cpp
+        src/http_server/HttpSocketOps.cpp
+        src/http_server/HttpServer.cpp
         src/NetManagementCoreServer.cpp
         main.cpp)
 
