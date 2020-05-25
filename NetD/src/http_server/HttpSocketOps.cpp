@@ -3,6 +3,7 @@
 #include "../../include/log/Log.h"
 #include <stdio.h>
 #include <string.h>
+#include <sys/epoll.h>
 
 hm::netd::HttpSocketOps::~HttpSocketOps() noexcept = default;
 
@@ -26,6 +27,8 @@ int hm::netd::HttpSocketOps::SetUp() {
         LogError("[Socket] Unable to Open the Socket");
         exit(0);
     }
+
+    epollFd=epoll_create(EPOLL_SIZE);
 }
 
 int hm::netd::HttpSocketOps::Bind() {

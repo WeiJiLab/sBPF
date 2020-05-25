@@ -8,6 +8,9 @@
 
 namespace hm {
     namespace netd {
+
+        #define EPOLL_SIZE 50
+
         struct HttpServerConfigguration {
             struct SocketConfiguration {
                 unsigned int port = 8899;
@@ -45,6 +48,7 @@ namespace hm {
 
         private:
             int fd = 0;
+            int epollFd = 0;
 
             struct sockaddr_in addr{};
 
