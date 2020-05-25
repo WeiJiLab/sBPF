@@ -46,5 +46,7 @@ void hm::netd::CommandNetlinkEvent::OnMessageReceived(struct nlmsghdr *msg) {
         }
     }
 
+    
+
     printf("%s/%d gateway %s\n", dest, rte->rtm_dst_len, gway);
 }

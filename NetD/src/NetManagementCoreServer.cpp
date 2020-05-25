@@ -7,6 +7,7 @@
 #include "unistd.h"
 
 #include <linux/rtnetlink.h>
+#include <thread>
 
 
 hm::netd::NetManagementCoreServer::~NetManagementCoreServer() noexcept = default;
@@ -20,7 +21,8 @@ hm::netd::NetManagementCoreServer::NetManagementCoreServer() :
   dnsProxyListener(std::make_shared<DnsProxyListener>()),
   mdnsSdListener(std::make_shared<MDnsSdListener>()),
   fwmarkServer(std::make_shared<FwmarkServer>()),
-  netlinkManager(std::make_shared<NetlinkManager>()) {
+  netlinkManager(std::make_shared<NetlinkManager>()),
+  networkContext(std::make_shared<NetworkContext>()){
 
 }
 
@@ -28,13 +30,13 @@ hm::netd::NetManagementCoreServer::NetManagementCoreServer() :
 void hm::netd::NetManagementCoreServer::Init() {
   // init netlink manager
 
-
   unsigned int pid = (unsigned int)getpid();
 
   LogInfo("Pid: %d",pid);
 
   // set initial
   commandListener->AbstractServiceListener::SetNetlinkManager(netlinkManager);
+  commandListener->AbstractServiceListener::SetNetworkContext(networkContext);
   sockaddr_nl netlinkCommandAddr{
     .nl_family=AF_NETLINK,
     .nl_pad=0,
@@ -54,13 +56,17 @@ void hm::netd::NetManagementCoreServer::Init() {
   fwmarkServer->AbstractServiceListener::SetNetlinkManager(netlinkManager);
 }
 
+void hm::netd::NetManagementCoreServer::StartCommandListener(){
+    if (commandListener->StartListener()) {
+      LogError("Unable to start CommandListener")
+      exit(1);
+    }
+}
 
 void hm::netd::NetManagementCoreServer::Start() {
 
-  if (commandListener->StartListener()) {
-      LogError("Unable to start CommandListener")
-          exit(1);
-    }
+  std::thread(&NetManagementCoreServer::StartCommandListener,this).join();
+
 
   if (dnsProxyListener->StartListener()) {
       LogError("Unable to start DnsProxyListener")
@@ -77,4 +83,5 @@ void hm::netd::NetManagementCoreServer::Start() {
           exit(1);
     }
 
+  while(true);
 }

@@ -9,6 +9,7 @@ SET(Sources
         src/listener/AbstractServiceListener.cpp
         src/event/SocketEvent.cpp
         src/event/NetlinkEvent.cpp
+        src/context/NetworkContext.cpp
         src/event/CommandNetlinkEvent.cpp
         src/netlink/NetlinkListener.cpp
         src/netlink/NetlinkHandler.cpp
@@ -23,3 +24,6 @@ SET(Sources
 set(SRC_LIST ${SEC_LIST} ${Sources})
 
 add_executable(NetD ${SRC_LIST})
+
+
+target_link_libraries(NetD pthread)

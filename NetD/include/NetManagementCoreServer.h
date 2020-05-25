@@ -30,6 +30,8 @@ namespace hm {
             void Init();
             void Start();
 
+            void StartCommandListener();
+
         public:
             NetManagementCoreServer();
 
@@ -40,6 +42,7 @@ namespace hm {
             std::shared_ptr<FwmarkServer> fwmarkServer;
 
             std::shared_ptr<NetlinkManager> netlinkManager;
+            std::shared_ptr<NetworkContext> networkContext;
         };
     }
 };
