@@ -69,7 +69,9 @@ void hm::netd::HttpServer::ServerWorker() {
 void hm::netd::HttpServer::Handler(char *buffer, int fdc) {
     auto *httpMessage = new HttpMessage();
     std::shared_ptr<HttpMessage> message = std::make_shared<HttpMessage>();
-    message = httpMessage->DecodeMessage(buffer);
+    HttpRequest httpRequest = httpMessage->DecodeMessage(buffer);
+
+    message->request = httpRequest;
     ReceiveMessage(message, fdc);
 }
 

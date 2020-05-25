@@ -111,7 +111,7 @@ namespace hm {
         public:
             std::string EncodeMessage(HttpResponseStatus responseStatus, const std::string &responseBody);
 
-            std::shared_ptr<HttpMessage> DecodeMessage(char *buf);
+            hm::netd::HttpRequest DecodeMessage(char *buf);
 
         public:
             HttpMessage();

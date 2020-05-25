@@ -117,7 +117,7 @@ std::string hm::netd::HttpMessage::EncodeMessage(HttpResponseStatus responseStat
    * \r\n
    * content
    */
-std::shared_ptr<hm::netd::HttpMessage> hm::netd::HttpMessage::DecodeMessage(char *buf) {
+hm::netd::HttpRequest hm::netd::HttpMessage::DecodeMessage(char *buf) {
 
     std::string request(buf);
     std::map<std::string, std::string> httpRequestHeader;
@@ -218,10 +218,7 @@ std::shared_ptr<hm::netd::HttpMessage> hm::netd::HttpMessage::DecodeMessage(char
         }
     }
 
-
-    std::shared_ptr<HttpMessage> httpMessage = std::make_shared<HttpMessage>();
-    httpMessage->request = httpRequest;
-    return httpMessage;
+    return httpRequest;
 }
 
 void hm::netd::HttpMessage::SetProtocolPayload(const char *buf, char *baseLine, char *header, char *content, int processPhase) const {
