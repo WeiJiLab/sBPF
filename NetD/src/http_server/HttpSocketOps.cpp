@@ -28,11 +28,11 @@ int hm::netd::HttpSocketOps::SetUp() {
         exit(0);
     }
 
-    epollFd=epoll_create(EPOLL_SIZE);
-    epEvents=(struct epoll_event *)malloc(sizeof(struct epoll_event)*EPOLL_SIZE);
+    epollFd = epoll_create(EPOLL_SIZE);
+    epEvents = (struct epoll_event *) malloc(sizeof(struct epoll_event) * EPOLL_SIZE);
 
-    event.events=EPOLLIN;
-    event.data.fd=this->fd;
+    event.events = EPOLLIN;
+    event.data.fd = this->fd;
     epoll_ctl(epollFd, EPOLL_CTL_ADD, fd, &event);
 }
 
@@ -58,46 +58,39 @@ void hm::netd::HttpSocketOps::SetSocketAcceptEventHandler(SocketAcceptEventHandl
 
 
 #define BUF_SIZE 1024
+
 int hm::netd::HttpSocketOps::Accept(SocketAcceptEventHandler socketAcceptEventHandler) {
     socklen_t adr_sz;
     struct sockaddr_in clnt_adr;
     int clnt_sock;
     int str_len;
     char buf[BUF_SIZE];
-    while(1)
-    {
-        eventCnt=epoll_wait(epollFd, epEvents, EPOLL_SIZE, -1);
-        if(eventCnt==-1)
-        {
-            LogError("epoll_wait() error");
+    while (1) {
+        eventCnt = epoll_wait(epollFd, epEvents, EPOLL_SIZE, -1);
+        if (eventCnt == -1) {
+            LogError("[HttpServer]  epoll_wait() error");
             break;
         }
 
-        for(int i=0; i<eventCnt; i++)
-        {
-            if(epEvents[i].data.fd==fd)
-            {
-                adr_sz=sizeof(clnt_adr);
-                clnt_sock=
-                        accept(fd, (struct sockaddr*)&clnt_adr, &adr_sz);
-                event.events=EPOLLIN;
-                event.data.fd=clnt_sock;
+        for (int i = 0; i < eventCnt; i++) {
+            if (epEvents[i].data.fd == fd) {
+                adr_sz = sizeof(clnt_adr);
+                clnt_sock =
+                        accept(fd, (struct sockaddr *) &clnt_adr, &adr_sz);
+                event.events = EPOLLIN;
+                event.data.fd = clnt_sock;
                 epoll_ctl(epollFd, EPOLL_CTL_ADD, clnt_sock, &event);
-                LogInfo("connected client: %d \n", clnt_sock);
-            }
-            else
-            {
-                str_len=read(epEvents[i].data.fd, buf, BUF_SIZE);
-                if(str_len==0)    // close request!
+                LogInfo("[HttpServer] connected client: %d \n", clnt_sock);
+            } else {
+                str_len = read(epEvents[i].data.fd, buf, BUF_SIZE);
+                if (str_len == 0)    // close request!
                 {
                     epoll_ctl(epollFd, EPOLL_CTL_DEL, epEvents[i].data.fd, NULL);
                     close(epEvents[i].data.fd);
-                    LogInfo("closed client: %d \n", epEvents[i].data.fd);
-                }
-                else
-                {
+                    LogInfo("[HttpServer]  closed client: %d \n", epEvents[i].data.fd);
+                } else {
                     write(epEvents[i].data.fd, buf, str_len);    // echo!
-                    socketAcceptEventHandler(buf,clnt_sock);
+                    socketAcceptEventHandler(buf, clnt_sock);
                 }
 
             }
