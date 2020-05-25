@@ -4,7 +4,6 @@
 #include <memory>
 #include <functional>
 #include <netinet/in.h>
-#include <sys/event.h>
 
 namespace hm {
     namespace netd {
@@ -48,9 +47,6 @@ namespace hm {
             int kq = 0;
 
             struct sockaddr_in addr{};
-
-            struct kevent eventSet{};
-            struct kevent eventList[32]{};
 
             HttpServerConfigguration::SocketConfiguration configuration;
 

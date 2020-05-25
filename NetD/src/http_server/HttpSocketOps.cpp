@@ -24,18 +24,6 @@ int hm::netd::HttpSocketOps::SetUp() {
         LogError("[Socket] Unable to Open the Socket\n");
         exit(0);
     }
-
-    kq = kqueue();
-    if (kq == -1) {
-        LogError("[Socket] Unable to init kqueue\n");
-        exit(0);
-    }
-
-    EV_SET(&eventSet, fd, EVFILT_READ, EV_ADD, 0, 0, NULL);
-    if (kevent(kq, &eventSet, 1, NULL, 0, NULL) == -1) {
-        LogError("[Socket] Unable to init kevent\n");
-        exit(0);
-    }
 }
 
 int hm::netd::HttpSocketOps::Bind() {
