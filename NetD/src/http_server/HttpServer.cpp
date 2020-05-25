@@ -50,7 +50,7 @@ void hm::netd::HttpServer::Start() {
     this->socketOps->Bind();
     this->socketOps->Listen();
     this->isRunning = true;
-    LogInfo("[HttpServer] Http Protocol listen at port: %d\n", configguration.socketConfiguration.port)
+    LogInfo("[HttpServer] Http Protocol listen at port: %d", configguration.socketConfiguration.port)
 
     this->worker = std::thread(&HttpServer::ServerWorker, this);
 }

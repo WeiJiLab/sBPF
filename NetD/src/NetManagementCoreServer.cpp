@@ -80,6 +80,8 @@ void hm::netd::NetManagementCoreServer::StartHttpServer(unsigned int port) {
 
 void hm::netd::NetManagementCoreServer::Start() {
 
+    this->StartHttpServer(8080);
+
     std::thread(&NetManagementCoreServer::StartCommandListener, this).join();
 
 
@@ -97,8 +99,6 @@ void hm::netd::NetManagementCoreServer::Start() {
         LogError("Unable to start FwmarkServer")
         exit(1);
     }
-
-    this->StartHttpServer(8080);
 
     while (true);
 }

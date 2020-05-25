@@ -23,21 +23,21 @@ int hm::netd::HttpSocketOps::SetUp() {
     addr.sin_port = htons(configuration.port);
     addr.sin_addr.s_addr = INADDR_ANY;
     if ((fd = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
-        LogError("[Socket] Unable to Open the Socket\n");
+        LogError("[Socket] Unable to Open the Socket");
         exit(0);
     }
 }
 
 int hm::netd::HttpSocketOps::Bind() {
     if (bind(fd, (struct sockaddr *) (&addr), sizeof(addr)) != 0) {
-        LogError("[Socket] Unable to bind the Socket\n");
+        LogError("[Socket] Unable to bind the Socket");
         exit(0);
     }
 }
 
 int hm::netd::HttpSocketOps::Listen() {
     if (listen(fd, 50) == -1) {
-        LogError("[Socket] Unable to listen the Socket\n");
+        LogError("[Socket] Unable to listen the Socket");
         exit(0);
     }
 }
