@@ -3,6 +3,7 @@
 //
 
 #include "../../include/event/CommandNetlinkEvent.h"
+#include "../../include/log/Log.h"
 
 
 hm::netd::CommandNetlinkEvent::~CommandNetlinkEvent() noexcept = default;
@@ -44,6 +45,7 @@ void hm::netd::CommandNetlinkEvent::OnMessageReceived(struct nlmsghdr *msg) {
         }
     }
 
+    LogInfo("[Event] update Routes in network context")
     this->networkContext->AddRouteData({
         .destination=dest,
         .rtm_dst_len = rte->rtm_dst_len,
