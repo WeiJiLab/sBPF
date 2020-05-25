@@ -34,7 +34,7 @@ int hm::netd::CommandListener::StartListener() const {
     }
 
     std::shared_ptr<CommandNetlinkEvent> commandNetlinkEvent = std::make_shared<CommandNetlinkEvent>();
-    commandNetlinkEvent.SetNetworkContext(networkContext);
+    commandNetlinkEvent->SetNetworkContext(networkContext);
 
     commandNetlinkListener->SetNetlinkEvent(commandNetlinkEvent);
 
