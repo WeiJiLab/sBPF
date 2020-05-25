@@ -13,12 +13,12 @@
 namespace hm {
     namespace netd {
 
-
         struct RouteData {
             std::string destination;
             int rtm_dst_len;
             std::string gateway;
         };
+
         struct NetworkData {
             std::vector<RouteData> routes;
         };
@@ -40,10 +40,8 @@ namespace hm {
 
         public:
             std::vector<RouteData> GetRoutesData() {
-                mutex.lock();
-                std::vector<RouteData> routes = this->network.routes;
-                mutex.unlock();
-                return routes;
+                std::lock_guard<std::mutex> lock(mutex);
+                return this->network.routes;
             };
 
             void AddRouteData(RouteData routeData);
