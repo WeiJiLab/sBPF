@@ -8,6 +8,7 @@
 #include <memory>
 #include "SocketEvent.h"
 #include "../netlink/NetlinkHandler.h"
+#include "../context/NetworkContext.h"
 
 namespace hm {
     namespace netd {
@@ -20,9 +21,11 @@ namespace hm {
             virtual void OnMessageReceived(struct nlmsghdr *) = 0;
 
             virtual void SetNetlinkHandler(std::shared_ptr<NetlinkHandler> netlinkHandler);
+            virtual void SetNetworkContext(std::shared_ptr<NetworkContext> networkContext);
 
-        private:
+        protected:
             std::shared_ptr<NetlinkHandler> netlinkHandler;
+            std::shared_ptr<NetworkContext> networkContext;
         };
     }
 }

@@ -44,6 +44,11 @@ void hm::netd::CommandNetlinkEvent::OnMessageReceived(struct nlmsghdr *msg) {
         }
     }
 
+    this->networkContext->AddRouteData({
+        .destination=dest,
+        .rtm_dst_len = rte->rtm_dst_len,
+        .gateway= gway
+    });
 
     printf("%s/%d gateway %s\n", dest, rte->rtm_dst_len, gway);
 }

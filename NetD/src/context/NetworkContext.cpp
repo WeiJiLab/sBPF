@@ -13,3 +13,7 @@ hm::netd::NetworkContext &hm::netd::NetworkContext::operator=(hm::netd::NetworkC
 hm::netd::NetworkContext::NetworkContext() {
 
 }
+
+void hm::netd::NetworkContext::AddRouteData(hm::netd::RouteData routeData) {
+    this->network.routes.push_back(routeData);
+}

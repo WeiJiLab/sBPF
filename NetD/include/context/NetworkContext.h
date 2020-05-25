@@ -6,6 +6,8 @@
 #define NMCS_NETWORK_CONTEXT_H
 
 #include <memory>
+#include <string>
+#include <vector>
 
 #include "../connect/SocketOps.h"
 #include "../event/NetlinkEvent.h"
@@ -14,8 +16,14 @@
 namespace hm {
     namespace netd {
 
-        struct NetworkData {
 
+        struct RouteData {
+            std::string destination;
+            int rtm_dst_len;
+            std::string gateway;
+        };
+        struct NetworkData {
+            std::vector<RouteData> routes;
         };
 
         class NetworkContext {
@@ -32,6 +40,11 @@ namespace hm {
 
         public:
             NetworkContext();
+
+        public:
+            std::vector<RouteData> GetRoutesData() { return this->network.routes; };
+
+            void AddRouteData(RouteData routeData);
 
         private:
             NetworkData network;

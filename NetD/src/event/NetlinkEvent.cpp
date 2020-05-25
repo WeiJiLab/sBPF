@@ -11,3 +11,7 @@ hm::netd::NetlinkEvent::NetlinkEvent() {
 void hm::netd::NetlinkEvent::SetNetlinkHandler(std::shared_ptr<NetlinkHandler> netlinkHandler) {
     this->netlinkHandler = netlinkHandler;
 }
+
+void hm::netd::NetlinkEvent::SetNetworkContext(std::shared_ptr<NetworkContext> networkContext) {
+    this->networkContext = networkContext;
+}
