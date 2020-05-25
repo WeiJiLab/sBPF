@@ -5,6 +5,7 @@
 #include "../../include/netlink/NetlinkListener.h"
 #include "../../include/log/Log.h"
 
+
 hm::netd::NetlinkListener::~NetlinkListener() noexcept = default;
 
 hm::netd::NetlinkListener::NetlinkListener(hm::netd::NetlinkListener &&) noexcept = default;
@@ -28,6 +29,11 @@ void hm::netd::NetlinkListener::Config(NetDConfiguration netdConfiguration){
   this->socketOps->Config(netdConfiguration);
 }
 
+int hm::netd::NetlinkListener::ReceiveHandler(struct sockaddr_nl* nlAddr,struct nlmsghdr* msg, void *){
+  LogInfo("Message from netLink received.");
+  this->netlinkEvent->OnMessageReceived(msg);
+}
+
 void hm::netd::NetlinkListener::StartListen() {
   LogInfo("CommandNetlinkListener Listening...");
   if(this->socketOps==nullptr){
@@ -37,4 +43,16 @@ void hm::netd::NetlinkListener::StartListen() {
   this->socketOps->CreateSock();
 
   this->socketOps->Bind();
+  
+  int nlSockFd = this->socketOps->GetSock();
+
+  const auto bind = std::bind(&NetlinkListener::ReceiveHandler, this, std::placeholders::_1, std::placeholders::_2,std::placeholders::_3);
+  while(!(this->socketOps->Receive(bind,nlSockFd,(void*)0)<0)){
+    this->SendRequest(RTM_GETROUTE);
+  }
+}
+
+void hm::netd::NetlinkListener::SendRequest(int type){
+  this->socketOps->SendRequest(AF_INET,type,this->socketOps->GetSock());
+  this->netlinkEvent->OnMessageSend();
 }

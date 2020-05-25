@@ -48,26 +48,49 @@ ssize_t hm::netd::SocketOps::SendRequest(int family,int type,int sockfd) {
       return -1;
     }
 
-  struct {
-    struct nlmsghdr nlHeader;
-    struct rtgenmsg genMsg;
-  } request;
+    
+    struct nl_req_s {
+      struct nlmsghdr hdr;
+      struct rtgenmsg gen;
+    };
 
-  struct sockaddr_nl socketAddrNetlink;
-  socketAddrNetlink.nl_family = AF_NETLINK;
 
-  request.nlHeader.nlmsg_len = sizeof request;
-  request.nlHeader.nlmsg_type = type;
-  request.nlHeader.nlmsg_flags = NLM_F_ROOT | NLM_F_MATCH | NLM_F_REQUEST;
-  request.nlHeader.nlmsg_pid = 0;
-  request.nlHeader.nlmsg_seq = ++this->seq;
-  request.genMsg.rtgen_family = family;
+    struct sockaddr_nl kernel;
+    int s, end=0, len;
+    struct msghdr msg;
+    struct nl_req_s req;
+    struct iovec io;
+    char buf[4096];
 
-  int send = sendto(sockfd,(void *)&request,sizeof request,0,(struct sockaddr*)&socketAddrNetlink,sizeof socketAddrNetlink);
-  if(send<0){
-      LogError("Socket '%s' send msg failed",this->sockName.c_str());
+    //build kernel netlink address
+    memset(&kernel, 0, sizeof(kernel));
+    kernel.nl_family = AF_NETLINK;
+    kernel.nl_groups = 0;
+
+    //build netlink message
+    memset(&req, 0, sizeof req);
+    req.hdr.nlmsg_len = NLMSG_LENGTH(sizeof(struct rtgenmsg));
+    req.hdr.nlmsg_type = type;
+    req.hdr.nlmsg_flags = NLM_F_REQUEST | NLM_F_DUMP;
+    req.hdr.nlmsg_seq = 1;
+    req.hdr.nlmsg_pid = this->netDConfiguration.bindAddr.nl_pid;
+    req.gen.rtgen_family = family;
+
+    memset(&io, 0, sizeof(io));
+    io.iov_base = &req;
+    io.iov_len = req.hdr.nlmsg_len;
+
+    memset(&msg, 0, sizeof(msg));
+    msg.msg_iov = &io;
+    msg.msg_iovlen = 1;
+    msg.msg_name = &kernel;
+    msg.msg_namelen = sizeof(kernel);
+
+    //send the message
+    if (sendmsg(this->sockfd, &msg, 0) < 0)
+    {
+        LogError("Socket '%s' send msg failed",this->sockName.c_str());
     }
-  return 0;
 }
 
 int hm::netd::SocketOps::Receive(SocketAcceptEventHandler acceptEventHandler,int nlSockFd, void *arg){

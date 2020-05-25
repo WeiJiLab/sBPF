@@ -17,7 +17,7 @@ namespace hm {
 
             virtual void OnMessageSend() = 0;
 
-            virtual void OnMessageReceived() = 0;
+            virtual void OnMessageReceived(struct nlmsghdr *) = 0;
 
             virtual void SetNetlinkHandler(std::shared_ptr<NetlinkHandler> netlinkHandler);
 

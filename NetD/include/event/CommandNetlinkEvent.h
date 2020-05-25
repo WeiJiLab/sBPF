@@ -28,7 +28,7 @@ namespace hm {
 
             virtual void OnMessageSend() override;
 
-            virtual void OnMessageReceived() override;
+            virtual void OnMessageReceived(struct nlmsghdr *) override;
 
 
         private:

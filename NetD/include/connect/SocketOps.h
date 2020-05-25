@@ -18,6 +18,7 @@
 #include<string.h>
 #include<errno.h>
 #include<stdlib.h>
+#include <arpa/inet.h>
 
 namespace hm {
   namespace netd {
@@ -45,6 +46,7 @@ namespace hm {
 
       int Receive(SocketAcceptEventHandler acceptEventHandler,int nlSockFd, void *arg);
 
+      int GetSock(){return this->sockfd;}
     private:
       SocketAcceptEventHandler socketAcceptEventHandler;
 

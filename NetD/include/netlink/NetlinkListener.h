@@ -35,7 +35,11 @@ namespace hm {
 
             void Config(NetDConfiguration netdConfiguration);
 
+            void SendRequest(int type);
+
             void StartListen();
+
+            int ReceiveHandler(struct sockaddr_nl* nlAddr,struct nlmsghdr* msg, void *);
 
         private:
             std::shared_ptr<NetlinkEvent> netlinkEvent;

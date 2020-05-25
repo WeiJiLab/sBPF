@@ -4,6 +4,20 @@
 
 #ifndef NMCS_SOCKETEVENT_H
 #define NMCS_SOCKETEVENT_H
+#include <functional>
+#include <sys/socket.h>
+#include <linux/types.h>
+#include <bits/sockaddr.h>
+#include <asm/types.h>
+#include <linux/netlink.h>
+#include <linux/if.h>
+#include <linux/rtnetlink.h>
+#include <sys/file.h>
+#include <sys/fcntl.h>
+#include<string.h>
+#include<errno.h>
+#include<stdlib.h>
+#include <arpa/inet.h>
 
 namespace hm {
     namespace netd {
