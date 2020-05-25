@@ -99,8 +99,6 @@ namespace hm {
             std::string value;
         };
 
-        std::map<std::string, HttpMethod> HttpMethodMap;
-
         class HttpMessage {
         public:
             ~HttpMessage() noexcept;

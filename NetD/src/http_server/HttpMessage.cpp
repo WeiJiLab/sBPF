@@ -6,6 +6,7 @@
 #include <assert.h>
 
 static std::string responseReasonMap[] = {};
+static std::map<std::string, hm::netd::HttpMethod> HttpMethodMap;
 
 
 hm::netd::HttpMessage::~HttpMessage() noexcept = default;
