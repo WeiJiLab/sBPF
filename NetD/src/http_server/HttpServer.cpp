@@ -1,4 +1,5 @@
 #include <unistd.h>
+#include <string>
 #include "../../include/http_server/HttpServer.h"
 #include "../../include/log/Log.h"
 
