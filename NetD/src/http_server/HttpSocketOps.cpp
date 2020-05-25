@@ -2,7 +2,7 @@
 #include "../../include/http_server/HttpSocketOps.h"
 #include "../../include/log/Log.h"
 #include <stdio.h>
-
+#include <string.h>
 
 hm::netd::HttpSocketOps::~HttpSocketOps() noexcept = default;
 
