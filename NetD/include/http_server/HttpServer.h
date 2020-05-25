@@ -3,8 +3,9 @@
 
 #include <memory>
 #include <map>
-#include "../connect/SocketOps.h"
 #include <functional>
+
+#include "HttpSocketOps.h"
 #include "HttpMessage.h"
 
 namespace hm {
@@ -45,7 +46,7 @@ namespace hm {
             HttpServer();
 
         public:
-            bool Configure(const Configuration &configuration);
+            bool Configure(const SocketConfiguration &configuration);
 
             void SetSendMessageDelegate(SendMessageDelegate sendMessageDelegate);
 
@@ -53,7 +54,7 @@ namespace hm {
                                 unsigned int senderInstanceNumber);
 
         public:
-            void Mobilize();
+            void Start();
 
             void SetRunning() { this->isRunning = true; }
 
@@ -61,7 +62,7 @@ namespace hm {
 
         private:
             bool isRunning = false;
-            std::shared_ptr<SocketOps> socketOps;
+            std::shared_ptr<HttpSocketOps> socketOps;
         };
     } // namespace netd
 } // namespace hm
