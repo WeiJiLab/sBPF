@@ -3,7 +3,6 @@
 #include "../../include/log/Log.h"
 #include <stdio.h>
 #include <string.h>
-#include <sys/epoll.h>
 
 hm::netd::HttpSocketOps::~HttpSocketOps() noexcept = default;
 
@@ -29,6 +28,11 @@ int hm::netd::HttpSocketOps::SetUp() {
     }
 
     epollFd=epoll_create(EPOLL_SIZE);
+    epEvents=malloc(sizeof(struct epoll_event)*EPOLL_SIZE);
+
+    event.events=EPOLLIN;
+    event.data.fd=this->fd;
+    epoll_ctl(epollFd, EPOLL_CTL_ADD, fd, &event);
 }
 
 int hm::netd::HttpSocketOps::Bind() {
@@ -51,7 +55,53 @@ void hm::netd::HttpSocketOps::SetSocketAcceptEventHandler(SocketAcceptEventHandl
     this->socketAcceptEventHandler = socketAcceptEventHandler;
 }
 int hm::netd::HttpSocketOps::Accept(SocketAcceptEventHandler socketAcceptEventHandler) {
+    socklen_t adr_sz;
+    struct sockaddr_in clnt_adr;
+    int clnt_sock;
+    int str_len;
+    char buf[100];
+    while(1)
+    {
+        eventCnt=epoll_wait(epollFd, epEvents, EPOLL_SIZE, -1);
+        if(eventCnt==-1)
+        {
+            LogError("epoll_wait() error");
+            break;
+        }
 
+        for(int i=0; i<eventCnt; i++)
+        {
+            if(epEvents[i].data.fd==fd)
+            {
+                adr_sz=sizeof(clnt_adr);
+                clnt_sock=
+                        accept(fd, (struct sockaddr*)&clnt_adr, &adr_sz);
+                event.events=EPOLLIN;
+                event.data.fd=clnt_sock;
+                epoll_ctl(epollFd, EPOLL_CTL_ADD, clnt_sock, &event);
+                LogInfo("connected client: %d \n", clnt_sock);
+            }
+            else
+            {
+                str_len=read(epEvents[i].data.fd, buf, BUF_SIZE);
+                if(str_len==0)    // close request!
+                {
+                    epoll_ctl(epollFd, EPOLL_CTL_DEL, epEvents[i].data.fd, NULL);
+                    close(epEvents[i].data.fd);
+                    LogInfo("closed client: %d \n", epEvents[i].data.fd);
+                }
+                else
+                {
+                    write(epEvents[i].data.fd, buf, str_len);    // echo!
+                    socketAcceptEventHandler(buf,clnt_sock);
+                }
+
+            }
+        }
+    }
+    close(fd);
+    close(epollFd);
+    return 0;
 }
 
 

@@ -5,11 +5,12 @@
 #include <functional>
 #include <string>
 #include <netinet/in.h>
+#include <sys/epoll.h>
 
 namespace hm {
     namespace netd {
 
-        #define EPOLL_SIZE 50
+#define EPOLL_SIZE 50
 
         struct HttpServerConfigguration {
             struct SocketConfiguration {
@@ -49,6 +50,9 @@ namespace hm {
         private:
             int fd = 0;
             int epollFd = 0;
+            int eventCnt = 0;
+            struct epoll_event *epEvents;
+            struct epoll_event event{};
 
             struct sockaddr_in addr{};
 
