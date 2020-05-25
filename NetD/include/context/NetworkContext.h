@@ -9,10 +9,6 @@
 #include <string>
 #include <vector>
 
-#include "../connect/SocketOps.h"
-#include "../event/NetlinkEvent.h"
-#include "../connect/SocketListener.h"
-
 namespace hm {
     namespace netd {
 
