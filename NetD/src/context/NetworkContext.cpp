@@ -10,11 +10,13 @@ hm::netd::NetworkContext::NetworkContext(hm::netd::NetworkContext &&) noexcept =
 
 hm::netd::NetworkContext &hm::netd::NetworkContext::operator=(hm::netd::NetworkContext &&) noexcept = default;
 
-hm::netd::NetworkContext::NetworkContext():mutex(std::make_shared<std::mutex>()) {
+hm::netd::NetworkContext::NetworkContext() :
+        mutex(std::make_shared<std::mutex>()),
+        network(std::make_shared<NetworkData>()) {
 
 }
 
 void hm::netd::NetworkContext::AddRouteData(hm::netd::RouteData routeData) {
     std::lock_guard<std::mutex> lock(*mutex);
-    this->network.routes.push_back(routeData);
+    this->network->routes.push_back(routeData);
 }
