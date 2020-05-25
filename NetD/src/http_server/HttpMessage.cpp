@@ -3,6 +3,7 @@
 //
 
 #include "../../include/http_server/HttpMessage.h"
+#include "../../include/log/Log.h"
 #include <assert.h>
 
 static std::string responseReasonMap[] = {};
@@ -90,7 +91,7 @@ hm::netd::HttpMessage::HttpMessage() {
 
 std::string hm::netd::HttpMessage::EncodeMessage(HttpResponseStatus responseStatus, const std::string &responseBody) {
     std::string response;
-
+    LogInfo("[HttpServer] Encode Http Request")
     // statusLine
     response.append("HTTP/1.1 ");
     response.append(std::to_string((int) responseStatus));
@@ -106,6 +107,7 @@ std::string hm::netd::HttpMessage::EncodeMessage(HttpResponseStatus responseStat
     }
     response.append("\r\n");
     response.append(responseBody);
+    LogInfo("[HttpServer] Http Request Encoded")
     return response;
 }
 
