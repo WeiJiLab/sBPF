@@ -60,8 +60,6 @@ namespace hm {
         public:
             void Start();
 
-            void SetRunning() { this->isRunning = true; }
-
             void AddRoute(Route route, std::function<HandlerResponse(HttpRequest)> handler);
 
         private:

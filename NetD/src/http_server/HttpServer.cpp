@@ -25,6 +25,7 @@ void hm::netd::HttpServer::ReceiveMessage(hm::netd::HttpRequest request, unsigne
     LogInfo("[HttpServer] Request %s %s\n", HttpMessage::MethodToString(method).c_str(), uri.c_str())
     Route route{uri, method};
     HandlerResponse responseBody;
+
     if (router.count(route)) {
         LogInfo("[HttpServer] Route found for %s\n", uri.c_str())
         std::function<HandlerResponse(HttpRequest)> &handler = this->router.find(route)->second;
@@ -32,6 +33,7 @@ void hm::netd::HttpServer::ReceiveMessage(hm::netd::HttpRequest request, unsigne
         httpRequest.header = request.header;
         responseBody = handler(httpRequest);
     } else { // 404 Not Found
+        LogWarnning("[HttpServer] Route not found for %s\n", uri.c_str())
         responseBody = {NOT_FOUND, HTTP_RESPONSE_404};
     }
 
