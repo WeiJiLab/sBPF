@@ -46,6 +46,7 @@ void hm::netd::HttpServer::ReceiveMessage(hm::netd::HttpRequest request, unsigne
 
 void hm::netd::HttpServer::Start() {
     if (this->worker.joinable()) {
+        LogError("[HttpServer] Worker not joinable: %d", configguration.socketConfiguration.port)
         return;
     }
     this->socketOps->Configure(configguration.socketConfiguration);
