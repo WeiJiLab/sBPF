@@ -4,11 +4,6 @@
 
 #include "../../include/listener/AbstractServiceListener.h"
 
-
-void hm::netd::AbstractServiceListener::SetNetlinkManager(std::shared_ptr<NetlinkManager> netlinkManager) {
-    this->netlinkManager = netlinkManager;
-}
-
 void hm::netd::AbstractServiceListener::SetNetworkContext(std::shared_ptr<NetworkContext> networkContext) {
     this->networkContext = networkContext;
 }

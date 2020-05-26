@@ -13,7 +13,6 @@
 namespace hm {
     namespace netd {
         struct CommandListenerConfiguration {
-            NetDConfiguration netdConfiguration;
         };
 
 

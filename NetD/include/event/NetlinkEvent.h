@@ -16,6 +16,8 @@ namespace hm {
         public:
             NetlinkEvent();
 
+            NetlinkEvent(std::shared_ptr<NetworkContext> networkContext);
+
             virtual void OnMessageSend() = 0;
 
             virtual void OnMessageReceived(struct nlmsghdr *) = 0;

@@ -17,11 +17,6 @@ hm::netd::NetlinkListener::NetlinkListener() {
 }
 
 
-hm::netd::NetlinkListener::NetlinkListener(const std::string &socketName) : SocketListener(socketName) {
-    this->socketName = socketName;
-}
-
-
 void hm::netd::NetlinkListener::SetNetlinkEvent(std::shared_ptr<NetlinkEvent> netlinkEvent) {
     this->netlinkEvent = netlinkEvent;
 }
@@ -58,4 +53,10 @@ void hm::netd::NetlinkListener::StartListen() {
 void hm::netd::NetlinkListener::SendRequest(int type) {
     this->socketOps->SendRequest(AF_INET, type, this->socketOps->GetSock());
     this->netlinkEvent->OnMessageSend();
+}
+
+hm::netd::NetlinkListener::NetlinkListener(const std::string &socketName, std::shared_ptr<NetlinkEvent> netlinkEvent, hm::netd::NetlinkListenerConfiguration netlinkConfiguration) {
+    this->netlinkEvent = netlinkEvent;
+    this->netlinkConfiguration = netlinkConfiguration;
+    this->socketName = socketName;
 }

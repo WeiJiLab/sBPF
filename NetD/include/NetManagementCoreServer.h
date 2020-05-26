@@ -30,14 +30,12 @@ namespace hm {
 
             void Start();
 
-            void StartCommandListener();
+            void StartNetlinkListeners();
 
         public:
             NetManagementCoreServer();
 
         private:
-            std::shared_ptr<CommandListener> commandListener;
-
             std::shared_ptr<NetlinkManager> netlinkManager;
             std::shared_ptr<NetworkContext> networkContext;
 

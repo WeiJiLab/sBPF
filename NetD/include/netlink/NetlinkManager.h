@@ -27,11 +27,20 @@ namespace hm {
 
         public:
             NetlinkManager();
+            NetlinkManager(std::shared_ptr<NetworkContext> networkContext);
 
+
+            void StartListeners();
+
+            void SetNetworkContext(std::shared_ptr<NetworkContext> network);
+
+            void AddNetlinkListener(std::string name,std::shared_ptr<NetlinkListener> netlinkListener);
             std::shared_ptr<hm::netd::NetlinkListener> GetNetlinkListener(const std::string &name);
+
 
         private:
             std::map<std::string, std::shared_ptr<NetlinkListener>> netlinks;
+            std::shared_ptr<NetworkContext> networkContext;
         };
     }
 }

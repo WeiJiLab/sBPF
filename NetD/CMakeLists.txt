@@ -10,7 +10,7 @@ SET(Sources
         src/event/SocketEvent.cpp
         src/event/NetlinkEvent.cpp
         src/context/NetworkContext.cpp
-        src/event/CommandNetlinkEvent.cpp
+        src/event/RouteNetlinkEvent.cpp
         src/netlink/NetlinkListener.cpp
         src/netlink/NetlinkHandler.cpp
         src/netlink/NetlinkManager.cpp

@@ -13,6 +13,11 @@
 
 namespace hm {
     namespace netd {
+
+        struct NetlinkListenerConfiguration{
+            NetDConfiguration netdConfiguration;
+        };
+
         class NetlinkListener : public SocketListener {
         public:
             ~NetlinkListener() noexcept;
@@ -28,8 +33,7 @@ namespace hm {
         public:
             NetlinkListener();
 
-            NetlinkListener(const std::string &socketName);
-
+            NetlinkListener(const std::string &socketName, std::shared_ptr<NetlinkEvent> netlinkEvent,NetlinkListenerConfiguration netlinkConfiguration);
 
             void SetNetlinkEvent(std::shared_ptr<NetlinkEvent> netlinkEvent);
 
@@ -44,6 +48,7 @@ namespace hm {
         private:
             std::shared_ptr<NetlinkEvent> netlinkEvent;
             std::string socketName;
+            NetlinkListenerConfiguration netlinkConfiguration;
         };
     }
 }

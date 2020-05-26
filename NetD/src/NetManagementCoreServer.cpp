@@ -6,6 +6,7 @@
 #include "../include/log/Log.h"
 #include "unistd.h"
 #include "../include/controller/ApiConfig.h"
+#include "../include/event/RouteNetlinkEvent.h"
 
 #include <linux/rtnetlink.h>
 #include <thread>
@@ -18,7 +19,6 @@ hm::netd::NetManagementCoreServer::NetManagementCoreServer(hm::netd::NetManageme
 hm::netd::NetManagementCoreServer &hm::netd::NetManagementCoreServer::operator=(hm::netd::NetManagementCoreServer &&) noexcept = default;
 
 hm::netd::NetManagementCoreServer::NetManagementCoreServer() :
-        commandListener(std::make_shared<CommandListener>()),
         netlinkManager(std::make_shared<NetlinkManager>()),
         networkContext(std::make_shared<NetworkContext>()),
         httpServer(std::make_shared<HttpServer>()) {
@@ -33,29 +33,32 @@ void hm::netd::NetManagementCoreServer::Init() {
 
     LogInfo("Pid: %d", pid)
 
-    // set initial
-    commandListener->AbstractServiceListener::SetNetlinkManager(netlinkManager);
-    commandListener->AbstractServiceListener::SetNetworkContext(networkContext);
-    sockaddr_nl netlinkCommandAddr{
+    sockaddr_nl netlinkAddr{
             .nl_family=AF_NETLINK,
             .nl_pad=0,
             .nl_pid=pid,
             .nl_groups = RTMGRP_IPV4_IFADDR
     };
-    CommandListenerConfiguration commandListenerConfiguration{
+
+    NetlinkListenerConfiguration routeListenerConfiguration{
             .netdConfiguration={
                     .type=NETLINK_ROUTE,
-                    .bindAddr=netlinkCommandAddr
+                    .bindAddr=netlinkAddr
             }
     };
-    commandListener->SetConfiguration(commandListenerConfiguration);
+
+    std::shared_ptr<RouteNetlinkEvent> routeNetLinkEvent = std::make_shared<RouteNetlinkEvent>(networkContext);
+    std::shared_ptr<NetlinkEvent> routeEvent = std::shared_ptr<NetlinkEvent>(routeNetLinkEvent, reinterpret_cast<NetlinkEvent *>(routeNetLinkEvent.get()));
+    netlinkManager->AddNetlinkListener("route", std::make_shared<NetlinkListener>("route", routeEvent, routeListenerConfiguration));
+
+    netlinkManager->SetNetworkContext(networkContext);
+    netlinkManager->StartListeners();
+
+
 }
 
-void hm::netd::NetManagementCoreServer::StartCommandListener() {
-    if (commandListener->StartListener()) {
-        LogError("Unable to start CommandListener")
-        exit(1);
-    }
+void hm::netd::NetManagementCoreServer::StartNetlinkListeners() {
+    netlinkManager->StartListeners();
 }
 
 
@@ -77,7 +80,7 @@ void hm::netd::NetManagementCoreServer::Start() {
 
     this->StartHttpServer(8080);
 
-    std::thread(&NetManagementCoreServer::StartCommandListener, this).join();
+    std::thread(&NetManagementCoreServer::StartNetlinkListeners, this).join();
 
 
     while (true);
