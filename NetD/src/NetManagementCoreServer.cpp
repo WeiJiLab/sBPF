@@ -33,6 +33,7 @@ void hm::netd::NetManagementCoreServer::Init() {
 
     LogInfo("[NMCS] pid: %d", pid)
 
+    // initial and add netlink listeneer here
     sockaddr_nl netlinkAddr{
             .nl_family=AF_NETLINK,
             .nl_pad=0,
