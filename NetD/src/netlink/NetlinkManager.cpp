@@ -28,7 +28,7 @@ void hm::netd::NetlinkManager::StartListeners() {
         auto netlinkListener = it->second;
 
         if (it->second == nullptr) {
-            LogError("Command Netlink Listener not found!");
+            LogError("Netlink Listener not found!");
             exit(1);
         }
 
