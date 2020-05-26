@@ -22,7 +22,7 @@ int hm::netd::NetlinkListener::ReceiveHandler(struct sockaddr_nl *nlAddr, struct
 }
 
 void hm::netd::NetlinkListener::StartListen() {
-    tthis->socketOps->Config(this->netlinkConfiguration.netdConfiguration);
+    this->socketOps->Config(this->netlinkConfiguration.netdConfiguration);
     LogInfo("Netlink listener '%s' is Listening...", socketName.c_str());
     if (this->socketOps == nullptr) {
         LogError("socket op is null");
