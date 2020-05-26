@@ -17,15 +17,15 @@ hm::netd::NetlinkListener::NetlinkListener() {
 }
 
 int hm::netd::NetlinkListener::ReceiveHandler(struct sockaddr_nl *nlAddr, struct nlmsghdr *msg, void *) {
-    LogInfo("Message from netLink received.");
+    LogInfo("[Netlink] Message from netLink received.");
     this->netlinkEvent->OnMessageReceived(msg);
 }
 
 void hm::netd::NetlinkListener::StartListen() {
     this->socketOps->Config(this->netlinkConfiguration.netdConfiguration);
-    LogInfo("Netlink listener '%s' is Listening...", socketName.c_str());
+    LogInfo("[Netlink] Netlink listener '%s' is Listening...", socketName.c_str());
     if (this->socketOps == nullptr) {
-        LogError("socket op is null");
+        LogError("[Socket] socket op is null");
     }
 
     this->socketOps->CreateSock();

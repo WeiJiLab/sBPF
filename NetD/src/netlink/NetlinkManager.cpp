@@ -17,7 +17,7 @@ hm::netd::NetlinkManager::NetlinkManager() {
 
 
 std::shared_ptr<hm::netd::NetlinkListener> hm::netd::NetlinkManager::GetNetlinkListener(const std::string &name) {
-    LogInfo("Netlink get cound:%ld", this->netlinks.size());
+    LogInfo("[Netlink] Netlink get cound:%ld", this->netlinks.size());
     auto it = this->netlinks.find(name);
     return it->second;
 }
@@ -28,7 +28,7 @@ void hm::netd::NetlinkManager::StartListeners() {
         auto netlinkListener = it->second;
 
         if (it->second == nullptr) {
-            LogError("Netlink Listener not found!");
+            LogError("[Netlink] Netlink Listener not found!");
             exit(1);
         }
 
@@ -42,7 +42,7 @@ hm::netd::NetlinkManager::NetlinkManager(std::shared_ptr<NetworkContext> network
 
 void hm::netd::NetlinkManager::AddNetlinkListener(std::shared_ptr<NetlinkListener> netlinkListener) {
     this->netlinks.insert(std::pair<std::string, std::shared_ptr<NetlinkListener>>(netlinkListener->GetName(), netlinkListener));
-    LogInfo("Netlink added '%s'", netlinkListener->GetName().c_str())
+    LogInfo("[Netlink] Netlink added '%s'", netlinkListener->GetName().c_str())
 }
 
 void hm::netd::NetlinkManager::SetNetworkContext(std::shared_ptr<NetworkContext> networkContext) {
