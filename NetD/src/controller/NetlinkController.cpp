@@ -8,7 +8,7 @@
 
 
 void hm::netd::NetlinkController::Init() {
-    this->AddRoute({"/getRoute", GET}, std::bind(&NetlinkController::GetRoute, this, std::placeholders::_1));
+    this->AddRoute({"/getRoute", GET}, std::bind(&NetlinkController::GetRoute, shared_from_this(), std::placeholders::_1));
 }
 
 hm::netd::HandlerResponse hm::netd::NetlinkController::GetRoute(hm::netd::HttpRequest request) {

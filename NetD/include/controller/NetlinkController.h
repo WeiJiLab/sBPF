@@ -10,7 +10,7 @@
 
 namespace hm {
     namespace netd {
-        class NetlinkController : public ApiController {
+        class NetlinkController : public ApiController, public std::enable_shared_from_this<NetlinkController> {
         public:
             void Init();
         public:
