@@ -19,6 +19,4 @@ void hm::netd::ApiController::SetServer(std::shared_ptr<HttpServer> server) {
 
 void hm::netd::ApiController::SetNetworkContext(std::shared_ptr<NetworkContext> networkContext) {
     this->networkContext = networkContext;
-
-    LogError("size: %d",this->networkContext->GetRoutesData().size());
 }
