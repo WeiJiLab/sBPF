@@ -16,21 +16,13 @@ hm::netd::NetlinkListener &hm::netd::NetlinkListener::operator=(hm::netd::Netlin
 hm::netd::NetlinkListener::NetlinkListener() {
 }
 
-
-void hm::netd::NetlinkListener::SetNetlinkEvent(std::shared_ptr<NetlinkEvent> netlinkEvent) {
-    this->netlinkEvent = netlinkEvent;
-}
-
-void hm::netd::NetlinkListener::Config(NetDConfiguration netdConfiguration) {
-    this->socketOps->Config(netdConfiguration);
-}
-
 int hm::netd::NetlinkListener::ReceiveHandler(struct sockaddr_nl *nlAddr, struct nlmsghdr *msg, void *) {
     LogInfo("Message from netLink received.");
     this->netlinkEvent->OnMessageReceived(msg);
 }
 
 void hm::netd::NetlinkListener::StartListen() {
+    tthis->socketOps->Config(this->netlinkConfiguration.netdConfiguration);
     LogInfo("Netlink listener '%s' is Listening...", socketName.c_str());
     if (this->socketOps == nullptr) {
         LogError("socket op is null");

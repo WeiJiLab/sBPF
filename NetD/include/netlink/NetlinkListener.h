@@ -35,10 +35,6 @@ namespace hm {
 
             NetlinkListener(const std::string &socketName, std::shared_ptr<NetlinkEvent> netlinkEvent,NetlinkListenerConfiguration netlinkConfiguration);
 
-            void SetNetlinkEvent(std::shared_ptr<NetlinkEvent> netlinkEvent);
-
-            void Config(NetDConfiguration netdConfiguration);
-
             void SendRequest(int type);
 
             void StartListen();
