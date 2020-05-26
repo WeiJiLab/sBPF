@@ -46,7 +46,6 @@ void hm::netd::NetManagementCoreServer::Init() {
                     .bindAddr=netlinkAddr
             }
     };
-
     std::shared_ptr<RouteNetlinkEvent> routeNetLinkEvent = std::make_shared<RouteNetlinkEvent>(networkContext);
     std::shared_ptr<NetlinkEvent> routeEvent = std::shared_ptr<NetlinkEvent>(routeNetLinkEvent, reinterpret_cast<NetlinkEvent *>(routeNetLinkEvent.get()));
     netlinkManager->AddNetlinkListener("route", std::make_shared<NetlinkListener>("route", routeEvent, routeListenerConfiguration));
