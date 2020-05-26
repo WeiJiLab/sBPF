@@ -35,9 +35,9 @@ void hm::netd::NetlinkListener::StartListen() {
     int nlSockFd = this->socketOps->GetSock();
 
     const auto bind = std::bind(&NetlinkListener::ReceiveHandler, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
-    this->SendRequest(RTM_GETROUTE);
+    this->SendRequest(this->netlinkConfiguration.msgType);
     while (!(this->socketOps->Receive(bind, nlSockFd, (void *) 0) < 0)) {
-        this->SendRequest(RTM_GETROUTE);
+        this->SendRequest(this->netlinkConfiguration.msgType);
         sleep(5);
     }
 }

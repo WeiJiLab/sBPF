@@ -4,10 +4,10 @@
 
 #include "../include/NetManagementCoreServer.h"
 #include "../include/log/Log.h"
-#include "unistd.h"
 #include "../include/controller/ApiConfig.h"
 #include "../include/event/RouteNetlinkEvent.h"
 
+#include "unistd.h"
 #include <linux/rtnetlink.h>
 #include <thread>
 
@@ -45,7 +45,8 @@ void hm::netd::NetManagementCoreServer::Init() {
             .netdConfiguration={
                     .type=NETLINK_ROUTE,
                     .bindAddr=netlinkAddr
-            }
+            },
+            .msgType=RTM_GETROUTE
     };
     std::shared_ptr<RouteNetlinkEvent> routeNetLinkEvent = std::make_shared<RouteNetlinkEvent>(networkContext);
     std::shared_ptr<NetlinkEvent> routeEvent = std::shared_ptr<NetlinkEvent>(routeNetLinkEvent, reinterpret_cast<NetlinkEvent *>(routeNetLinkEvent.get()));

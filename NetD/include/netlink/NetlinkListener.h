@@ -16,6 +16,7 @@ namespace hm {
 
         struct NetlinkListenerConfiguration {
             NetDConfiguration netdConfiguration;
+            int msgType;
         };
 
         class NetlinkListener : public SocketListener {
