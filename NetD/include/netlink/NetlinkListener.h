@@ -14,7 +14,7 @@
 namespace hm {
     namespace netd {
 
-        struct NetlinkListenerConfiguration{
+        struct NetlinkListenerConfiguration {
             NetDConfiguration netdConfiguration;
         };
 
@@ -33,13 +33,15 @@ namespace hm {
         public:
             NetlinkListener();
 
-            NetlinkListener(const std::string &socketName, std::shared_ptr<NetlinkEvent> netlinkEvent,NetlinkListenerConfiguration netlinkConfiguration);
+            NetlinkListener(const std::string &socketName, std::shared_ptr<NetlinkEvent> netlinkEvent, NetlinkListenerConfiguration netlinkConfiguration);
 
             void SendRequest(int type);
 
             void StartListen();
 
             int ReceiveHandler(struct sockaddr_nl *nlAddr, struct nlmsghdr *msg, void *);
+
+            std::string GetName() { return socketName; }
 
         private:
             std::shared_ptr<NetlinkEvent> netlinkEvent;

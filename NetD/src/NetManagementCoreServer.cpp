@@ -48,7 +48,7 @@ void hm::netd::NetManagementCoreServer::Init() {
     };
     std::shared_ptr<RouteNetlinkEvent> routeNetLinkEvent = std::make_shared<RouteNetlinkEvent>(networkContext);
     std::shared_ptr<NetlinkEvent> routeEvent = std::shared_ptr<NetlinkEvent>(routeNetLinkEvent, reinterpret_cast<NetlinkEvent *>(routeNetLinkEvent.get()));
-    netlinkManager->AddNetlinkListener("route", std::make_shared<NetlinkListener>("route", routeEvent, routeListenerConfiguration));
+    netlinkManager->AddNetlinkListener(std::make_shared<NetlinkListener>("route", routeEvent, routeListenerConfiguration));
 
     netlinkManager->SetNetworkContext(networkContext);
     netlinkManager->StartListeners();
@@ -76,7 +76,6 @@ void hm::netd::NetManagementCoreServer::StartHttpServer(unsigned int port) {
 
 
 void hm::netd::NetManagementCoreServer::Start() {
-
     this->StartHttpServer(8080);
     std::thread(&NetManagementCoreServer::StartNetlinkListeners, this).join();
 

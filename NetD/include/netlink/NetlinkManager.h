@@ -34,7 +34,7 @@ namespace hm {
 
             void SetNetworkContext(std::shared_ptr<NetworkContext> network);
 
-            void AddNetlinkListener(std::string name,std::shared_ptr<NetlinkListener> netlinkListener);
+            void AddNetlinkListener(std::shared_ptr<NetlinkListener> netlinkListener);
             std::shared_ptr<hm::netd::NetlinkListener> GetNetlinkListener(const std::string &name);
 
 

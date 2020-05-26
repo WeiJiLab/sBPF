@@ -40,9 +40,9 @@ hm::netd::NetlinkManager::NetlinkManager(std::shared_ptr<NetworkContext> network
 
 }
 
-void hm::netd::NetlinkManager::AddNetlinkListener(std::string name, std::shared_ptr<NetlinkListener> netlinkListener) {
-    this->netlinks.insert(std::pair<std::string, std::shared_ptr<NetlinkListener>>(name, netlinkListener));
-    LogInfo("Netlink added '%s'", name.c_str())
+void hm::netd::NetlinkManager::AddNetlinkListener(std::shared_ptr<NetlinkListener> netlinkListener) {
+    this->netlinks.insert(std::pair<std::string, std::shared_ptr<NetlinkListener>>(netlinkListener->GetName(), netlinkListener));
+    LogInfo("Netlink added '%s'", netlinkListener->GetName().c_str())
 }
 
 void hm::netd::NetlinkManager::SetNetworkContext(std::shared_ptr<NetworkContext> networkContext) {
