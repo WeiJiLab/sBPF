@@ -31,7 +31,7 @@ void hm::netd::NetManagementCoreServer::Init() {
 
     unsigned int pid = (unsigned int) getpid();
 
-    LogInfo("Pid: %d", pid)
+    LogInfo("[NMCS] Pid: %d", pid)
 
     sockaddr_nl netlinkAddr{
             .nl_family=AF_NETLINK,
