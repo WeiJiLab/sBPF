@@ -78,9 +78,7 @@ void hm::netd::NetManagementCoreServer::StartHttpServer(unsigned int port) {
 void hm::netd::NetManagementCoreServer::Start() {
 
     this->StartHttpServer(8080);
-
     std::thread(&NetManagementCoreServer::StartNetlinkListeners, this).join();
-
 
     while (true);
 }
