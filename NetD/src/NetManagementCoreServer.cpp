@@ -31,7 +31,7 @@ void hm::netd::NetManagementCoreServer::Init() {
 
     unsigned int pid = (unsigned int) getpid();
 
-    LogInfo("[NMCS] Pid: %d", pid)
+    LogInfo("[NMCS] pid: %d", pid)
 
     sockaddr_nl netlinkAddr{
             .nl_family=AF_NETLINK,
@@ -51,9 +51,6 @@ void hm::netd::NetManagementCoreServer::Init() {
     netlinkManager->AddNetlinkListener(std::make_shared<NetlinkListener>("route", routeEvent, routeListenerConfiguration));
 
     netlinkManager->SetNetworkContext(networkContext);
-    netlinkManager->StartListeners();
-
-
 }
 
 void hm::netd::NetManagementCoreServer::StartNetlinkListeners() {
@@ -77,6 +74,7 @@ void hm::netd::NetManagementCoreServer::StartHttpServer(unsigned int port) {
 
 void hm::netd::NetManagementCoreServer::Start() {
     this->StartHttpServer(8080);
+
     std::thread(&NetManagementCoreServer::StartNetlinkListeners, this).join();
 
     while (true);
