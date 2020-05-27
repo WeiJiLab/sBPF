@@ -1,2 +1,2 @@
 # NMCS
-homemade `netd` like network services for linux kernel
+`netd` like network services for linux kernel
