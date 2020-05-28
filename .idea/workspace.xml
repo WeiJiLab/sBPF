@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated>
+      <config projectName="NMCS" targetName="NMS" />
+      <config projectName="NMCS" targetName="NetD" />
+    </generated>
+  </component>
+  <component name="CMakeSettings" AUTO_RELOAD="true">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="aa619c99-f5e0-4fe8-8626-bb666fe74691" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="isMigrated" value="true" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="ProjectId" id="1c4c9APOY2ooUdV9qnyImK6Buqb" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="cf.first.check.clang-format" value="false" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/NetD/src/common" />
+      <recent name="$PROJECT_DIR$/NetD/src/json" />
+      <recent name="$PROJECT_DIR$/NetD/src/controller" />
+      <recent name="$PROJECT_DIR$/NetD/src/event" />
+    </key>
+  </component>
+  <component name="RunManager" selected="CMake Application.NetD">
+    <configuration name="NMS" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="NMCS" TARGET_NAME="NMS" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="NMCS" RUN_TARGET_NAME="NMS">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="NetD" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="NMCS" TARGET_NAME="NetD" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="NMCS" RUN_TARGET_NAME="NetD">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="CMake Application.NetD" />
+      <item itemvalue="CMake Application.NMS" />
+    </list>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="aa619c99-f5e0-4fe8-8626-bb666fe74691" name="Default Changelist" comment="" />
+      <created>1589791151589</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1589791151589</updated>
+      <workItem from="1589791155349" duration="2341000" />
+      <workItem from="1589952592156" duration="2010000" />
+      <workItem from="1590393374983" duration="13692000" />
+      <workItem from="1590410542952" duration="512000" />
+      <workItem from="1590412247090" duration="5652000" />
+      <workItem from="1590475514743" duration="3568000" />
+      <workItem from="1590632523862" duration="80000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="605" y="179" key="#com.intellij.ide.util.MemberChooser" timestamp="1590396856612">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="605" y="179" key="#com.intellij.ide.util.MemberChooser/-1200.0.1200.1920/0.0.1680.1050@0.0.1680.1050" timestamp="1590396856612" />
+    <state x="511" y="220" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1590402420222">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="511" y="220" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/-1200.0.1200.1920/0.0.1680.1050@0.0.1680.1050" timestamp="1590402420222" />
+    <state x="139" y="54" width="1400" height="941" key="DiffContextDialog" timestamp="1590413003545">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="-1100" y="100" width="1000" height="1720" key="DiffContextDialog/-1200.0.1200.1920/0.0.1680.1050@-1200.0.1200.1920" timestamp="1589952800643" />
+    <state x="139" y="54" width="1400" height="941" key="DiffContextDialog/-1200.0.1200.1920/0.0.1680.1050@0.0.1680.1050" timestamp="1590413003545" />
+    <state width="1628" height="290" key="GridCell.Tab.0.bottom" timestamp="1590396925281">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state width="1628" height="290" key="GridCell.Tab.0.bottom/-1200.0.1200.1920/0.0.1680.1050@0.0.1680.1050" timestamp="1590396925281" />
+    <state width="1628" height="290" key="GridCell.Tab.0.center" timestamp="1590396925279">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state width="1628" height="290" key="GridCell.Tab.0.center/-1200.0.1200.1920/0.0.1680.1050@0.0.1680.1050" timestamp="1590396925279" />
+    <state width="1628" height="290" key="GridCell.Tab.0.left" timestamp="1590396925278">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state width="1628" height="290" key="GridCell.Tab.0.left/-1200.0.1200.1920/0.0.1680.1050@0.0.1680.1050" timestamp="1590396925278" />
+    <state width="1628" height="290" key="GridCell.Tab.0.right" timestamp="1590396925279">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state width="1628" height="290" key="GridCell.Tab.0.right/-1200.0.1200.1920/0.0.1680.1050@0.0.1680.1050" timestamp="1590396925279" />
+    <state x="585" y="426" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1590474881973">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="-782" y="779" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/-1200.0.1200.1920/0.0.1680.1050@-1200.0.1200.1920" timestamp="1589952620290" />
+    <state x="585" y="426" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/-1200.0.1200.1920/0.0.1680.1050@0.0.1680.1050" timestamp="1590474881973" />
+    <state x="585" y="426" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1680.1050@0.0.1680.1050" timestamp="1590468191789" />
+    <state x="470" y="236" width="739" height="578" key="find.popup" timestamp="1590478289968">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="470" y="236" width="739" height="578" key="find.popup/-1200.0.1200.1920/0.0.1680.1050@0.0.1680.1050" timestamp="1590478289968" />
+    <state x="620" y="297" key="refactoring.ChangeSignatureDialog" timestamp="1590405365645">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="620" y="297" key="refactoring.ChangeSignatureDialog/-1200.0.1200.1920/0.0.1680.1050@0.0.1680.1050" timestamp="1590405365645" />
+    <state x="419" y="15" width="840" height="1034" key="search.everywhere.popup" timestamp="1590475738043">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="419" y="15" width="840" height="1034" key="search.everywhere.popup/-1200.0.1200.1920/0.0.1680.1050@0.0.1680.1050" timestamp="1590475738043" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/NetD/src/connect/SocketOps.cpp</url>
+          <line>21</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

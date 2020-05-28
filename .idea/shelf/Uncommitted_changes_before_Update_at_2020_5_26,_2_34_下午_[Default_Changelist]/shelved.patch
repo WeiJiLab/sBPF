@@ -1,0 +1,13 @@
+Index: .idea/.gitignore
+===================================================================
+--- .idea/.gitignore	(revision 614d992ff75b57e559a39b9828f6de322840fde1)
++++ .idea/.gitignore	(revision 614d992ff75b57e559a39b9828f6de322840fde1)
+@@ -1,8 +0,0 @@
+-# Default ignored files
+-/shelf/
+-/workspace.xml
+-# Datasource local storage ignored files
+-/dataSources/
+-/dataSources.local.xml
+-# Editor-based HTTP Client requests
+-/httpRequests/

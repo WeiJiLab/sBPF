@@ -1,0 +1,23 @@
+executable("NetD") {
+  sources = [
+        "src/connect/SocketOps.cpp",
+        "src/connect/SocketListener.cpp",
+        "src/event/SocketEvent.cpp",
+        "src/event/NetlinkEvent.cpp",
+        "src/context/NetworkContext.cpp",
+        "src/event/RouteNetlinkEvent.cpp",
+        "src/netlink/NetlinkListener.cpp",
+        "src/netlink/NetlinkHandler.cpp",
+        "src/netlink/NetlinkManager.cpp",
+        "src/listener/AbstractServiceListener.cpp",
+        "src/listener/CommandListener.cpp",
+        "src/http_server/HttpMessage.cpp",
+        "src/http_server/HttpSocketOps.cpp",
+        "src/http_server/HttpServer.cpp",
+        "src/controller/ApiController.cpp",
+        "src/controller/NetlinkController.cpp",
+        "src/controller/ApiConfig.cpp",
+        "src/NetManagementCoreServer.cpp",
+        "main.cpp"
+  ]
+}
