@@ -1,8 +1,12 @@
 #include "include/NetManagementCoreServer.h"
 #include "include/log/Log.h"
 #include "include/http_server/HttpServer.h"
+#include <gtest/gtest.h>
 
-int main() {
+int main(int argc, char*argv[]) {
+    testing::InitGoogleTest(&argc, argv);
+    RUN_ALL_TESTS();
+
     LogInfo(" _____ _____ _____ _____ \n"
             "|   | |     |     |   __|\n"
             "| | | | | | |   --|__   |\n"

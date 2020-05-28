@@ -26,6 +26,8 @@ SET(Sources
         src/controller/NetlinkController.cpp
         src/controller/ApiConfig.cpp
 
+        tests/Test1.cpp
+
         src/NetManagementCoreServer.cpp
         main.cpp)
 
@@ -34,4 +36,4 @@ set(SRC_LIST ${SEC_LIST} ${Sources})
 add_executable(NetD ${SRC_LIST})
 
 
-target_link_libraries(NetD pthread)
+target_link_libraries(NetD pthread gtest gtest_main)
