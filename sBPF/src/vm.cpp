@@ -541,7 +541,7 @@ void vm_handler_BE_REG(BPFInstruction_t instruction){
 }
 
 void vm_handler_LDDW(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = instruction.immediate;
 }
 
 void vm_handler_LDABSW(BPFInstruction_t instruction){
@@ -577,151 +577,195 @@ void vm_handler_LDINDDW(BPFInstruction_t instruction){
 }
 
 void vm_handler_LDXW(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = (u32)vm.memory[vm.regs[instruction.sourceRegister]+instruction.offset];
 }
 
 void vm_handler_LDXH(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = (u16)vm.memory[vm.regs[instruction.sourceRegister]+instruction.offset];
 }
 
 void vm_handler_LDXB(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = (u8)vm.memory[vm.regs[instruction.sourceRegister]+instruction.offset];
 }
 
 void vm_handler_LDXDW(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = (u64)vm.memory[vm.regs[instruction.sourceRegister]+instruction.offset];
 }
 
 void vm_handler_STW(BPFInstruction_t instruction){
-
+    vm.memory[vm.regs[instruction.destRegister]+instruction.offset]=(u32)instruction.immediate;
 }
 
 void vm_handler_STH(BPFInstruction_t instruction){
-
+    vm.memory[vm.regs[instruction.destRegister]+instruction.offset]=(u16)instruction.immediate;
 }
 
 void vm_handler_STB(BPFInstruction_t instruction){
-
+    vm.memory[vm.regs[instruction.destRegister]+instruction.offset]=(u8)instruction.immediate;
 }
 
 void vm_handler_STDW(BPFInstruction_t instruction){
-
+    vm.memory[vm.regs[instruction.destRegister]+instruction.offset]=(u64)instruction.immediate;
 }
 
 void vm_handler_STXW(BPFInstruction_t instruction){
-
+    vm.memory[vm.regs[instruction.destRegister]+instruction.offset]=(u32)vm.regs[instruction.sourceRegister];
 }
 
 void vm_handler_STXH(BPFInstruction_t instruction){
-
+    vm.memory[vm.regs[instruction.destRegister]+instruction.offset]=(u16)vm.regs[instruction.sourceRegister];
 }
 
 void vm_handler_STXB(BPFInstruction_t instruction){
-
+    vm.memory[vm.regs[instruction.destRegister]+instruction.offset]=(u8)vm.regs[instruction.sourceRegister];
 }
 
 void vm_handler_STXDW(BPFInstruction_t instruction){
-
+    vm.memory[vm.regs[instruction.destRegister]+instruction.offset]=(u64)vm.regs[instruction.sourceRegister];
 }
 
 void vm_handler_JA(BPFInstruction_t instruction){
-
+    vm.pc += instruction.offset;
 }
 
 void vm_handler_JEQ_IMM(BPFInstruction_t instruction){
-
+    if(vm.regs[instruction.destRegister]==instruction.immediate){
+        vm.pc+=instruction.offset;
+    }
 }
 
 void vm_handler_JEQ_REG(BPFInstruction_t instruction){
-
+    if(vm.regs[instruction.destRegister]==vm.regs[instruction.sourceRegister]){
+        vm.pc+=instruction.offset;
+    }
 }
 
 void vm_handler_JGT_IMM(BPFInstruction_t instruction){
-
+    if(vm.regs[instruction.destRegister]>instruction.immediate){
+        vm.pc+=instruction.offset;
+    }
 }
 
 void vm_handler_JGT_REG(BPFInstruction_t instruction){
-
+    if(vm.regs[instruction.destRegister]>vm.regs[instruction.sourceRegister]){
+        vm.pc+=instruction.offset;
+    }
 }
 
 void vm_handler_JGE_IMM(BPFInstruction_t instruction){
-
+    if(vm.regs[instruction.destRegister]>=instruction.immediate){
+        vm.pc+=instruction.offset;
+    }
 }
 
 void vm_handler_JGE_REG(BPFInstruction_t instruction){
-
+    if(vm.regs[instruction.destRegister]>=vm.regs[instruction.sourceRegister]){
+        vm.pc+=instruction.offset;
+    }
 }
 
 void vm_handler_JLT_IMM(BPFInstruction_t instruction){
-
+    if(vm.regs[instruction.destRegister]<instruction.immediate){
+        vm.pc+=instruction.offset;
+    }
 }
 
 void vm_handler_JLT_REG(BPFInstruction_t instruction){
-
+    if(vm.regs[instruction.destRegister]<vm.regs[instruction.sourceRegister]){
+        vm.pc+=instruction.offset;
+    }
 }
 
 void vm_handler_JLE_IMM(BPFInstruction_t instruction){
-
+    if(vm.regs[instruction.destRegister]<=instruction.immediate){
+        vm.pc+=instruction.offset;
+    }
 }
 
 void vm_handler_JLE_REG(BPFInstruction_t instruction){
-
+    if(vm.regs[instruction.destRegister]<=vm.regs[instruction.sourceRegister]){
+        vm.pc+=instruction.offset;
+    }
 }
 
 void vm_handler_JSET_IMM(BPFInstruction_t instruction){
-
+    if(vm.regs[instruction.destRegister] & instruction.immediate){
+        vm.pc+=instruction.offset;
+    }
 }
 
 void vm_handler_JSET_REG(BPFInstruction_t instruction){
-
+    if(vm.regs[instruction.destRegister] & vm.regs[instruction.sourceRegister]){
+        vm.pc+=instruction.offset;
+    }
 }
 
 void vm_handler_JNE_IMM(BPFInstruction_t instruction){
-
+    if(vm.regs[instruction.destRegister] != instruction.immediate){
+        vm.pc+=instruction.offset;
+    }
 }
 
 void vm_handler_JNE_REG(BPFInstruction_t instruction){
-
+    if(vm.regs[instruction.destRegister] != vm.regs[instruction.sourceRegister]){
+        vm.pc+=instruction.offset;
+    }
 }
 
 void vm_handler_JSGT_IMM(BPFInstruction_t instruction){
-
+    if(vm.regs[instruction.destRegister] > (s32)instruction.immediate){
+        vm.pc+=instruction.offset;
+    }
 }
 
 void vm_handler_JSGT_REG(BPFInstruction_t instruction){
-
+    if(vm.regs[instruction.destRegister] > (s32)vm.regs[instruction.sourceRegister]){
+        vm.pc+=instruction.offset;
+    }
 }
 
 void vm_handler_JSGE_IMM(BPFInstruction_t instruction){
-
+    if(vm.regs[instruction.destRegister] >= (s32)instruction.immediate){
+        vm.pc+=instruction.offset;
+    }
 }
 
 void vm_handler_JSGE_REG(BPFInstruction_t instruction){
-
+     if(vm.regs[instruction.destRegister] >= (s32)vm.regs[instruction.sourceRegister]){
+        vm.pc+=instruction.offset;
+    }
 }
 
 void vm_handler_JSLT_IMM(BPFInstruction_t instruction){
-
+    if(vm.regs[instruction.destRegister] < (s32)instruction.immediate){
+        vm.pc+=instruction.offset;
+    }
 }
 
 void vm_handler_JSLT_REG(BPFInstruction_t instruction){
-
+    if(vm.regs[instruction.destRegister] < (s32)vm.regs[instruction.sourceRegister]){
+        vm.pc+=instruction.offset;
+    }
 }
 
 void vm_handler_JSLE_IMM(BPFInstruction_t instruction){
-
+    if(vm.regs[instruction.destRegister] <= (s32)instruction.immediate){
+        vm.pc+=instruction.offset;
+    }
 }
 
 void vm_handler_JSLE_REG(BPFInstruction_t instruction){
-
+    if(vm.regs[instruction.destRegister] <= (s32)vm.regs[instruction.sourceRegister]){
+        vm.pc+=instruction.offset;
+    }
 }
 
 void vm_handler_CALL_IMM(BPFInstruction_t instruction){
-
+    // todo: function call
 }
 
 void vm_handler_EXIT(BPFInstruction_t instruction){
-
+    exit(vm.regs[0]);
 }
 
 void vm_print_instruction(BPFInstruction_t instruction){
