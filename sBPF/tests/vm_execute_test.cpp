@@ -654,12 +654,16 @@ TEST(VM_Execute_Test, ShouldExecuteMovReg32InstructionSuccess){
 }
 
 TEST(VM_Execute_Test, ShouldExecuteArshImm32InstructionSuccess){
-     u64 code = 0x00000000c4506400;
+     u64 code = 0x00000000c4500004;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
      ASSERT_EQ(instruction.opcode, ARSH_IMM_32);
      ASSERT_EQ(instruction.destRegister, 0x05);
-     ASSERT_EQ(instruction.immediate, 0x6400);
+     ASSERT_EQ(instruction.immediate, 0x04);
+      vm_init(vm,0);
+     vm.regs[0x5] = -10;
+     vm_execute(vm, instruction);
+     ASSERT_EQ(vm.regs[0x05], -(10>>0x04));
 }
 
 TEST(VM_Execute_Test, ShouldExecuteArshReg32InstructionSuccess){
@@ -669,6 +673,11 @@ TEST(VM_Execute_Test, ShouldExecuteArshReg32InstructionSuccess){
      ASSERT_EQ(instruction.opcode, ARSH_REG_32);
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x03);
+     vm_init(vm,0);
+     vm.regs[0x5] = -20;
+     vm.regs[0x3] = 2;
+     vm_execute(vm, instruction);
+     ASSERT_EQ(vm.regs[0x05], -(20>>2));
 }
 
 /**
