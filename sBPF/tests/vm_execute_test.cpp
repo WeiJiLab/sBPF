@@ -747,6 +747,10 @@ TEST(VM_Execute_Test, ShouldExecuteLddwInstructionSuccess){
      ASSERT_EQ(instruction.opcode, LDDW);
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 64);
+     vm_init(vm, 100);
+     vm.regs[0x5] = 10;
+     vm_execute(vm, instruction);
+     ASSERT_EQ(vm.regs[0x05],64);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteLdabswInstructionSuccess){
@@ -837,6 +841,12 @@ TEST(VM_Execute_Test, ShouldExecuteLdxwInstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister,0x4);
      ASSERT_EQ(instruction.offset, 64);
+     vm_init(vm, 100);
+     vm.memory[74] = 30;
+     vm.regs[0x5] = 10;
+     vm.regs[0x4] = 10;
+     vm_execute(vm, instruction);
+     ASSERT_EQ(vm.regs[0x05],30);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteLdxhInstructionSuccess){
