@@ -660,7 +660,7 @@ TEST(VM_Execute_Test, ShouldExecuteArshImm32InstructionSuccess){
      ASSERT_EQ(instruction.opcode, ARSH_IMM_32);
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 0x04);
-      vm_init(vm,0);
+     vm_init(vm,0);
      vm.regs[0x5] = -10;
      vm_execute(vm, instruction);
      ASSERT_EQ(vm.regs[0x05], -(10>>0x04));
@@ -691,6 +691,7 @@ TEST(VM_Execute_Test, ShouldExecuteLeReg16InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 16);
 }
+
 TEST(VM_Execute_Test, ShouldExecuteLeReg32InstructionSuccess){
      u64 code = 0xd450000000000020;
      VM_t vm;
@@ -699,6 +700,7 @@ TEST(VM_Execute_Test, ShouldExecuteLeReg32InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 32);
 }
+
 TEST(VM_Execute_Test, ShouldExecuteLeReg64InstructionSuccess){
      u64 code = 0xd450000000000040;
      VM_t vm;
@@ -716,6 +718,7 @@ TEST(VM_Execute_Test, ShouldExecuteBeReg16InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 16);
 }
+
 TEST(VM_Execute_Test, ShouldExecuteBeReg32InstructionSuccess){
      u64 code = 0xdc50000000000020;
      VM_t vm;
@@ -724,6 +727,7 @@ TEST(VM_Execute_Test, ShouldExecuteBeReg32InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 32);
 }
+
 TEST(VM_Execute_Test, ShouldExecuteBeReg64InstructionSuccess){
      u64 code = 0xdc50000000000040;
      VM_t vm;
@@ -784,6 +788,7 @@ TEST(VM_Execute_Test, ShouldExecuteLdabsdwInstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister,0x4);
      ASSERT_EQ(instruction.immediate, 64);
 }
+
 TEST(VM_Execute_Test, ShouldExecuteLdindwInstructionSuccess){
      u64 code = 0x4054000000000040;
      VM_t vm;
@@ -813,7 +818,6 @@ TEST(VM_Execute_Test, ShouldExecuteLdindbInstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister,0x4);
      ASSERT_EQ(instruction.immediate, 64);
 }
-
 
 TEST(VM_Execute_Test, ShouldExecuteLdinddwInstructionSuccess){
      u64 code = 0x5854000000000040;
@@ -957,7 +961,6 @@ TEST(VM_Execute_Test, ShouldExecuteJaInstructionSuccess){
      ASSERT_EQ(instruction.offset,64);
 }
 
-
 TEST(VM_Execute_Test, ShouldExecuteJeqImmInstructionSuccess){
      u64 code = 0x1550004000000040;
      VM_t vm;
@@ -1058,7 +1061,6 @@ TEST(VM_Execute_Test, ShouldExecuteJleRegInstructionSuccess){
      ASSERT_EQ(instruction.offset, 64);
 }
 
-
 TEST(VM_Execute_Test, ShouldExecuteJsetImmInstructionSuccess){
      u64 code = 0x4550004000000040;
      VM_t vm;
@@ -1078,7 +1080,6 @@ TEST(VM_Execute_Test, ShouldExecuteJsetRegInstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister,0x04);
      ASSERT_EQ(instruction.offset, 64);
 }
-
 
 TEST(VM_Execute_Test, ShouldExecuteJneImmInstructionSuccess){
      u64 code = 0x5550004000000040;
@@ -1140,7 +1141,6 @@ TEST(VM_Execute_Test, ShouldExecuteJsgeRegInstructionSuccess){
      ASSERT_EQ(instruction.offset, 64);
 }
 
-
 TEST(VM_Execute_Test, ShouldExecuteJsltImmInstructionSuccess){
      u64 code = 0xc550004000000040;
      VM_t vm;
@@ -1180,7 +1180,6 @@ TEST(VM_Execute_Test, ShouldExecuteJsleRegInstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister,0x04);
      ASSERT_EQ(instruction.offset, 64);
 }
-
 
 TEST(VM_Execute_Test, ShouldExecuteCallImmInstructionSuccess){
      u64 code = 0x8500000000000040;
