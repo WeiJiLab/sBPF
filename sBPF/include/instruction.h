@@ -145,7 +145,6 @@ typedef struct VM {
     u32 pc;
     u32 sp;
 } VM_t;
-void (*handlers[0xFF])(VM_t &vm, BPFInstruction_t instruction);
 
 /**
  * init the vm and it's memory space
