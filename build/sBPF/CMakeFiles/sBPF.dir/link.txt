@@ -1,1 +1,0 @@
-/usr/bin/c++     CMakeFiles/sBPF.dir/src/vm.cpp.o CMakeFiles/sBPF.dir/tests/test_vm.cpp.o CMakeFiles/sBPF.dir/main.cpp.o  -o sBPF -lpthread -lgtest -lgtest_main 

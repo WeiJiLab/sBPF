@@ -1,1 +1,0 @@
-/usr/bin/c++     CMakeFiles/NMS.dir/src/DaemonConnector.cpp.o CMakeFiles/NMS.dir/src/NetManagemnentService.cpp.o CMakeFiles/NMS.dir/main.cpp.o  -o NMS 
