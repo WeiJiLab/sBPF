@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/xingfeng.yang/project/live-code/NMCS/NetManagementServiceSDK/include/DaemonConnector.h
+
+/Users/xingfeng.yang/project/live-code/NMCS/NetManagementServiceSDK/include/NetManagemnentService.h
+
+/Users/xingfeng.yang/project/live-code/NMCS/NetManagementServiceSDK/main.cpp
+iostream
+-
+
+/Users/xingfeng.yang/project/live-code/NMCS/NetManagementServiceSDK/src/DaemonConnector.cpp
+../include/DaemonConnector.h
+/Users/xingfeng.yang/project/live-code/NMCS/NetManagementServiceSDK/include/DaemonConnector.h
+
+/Users/xingfeng.yang/project/live-code/NMCS/NetManagementServiceSDK/src/NetManagemnentService.cpp
+../include/NetManagemnentService.h
+/Users/xingfeng.yang/project/live-code/NMCS/NetManagementServiceSDK/include/NetManagemnentService.h
+

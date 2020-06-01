@@ -1,5 +1,8 @@
 #include <iostream>
 
-int main(){
-    std::cout<<"NetworkManagementService"<<std::endl;
+int main(int argc, char *argv[]) {
+
+    std::cout << "" << std::endl;
+
+    return 0;
 }

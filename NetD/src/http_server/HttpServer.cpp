@@ -38,10 +38,13 @@ void hm::netd::HttpServer::ReceiveMessage(hm::netd::HttpRequest request, unsigne
         responseBody = {NOT_FOUND, HTTP_RESPONSE_404};
     }
 
-    const std::string &response = httpMessage.EncodeMessage(responseBody.responseStatus, responseBody.body,request.header);
+    const std::string &response = httpMessage.EncodeMessage(responseBody.responseStatus, responseBody.body, request.header);
 
     write(fdc, response.c_str(), strlen(response.c_str()));
-    close(fdc);
+    if (!request.header.count("keep-Alive")) {
+        close(fdc);
+    }
+
 }
 
 void hm::netd::HttpServer::Start() {

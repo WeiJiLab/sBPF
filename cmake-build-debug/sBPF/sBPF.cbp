@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="sBPF"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\NetD\;CMake Files\NetManagementServiceSDK\;CMake Files\sBPF\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/Users/xingfeng.yang/project/live-code/NMCS/cmake-build-debug/sBPF"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -j12 -f &quot;/Users/xingfeng.yang/project/live-code/NMCS/cmake-build-debug/sBPF/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/local/bin/gmake -j12 -f &quot;/Users/xingfeng.yang/project/live-code/NMCS/cmake-build-debug/sBPF/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -j12 -f &quot;/Users/xingfeng.yang/project/live-code/NMCS/cmake-build-debug/sBPF/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -j12 -f &quot;/Users/xingfeng.yang/project/live-code/NMCS/cmake-build-debug/sBPF/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="sBPF">
+				<Option output="/Users/xingfeng.yang/project/live-code/NMCS/cmake-build-debug/sBPF/sBPF" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/xingfeng.yang/project/live-code/NMCS/cmake-build-debug/sBPF"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/11.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -j12 -f &quot;/Users/xingfeng.yang/project/live-code/NMCS/cmake-build-debug/sBPF/Makefile&quot;  VERBOSE=1 sBPF"/>
+					<CompileFile command="/usr/local/bin/gmake -j12 -f &quot;/Users/xingfeng.yang/project/live-code/NMCS/cmake-build-debug/sBPF/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -j12 -f &quot;/Users/xingfeng.yang/project/live-code/NMCS/cmake-build-debug/sBPF/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -j12 -f &quot;/Users/xingfeng.yang/project/live-code/NMCS/cmake-build-debug/sBPF/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="sBPF/fast">
+				<Option output="/Users/xingfeng.yang/project/live-code/NMCS/cmake-build-debug/sBPF/sBPF" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/xingfeng.yang/project/live-code/NMCS/cmake-build-debug/sBPF"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/11.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -j12 -f &quot;/Users/xingfeng.yang/project/live-code/NMCS/cmake-build-debug/sBPF/Makefile&quot;  VERBOSE=1 sBPF/fast"/>
+					<CompileFile command="/usr/local/bin/gmake -j12 -f &quot;/Users/xingfeng.yang/project/live-code/NMCS/cmake-build-debug/sBPF/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -j12 -f &quot;/Users/xingfeng.yang/project/live-code/NMCS/cmake-build-debug/sBPF/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -j12 -f &quot;/Users/xingfeng.yang/project/live-code/NMCS/cmake-build-debug/sBPF/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/Users/xingfeng.yang/project/live-code/NMCS/sBPF/main.c">
+			<Option target="sBPF"/>
+		</Unit>
+		<Unit filename="/Users/xingfeng.yang/project/live-code/NMCS/sBPF/src/vm.c">
+			<Option target="sBPF"/>
+		</Unit>
+		<Unit filename="/Users/xingfeng.yang/project/live-code/NMCS/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/Users/xingfeng.yang/project/live-code/NMCS/NetD/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\NetD\"/>
+		</Unit>
+		<Unit filename="/Users/xingfeng.yang/project/live-code/NMCS/NetManagementServiceSDK/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\NetManagementServiceSDK\"/>
+		</Unit>
+		<Unit filename="/Users/xingfeng.yang/project/live-code/NMCS/sBPF/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\sBPF\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

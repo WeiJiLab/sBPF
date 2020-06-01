@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/workspaces/NMCS/sBPF/include/instruction.h
+
+/workspaces/NMCS/sBPF/tests/test_vm.cpp
+gtest/gtest.h
+-
+../include/instruction.h
+/workspaces/NMCS/sBPF/include/instruction.h
+

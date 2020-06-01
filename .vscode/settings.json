@@ -54,5 +54,6 @@
         "streambuf": "cpp",
         "thread": "cpp",
         "typeinfo": "cpp"
-    }
+    },
+    "testMate.cpp.log.logSentry": "disable_3"
 }
