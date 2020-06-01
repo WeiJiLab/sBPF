@@ -2,7 +2,7 @@
 // Created by XingfengYang on 2020/5/29.
 //
 
-#include "../include/instruction.h"
+#include "../../include/vm/instruction.h"
 #include <stdio.h>
 #include <memory>
 #include <endian.h>

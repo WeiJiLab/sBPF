@@ -3,7 +3,7 @@ project(sBPF)
 
 set(CMAKE_CXX_STANDARD 14)
 
-SET(Sources src/vm.cpp
+SET(Sources src/vm/vm.cpp
         tests/vm_decode_test.cpp
         tests/vm_execute_test.cpp
         main.cpp)
