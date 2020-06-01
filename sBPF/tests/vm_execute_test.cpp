@@ -13,8 +13,9 @@ TEST(VM_Execute_Test, ShouldExecuteAddImm64InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 0x6400);
      vm_init(vm,0);
+     vm.regs[0x5] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 0x6400);
+     ASSERT_EQ(vm.regs[0x05], 0x6400+10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteAddReg64InstructionSuccess){
@@ -24,6 +25,11 @@ TEST(VM_Execute_Test, ShouldExecuteAddReg64InstructionSuccess){
      ASSERT_EQ(instruction.opcode, ADD_REG_64);
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x03);
+     vm_init(vm,0);
+     vm.regs[0x5] = 10;
+     vm.regs[0x3] = 10;
+     vm_execute(vm, instruction);
+     ASSERT_EQ(vm.regs[0x05], 10+10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteSubImm64InstructionSuccess){
@@ -33,6 +39,10 @@ TEST(VM_Execute_Test, ShouldExecuteSubImm64InstructionSuccess){
      ASSERT_EQ(instruction.opcode, SUB_IMM_64);
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 0x6400);
+     vm_init(vm,0);
+     vm.regs[0x5] = 10;
+     vm_execute(vm, instruction);
+     ASSERT_EQ(vm.regs[0x05], 10-0x6400);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteSubReg64InstructionSuccess){
@@ -42,6 +52,11 @@ TEST(VM_Execute_Test, ShouldExecuteSubReg64InstructionSuccess){
      ASSERT_EQ(instruction.opcode, SUB_REG_64);
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x03);
+     vm_init(vm,0);
+     vm.regs[0x5] = 20;
+     vm.regs[0x3] = 10;
+     vm_execute(vm, instruction);
+     ASSERT_EQ(vm.regs[0x05], 20-10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteMulImm64InstructionSuccess){
@@ -51,6 +66,10 @@ TEST(VM_Execute_Test, ShouldExecuteMulImm64InstructionSuccess){
      ASSERT_EQ(instruction.opcode, MUL_IMM_64);
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 0x6400);
+     vm_init(vm,0);
+     vm.regs[0x5] = 10;
+     vm_execute(vm, instruction);
+     ASSERT_EQ(vm.regs[0x05], 0x6400*10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteMulReg64InstructionSuccess){
@@ -60,6 +79,11 @@ TEST(VM_Execute_Test, ShouldExecuteMulReg64InstructionSuccess){
      ASSERT_EQ(instruction.opcode, MUL_REG_64);
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x03);
+     vm_init(vm,0);
+     vm.regs[0x5] = 20;
+     vm.regs[0x3] = 10;
+     vm_execute(vm, instruction);
+     ASSERT_EQ(vm.regs[0x05], 20*10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteDivImm64InstructionSuccess){
@@ -69,6 +93,10 @@ TEST(VM_Execute_Test, ShouldExecuteDivImm64InstructionSuccess){
      ASSERT_EQ(instruction.opcode, DIV_IMM_64);
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 0x6400);
+     vm_init(vm,0);
+     vm.regs[0x5] = 10;
+     vm_execute(vm, instruction);
+     ASSERT_EQ(vm.regs[0x05], 10/0x6400);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteDivReg64InstructionSuccess){
@@ -78,6 +106,11 @@ TEST(VM_Execute_Test, ShouldExecuteDivReg64InstructionSuccess){
      ASSERT_EQ(instruction.opcode, DIV_REG_64);
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x03);
+     vm_init(vm,0);
+     vm.regs[0x5] = 20;
+     vm.regs[0x3] = 10;
+     vm_execute(vm, instruction);
+     ASSERT_EQ(vm.regs[0x05], 20/10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteOrImm64InstructionSuccess){
@@ -87,6 +120,10 @@ TEST(VM_Execute_Test, ShouldExecuteOrImm64InstructionSuccess){
      ASSERT_EQ(instruction.opcode, OR_IMM_64);
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 0x6400);
+     vm_init(vm,0);
+     vm.regs[0x5] = 10;
+     vm_execute(vm, instruction);
+     ASSERT_EQ(vm.regs[0x05], 10 | 0x6400);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteOrReg64InstructionSuccess){
@@ -96,6 +133,11 @@ TEST(VM_Execute_Test, ShouldExecuteOrReg64InstructionSuccess){
      ASSERT_EQ(instruction.opcode, OR_REG_64);
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x03);
+     vm_init(vm,0);
+     vm.regs[0x5] = 20;
+     vm.regs[0x3] = 10;
+     vm_execute(vm, instruction);
+     ASSERT_EQ(vm.regs[0x05], 20 | 10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteAndImm64InstructionSuccess){
@@ -105,6 +147,10 @@ TEST(VM_Execute_Test, ShouldExecuteAndImm64InstructionSuccess){
      ASSERT_EQ(instruction.opcode, AND_IMM_64);
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 0x6400);
+     vm_init(vm,0);
+     vm.regs[0x5] = 10;
+     vm_execute(vm, instruction);
+     ASSERT_EQ(vm.regs[0x05], 10 & 0x6400);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteAndReg64InstructionSuccess){
@@ -114,15 +160,24 @@ TEST(VM_Execute_Test, ShouldExecuteAndReg64InstructionSuccess){
      ASSERT_EQ(instruction.opcode, AND_REG_64);
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x03);
+     vm_init(vm,0);
+     vm.regs[0x5] = 20;
+     vm.regs[0x3] = 10;
+     vm_execute(vm, instruction);
+     ASSERT_EQ(vm.regs[0x05], 20 & 10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteLshImm64InstructionSuccess){
-     u64 code = 0x6750000000006400;
+     u64 code = 0x6750000000000004;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
      ASSERT_EQ(instruction.opcode, LSH_IMM_64);
      ASSERT_EQ(instruction.destRegister, 0x05);
-     ASSERT_EQ(instruction.immediate, 0x6400);
+     ASSERT_EQ(instruction.immediate, 0x04);
+     vm_init(vm,0);
+     vm.regs[0x5] = 10;
+     vm_execute(vm, instruction);
+     ASSERT_EQ(vm.regs[0x05], 10 << 0x04);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteLshReg64InstructionSuccess){
@@ -132,15 +187,24 @@ TEST(VM_Execute_Test, ShouldExecuteLshReg64InstructionSuccess){
      ASSERT_EQ(instruction.opcode, LSH_REG_64);
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x03);
+     vm_init(vm,0);
+     vm.regs[0x5] = 20;
+     vm.regs[0x3] = 10;
+     vm_execute(vm, instruction);
+     ASSERT_EQ(vm.regs[0x05], 20 << 10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteRshImm64InstructionSuccess){
-     u64 code = 0x7750000000006400;
+     u64 code = 0x7750000000000004;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
      ASSERT_EQ(instruction.opcode, RSH_IMM_64);
      ASSERT_EQ(instruction.destRegister, 0x05);
-     ASSERT_EQ(instruction.immediate, 0x6400);
+     ASSERT_EQ(instruction.immediate, 0x04);
+     vm_init(vm,0);
+     vm.regs[0x5] = 10;
+     vm_execute(vm, instruction);
+     ASSERT_EQ(vm.regs[0x05], 10 >> 0x04);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteRshReg64InstructionSuccess){
@@ -150,6 +214,11 @@ TEST(VM_Execute_Test, ShouldExecuteRshReg64InstructionSuccess){
      ASSERT_EQ(instruction.opcode, RSH_REG_64);
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x03);
+     vm_init(vm,0);
+     vm.regs[0x5] = 20;
+     vm.regs[0x3] = 10;
+     vm_execute(vm, instruction);
+     ASSERT_EQ(vm.regs[0x05], 20 >> 10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteNegImm64InstructionSuccess){
@@ -158,6 +227,10 @@ TEST(VM_Execute_Test, ShouldExecuteNegImm64InstructionSuccess){
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
      ASSERT_EQ(instruction.opcode, NEG_REG_64);
      ASSERT_EQ(instruction.destRegister, 0x05);
+     vm_init(vm,0);
+     vm.regs[0x5] = 10;
+     vm_execute(vm, instruction);
+     ASSERT_EQ(vm.regs[0x05], -10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteModImm64InstructionSuccess){
@@ -167,6 +240,10 @@ TEST(VM_Execute_Test, ShouldExecuteModImm64InstructionSuccess){
      ASSERT_EQ(instruction.opcode, MOD_IMM_64);
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 0x6400);
+     vm_init(vm,0);
+     vm.regs[0x5] = 10;
+     vm_execute(vm, instruction);
+     ASSERT_EQ(vm.regs[0x05], 10 % 0x6400);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteModReg64InstructionSuccess){
@@ -176,6 +253,11 @@ TEST(VM_Execute_Test, ShouldExecuteModReg64InstructionSuccess){
      ASSERT_EQ(instruction.opcode, MOD_REG_64);
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x03);
+     vm_init(vm,0);
+     vm.regs[0x5] = 20;
+     vm.regs[0x3] = 10;
+     vm_execute(vm, instruction);
+     ASSERT_EQ(vm.regs[0x05], 20 % 10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteXorImm64InstructionSuccess){
@@ -185,6 +267,10 @@ TEST(VM_Execute_Test, ShouldExecuteXorImm64InstructionSuccess){
      ASSERT_EQ(instruction.opcode, XOR_IMM_64);
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 0x6400);
+     vm_init(vm,0);
+     vm.regs[0x5] = 10;
+     vm_execute(vm, instruction);
+     ASSERT_EQ(vm.regs[0x05], 10 ^ 0x6400);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteXorReg64InstructionSuccess){
@@ -194,6 +280,11 @@ TEST(VM_Execute_Test, ShouldExecuteXorReg64InstructionSuccess){
      ASSERT_EQ(instruction.opcode, XOR_REG_64);
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x03);
+     vm_init(vm,0);
+     vm.regs[0x5] = 20;
+     vm.regs[0x3] = 10;
+     vm_execute(vm, instruction);
+     ASSERT_EQ(vm.regs[0x05], 20 ^ 10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteMovImm64InstructionSuccess){
@@ -203,6 +294,10 @@ TEST(VM_Execute_Test, ShouldExecuteMovImm64InstructionSuccess){
      ASSERT_EQ(instruction.opcode, MOV_IMM_64);
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 0x6400);
+     vm_init(vm,0);
+     vm.regs[0x5] = 10;
+     vm_execute(vm, instruction);
+     ASSERT_EQ(vm.regs[0x05], 0x6400);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteMovReg64InstructionSuccess){
@@ -212,6 +307,11 @@ TEST(VM_Execute_Test, ShouldExecuteMovReg64InstructionSuccess){
      ASSERT_EQ(instruction.opcode, MOV_REG_64);
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x03);
+     vm_init(vm,0);
+     vm.regs[0x5] = 20;
+     vm.regs[0x3] = 10;
+     vm_execute(vm, instruction);
+     ASSERT_EQ(vm.regs[0x05], 10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteArshImm64InstructionSuccess){
