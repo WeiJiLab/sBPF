@@ -5,6 +5,12 @@
 #include "../include/instruction.h"
 #include <stdio.h>
 #include <memory>
+#include <endian.h>
+
+bool is_little_endion(){
+    u16 usFlag = 1;
+    return *((u8*)&usFlag)==1;
+}
 
 #define ADD_HANDLER(INS) vm.handlers[INS] = *(vm_handler_##INS)
 
@@ -59,12 +65,8 @@ void vm_handler_MOV_IMM_32(BPFInstruction_t instruction);
 void vm_handler_MOV_REG_32(BPFInstruction_t instruction);
 void vm_handler_ARSH_IMM_32(BPFInstruction_t instruction);
 void vm_handler_ARSH_REG_32(BPFInstruction_t instruction);
-void vm_handler_LE_REG_16(BPFInstruction_t instruction);
-void vm_handler_LE_REG_32(BPFInstruction_t instruction);
-void vm_handler_LE_REG_64(BPFInstruction_t instruction);
-void vm_handler_BE_REG_16(BPFInstruction_t instruction);
-void vm_handler_BE_REG_32(BPFInstruction_t instruction);
-void vm_handler_BE_REG_64(BPFInstruction_t instruction);
+void vm_handler_LE_REG(BPFInstruction_t instruction);
+void vm_handler_BE_REG(BPFInstruction_t instruction);
 void vm_handler_LDDW(BPFInstruction_t instruction);
 void vm_handler_LDABSW(BPFInstruction_t instruction);
 void vm_handler_LDABSH(BPFInstruction_t instruction);
@@ -117,7 +119,7 @@ void vm_init(u32 memorySize){
         // exceed max memory, vm exited.
     }
     vm.memory = (u64*)malloc(memorySize*sizeof(u64));
-    
+
     vm.regs[0] = 0;
     vm.regs[1] = 0;
     vm.regs[2] = 0;
@@ -184,12 +186,8 @@ void vm_init(u32 memorySize){
     ADD_HANDLER(MOV_REG_32);
     ADD_HANDLER(ARSH_IMM_32);
     ADD_HANDLER(ARSH_REG_32);
-    ADD_HANDLER(LE_REG_16);
-    ADD_HANDLER(LE_REG_32);
-    ADD_HANDLER(LE_REG_64);
-    ADD_HANDLER(BE_REG_16);
-    ADD_HANDLER(BE_REG_32);
-    ADD_HANDLER(BE_REG_64);
+    ADD_HANDLER(LE_REG);
+    ADD_HANDLER(BE_REG);
     ADD_HANDLER(LDDW);
     ADD_HANDLER(LDABSW);
     ADD_HANDLER(LDABSH);
@@ -518,28 +516,28 @@ void vm_handler_ARSH_REG_32(BPFInstruction_t instruction){
     }
 }
 
-void vm_handler_LE_REG_16(BPFInstruction_t instruction){
-
+void vm_handler_LE_REG(BPFInstruction_t instruction){
+    if(instruction.immediate==16){
+        vm.regs[instruction.destRegister] = htole16(vm.regs[instruction.destRegister]);
+    }
+    if(instruction.immediate==32){
+        vm.regs[instruction.destRegister] = htole32(vm.regs[instruction.destRegister]);
+    }
+    if(instruction.immediate==64){
+        vm.regs[instruction.destRegister] = htole64(vm.regs[instruction.destRegister]);
+    }
 }
 
-void vm_handler_LE_REG_32(BPFInstruction_t instruction){
-
-}
-
-void vm_handler_LE_REG_64(BPFInstruction_t instruction){
-
-}
-
-void vm_handler_BE_REG_16(BPFInstruction_t instruction){
-
-}
-
-void vm_handler_BE_REG_32(BPFInstruction_t instruction){
-
-}
-
-void vm_handler_BE_REG_64(BPFInstruction_t instruction){
-
+void vm_handler_BE_REG(BPFInstruction_t instruction){
+    if(instruction.immediate==16){
+        vm.regs[instruction.destRegister] = htobe16(vm.regs[instruction.destRegister]);
+    }
+    if(instruction.immediate==32){
+        vm.regs[instruction.destRegister] = htobe32(vm.regs[instruction.destRegister]);
+    }
+    if(instruction.immediate==64){
+        vm.regs[instruction.destRegister] = htobe64(vm.regs[instruction.destRegister]);
+    }
 }
 
 void vm_handler_LDDW(BPFInstruction_t instruction){

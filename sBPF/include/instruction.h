@@ -7,6 +7,7 @@
 
 #define u8 unsigned char
 #define s16 signed short
+#define u16 unsigned short
 
 #define u32 unsigned int
 #define s32 signed int
@@ -77,12 +78,12 @@ enum ALUInstructions{
     ARSH_REG_32 = 0xcc,// 0xcc	arsh32 dst, src	dst >>= src (arithmetic)
 
     // Byteswap instructions
-    LE_REG_16 = 0xd4,// 0xd4 (imm == 16)	le16 dst	dst = htole16(dst)
-    LE_REG_32 = 0xd4,// 0xd4 (imm == 32)	le32 dst	dst = htole32(dst)
-    LE_REG_64 = 0xd4,// 0xd4 (imm == 64)	le64 dst	dst = htole64(dst)
-    BE_REG_16 = 0xdc,// 0xdc (imm == 16)	be16 dst	dst = htobe16(dst)
-    BE_REG_32 = 0xdc,// 0xdc (imm == 32)	be32 dst	dst = htobe32(dst)
-    BE_REG_64 = 0xdc,// 0xdc (imm == 64)	be64 dst	dst = htobe64(dst)
+    LE_REG = 0xd4,// 0xd4 (imm == 16)	le16 dst	dst = htole16(dst)
+                  // 0xd4 (imm == 32)	le32 dst	dst = htole32(dst)
+                  // 0xd4 (imm == 64)	le64 dst	dst = htole64(dst)
+    BE_REG = 0xdc,// 0xdc (imm == 16)	be16 dst	dst = htobe16(dst)
+                  // 0xdc (imm == 32)	be32 dst	dst = htobe32(dst)
+                  // 0xdc (imm == 64)	be64 dst	dst = htobe64(dst)
 
     // Memory Instructions
     LDDW = 0x18,// 0x18	lddw dst, imm	dst = imm
@@ -158,6 +159,7 @@ void vm_init(u32 memorySize);
  **/
 bool vm_verify_code(u64 code);
 
+
 /**
  * load program (u64 vector)
  **/
@@ -188,5 +190,6 @@ void vm_run();
  * print the instruction 
  **/
 void vm_print_instruction(BPFInstruction_t instruction);
+
 
 #endif //NMCS_INSTRUCTION_H
