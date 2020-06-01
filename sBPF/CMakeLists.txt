@@ -4,7 +4,7 @@ project(sBPF)
 set(CMAKE_CXX_STANDARD 14)
 
 SET(Sources src/vm.cpp
-        tests/test_vm.cpp
+        tests/vm_decode_test.cpp
         main.cpp)
 
 set(SRC_LIST ${SEC_LIST} ${Sources})
