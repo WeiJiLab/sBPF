@@ -12,6 +12,7 @@ TEST(VM_Execute_Test, ShouldExecuteAddImm64InstructionSuccess){
      ASSERT_EQ(instruction.opcode, ADD_IMM_64);
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 0x6400);
+     vm_init(vm,0);
      vm_execute(vm, instruction);
      ASSERT_EQ(vm.regs[0x05], 0x6400);
 }
