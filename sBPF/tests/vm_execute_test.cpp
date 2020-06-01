@@ -5,15 +5,18 @@
 /**
  * 64 bits instruction
  **/
-TEST(VM_Decode_Test, ShouldDecodeAddImm64InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteAddImm64InstructionSuccess){
      u64 code = 0x0750000000006400;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
      ASSERT_EQ(instruction.opcode, ADD_IMM_64);
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 0x6400);
+     vm_execute(vm, instruction);
+     ASSERT_EQ(vm.regs[0x05], 0x6400);
 }
-TEST(VM_Decode_Test, ShouldDecodeAddReg64InstructionSuccess){
+
+TEST(VM_Execute_Test, ShouldExecuteAddReg64InstructionSuccess){
      u64 code = 0x0f53000000000000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -22,7 +25,7 @@ TEST(VM_Decode_Test, ShouldDecodeAddReg64InstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister, 0x03);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeSubImm64InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteSubImm64InstructionSuccess){
      u64 code = 0x1750000000006400;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -31,7 +34,7 @@ TEST(VM_Decode_Test, ShouldDecodeSubImm64InstructionSuccess){
      ASSERT_EQ(instruction.immediate, 0x6400);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeSubReg64InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteSubReg64InstructionSuccess){
      u64 code = 0x1f53000000000000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -40,7 +43,7 @@ TEST(VM_Decode_Test, ShouldDecodeSubReg64InstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister, 0x03);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeMulImm64InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteMulImm64InstructionSuccess){
      u64 code = 0x2750000000006400;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -49,7 +52,7 @@ TEST(VM_Decode_Test, ShouldDecodeMulImm64InstructionSuccess){
      ASSERT_EQ(instruction.immediate, 0x6400);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeMulReg64InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteMulReg64InstructionSuccess){
      u64 code = 0x2f53000000000000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -58,7 +61,7 @@ TEST(VM_Decode_Test, ShouldDecodeMulReg64InstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister, 0x03);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeDivImm64InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteDivImm64InstructionSuccess){
      u64 code = 0x3750000000006400;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -67,7 +70,7 @@ TEST(VM_Decode_Test, ShouldDecodeDivImm64InstructionSuccess){
      ASSERT_EQ(instruction.immediate, 0x6400);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeDivReg64InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteDivReg64InstructionSuccess){
      u64 code = 0x3f53000000000000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -76,7 +79,7 @@ TEST(VM_Decode_Test, ShouldDecodeDivReg64InstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister, 0x03);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeOrImm64InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteOrImm64InstructionSuccess){
      u64 code = 0x4750000000006400;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -85,7 +88,7 @@ TEST(VM_Decode_Test, ShouldDecodeOrImm64InstructionSuccess){
      ASSERT_EQ(instruction.immediate, 0x6400);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeOrReg64InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteOrReg64InstructionSuccess){
      u64 code = 0x4f53000000000000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -94,7 +97,7 @@ TEST(VM_Decode_Test, ShouldDecodeOrReg64InstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister, 0x03);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeAndImm64InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteAndImm64InstructionSuccess){
      u64 code = 0x5750000000006400;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -103,7 +106,7 @@ TEST(VM_Decode_Test, ShouldDecodeAndImm64InstructionSuccess){
      ASSERT_EQ(instruction.immediate, 0x6400);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeAndReg64InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteAndReg64InstructionSuccess){
      u64 code = 0x5f53000000000000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -112,7 +115,7 @@ TEST(VM_Decode_Test, ShouldDecodeAndReg64InstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister, 0x03);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeLshImm64InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteLshImm64InstructionSuccess){
      u64 code = 0x6750000000006400;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -121,7 +124,7 @@ TEST(VM_Decode_Test, ShouldDecodeLshImm64InstructionSuccess){
      ASSERT_EQ(instruction.immediate, 0x6400);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeLshReg64InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteLshReg64InstructionSuccess){
      u64 code = 0x6f53000000000000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -130,7 +133,7 @@ TEST(VM_Decode_Test, ShouldDecodeLshReg64InstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister, 0x03);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeRshImm64InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteRshImm64InstructionSuccess){
      u64 code = 0x7750000000006400;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -139,7 +142,7 @@ TEST(VM_Decode_Test, ShouldDecodeRshImm64InstructionSuccess){
      ASSERT_EQ(instruction.immediate, 0x6400);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeRshReg64InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteRshReg64InstructionSuccess){
      u64 code = 0x7f53000000000000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -148,7 +151,7 @@ TEST(VM_Decode_Test, ShouldDecodeRshReg64InstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister, 0x03);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeNegImm64InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteNegImm64InstructionSuccess){
      u64 code = 0x8750000000000000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -156,7 +159,7 @@ TEST(VM_Decode_Test, ShouldDecodeNegImm64InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeModImm64InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteModImm64InstructionSuccess){
      u64 code = 0x9750000000006400;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -165,7 +168,7 @@ TEST(VM_Decode_Test, ShouldDecodeModImm64InstructionSuccess){
      ASSERT_EQ(instruction.immediate, 0x6400);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeModReg64InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteModReg64InstructionSuccess){
      u64 code = 0x9f53000000000000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -174,7 +177,7 @@ TEST(VM_Decode_Test, ShouldDecodeModReg64InstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister, 0x03);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeXorImm64InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteXorImm64InstructionSuccess){
      u64 code = 0xa750000000006400;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -183,7 +186,7 @@ TEST(VM_Decode_Test, ShouldDecodeXorImm64InstructionSuccess){
      ASSERT_EQ(instruction.immediate, 0x6400);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeXorReg64InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteXorReg64InstructionSuccess){
      u64 code = 0xaf53000000000000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -192,7 +195,7 @@ TEST(VM_Decode_Test, ShouldDecodeXorReg64InstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister, 0x03);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeMovImm64InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteMovImm64InstructionSuccess){
      u64 code = 0xb750000000006400;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -201,7 +204,7 @@ TEST(VM_Decode_Test, ShouldDecodeMovImm64InstructionSuccess){
      ASSERT_EQ(instruction.immediate, 0x6400);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeMovReg64InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteMovReg64InstructionSuccess){
      u64 code = 0xbf53000000000000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -210,7 +213,7 @@ TEST(VM_Decode_Test, ShouldDecodeMovReg64InstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister, 0x03);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeArshImm64InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteArshImm64InstructionSuccess){
      u64 code = 0xc750000000006400;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -219,7 +222,7 @@ TEST(VM_Decode_Test, ShouldDecodeArshImm64InstructionSuccess){
      ASSERT_EQ(instruction.immediate, 0x6400);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeArshReg64InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteArshReg64InstructionSuccess){
      u64 code = 0xcf53000000000000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -231,7 +234,7 @@ TEST(VM_Decode_Test, ShouldDecodeArshReg64InstructionSuccess){
 /**
  * 64 bits instruction
  **/
-TEST(VM_Decode_Test, ShouldDecodeAddImm32InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteAddImm32InstructionSuccess){
      u64 code = 0x0000000004506400;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -240,7 +243,7 @@ TEST(VM_Decode_Test, ShouldDecodeAddImm32InstructionSuccess){
      ASSERT_EQ(instruction.immediate, 0x6400);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeAddReg32InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteAddReg32InstructionSuccess){
      u64 code = 0x000000000c530000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -249,7 +252,7 @@ TEST(VM_Decode_Test, ShouldDecodeAddReg32InstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister, 0x03);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeSubImm32InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteSubImm32InstructionSuccess){
      u64 code = 0x0000000014506400;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -258,7 +261,7 @@ TEST(VM_Decode_Test, ShouldDecodeSubImm32InstructionSuccess){
      ASSERT_EQ(instruction.immediate, 0x6400);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeSubReg32InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteSubReg32InstructionSuccess){
      u64 code = 0x000000001c530000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -267,7 +270,7 @@ TEST(VM_Decode_Test, ShouldDecodeSubReg32InstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister, 0x03);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeMulImm32InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteMulImm32InstructionSuccess){
      u64 code = 0x0000000024506400;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -276,7 +279,7 @@ TEST(VM_Decode_Test, ShouldDecodeMulImm32InstructionSuccess){
      ASSERT_EQ(instruction.immediate, 0x6400);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeMulReg32InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteMulReg32InstructionSuccess){
      u64 code = 0x000000002c530000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -285,7 +288,7 @@ TEST(VM_Decode_Test, ShouldDecodeMulReg32InstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister, 0x03);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeDivImm32InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteDivImm32InstructionSuccess){
      u64 code = 0x0000000034506400;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -294,7 +297,7 @@ TEST(VM_Decode_Test, ShouldDecodeDivImm32InstructionSuccess){
      ASSERT_EQ(instruction.immediate, 0x6400);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeDivReg32InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteDivReg32InstructionSuccess){
      u64 code = 0x000000003c530000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -303,7 +306,7 @@ TEST(VM_Decode_Test, ShouldDecodeDivReg32InstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister, 0x03);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeOrImm32InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteOrImm32InstructionSuccess){
      u64 code = 0x0000000044506400;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -312,7 +315,7 @@ TEST(VM_Decode_Test, ShouldDecodeOrImm32InstructionSuccess){
      ASSERT_EQ(instruction.immediate, 0x6400);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeOrReg32InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteOrReg32InstructionSuccess){
      u64 code = 0x000000004c530000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -321,7 +324,7 @@ TEST(VM_Decode_Test, ShouldDecodeOrReg32InstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister, 0x03);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeAndImm32InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteAndImm32InstructionSuccess){
      u64 code = 0x0000000054506400;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -330,7 +333,7 @@ TEST(VM_Decode_Test, ShouldDecodeAndImm32InstructionSuccess){
      ASSERT_EQ(instruction.immediate, 0x6400);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeAndReg32InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteAndReg32InstructionSuccess){
      u64 code = 0x000000005c530000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -339,7 +342,7 @@ TEST(VM_Decode_Test, ShouldDecodeAndReg32InstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister, 0x03);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeLshImm32InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteLshImm32InstructionSuccess){
      u64 code = 0x0000000064506400;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -348,7 +351,7 @@ TEST(VM_Decode_Test, ShouldDecodeLshImm32InstructionSuccess){
      ASSERT_EQ(instruction.immediate, 0x6400);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeLshReg32InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteLshReg32InstructionSuccess){
      u64 code = 0x000000006c530000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -357,7 +360,7 @@ TEST(VM_Decode_Test, ShouldDecodeLshReg32InstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister, 0x03);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeRshImm32InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteRshImm32InstructionSuccess){
      u64 code = 0x0000000074506400;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -366,7 +369,7 @@ TEST(VM_Decode_Test, ShouldDecodeRshImm32InstructionSuccess){
      ASSERT_EQ(instruction.immediate, 0x6400);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeRshReg32InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteRshReg32InstructionSuccess){
      u64 code = 0x000000007c530000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -375,7 +378,7 @@ TEST(VM_Decode_Test, ShouldDecodeRshReg32InstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister, 0x03);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeNegImm32InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteNegImm32InstructionSuccess){
      u64 code = 0x0000000084500000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -383,7 +386,7 @@ TEST(VM_Decode_Test, ShouldDecodeNegImm32InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeModImm32InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteModImm32InstructionSuccess){
      u64 code = 0x0000000094506400;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -392,7 +395,7 @@ TEST(VM_Decode_Test, ShouldDecodeModImm32InstructionSuccess){
      ASSERT_EQ(instruction.immediate, 0x6400);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeModReg32InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteModReg32InstructionSuccess){
      u64 code = 0x000000009c530000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -401,7 +404,7 @@ TEST(VM_Decode_Test, ShouldDecodeModReg32InstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister, 0x03);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeXorImm32InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteXorImm32InstructionSuccess){
      u64 code = 0x00000000a4506400;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -410,7 +413,7 @@ TEST(VM_Decode_Test, ShouldDecodeXorImm32InstructionSuccess){
      ASSERT_EQ(instruction.immediate, 0x6400);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeXorReg32InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteXorReg32InstructionSuccess){
      u64 code = 0x00000000ac530000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -419,7 +422,7 @@ TEST(VM_Decode_Test, ShouldDecodeXorReg32InstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister, 0x03);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeMovImm32InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteMovImm32InstructionSuccess){
      u64 code = 0x00000000b4506400;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -428,7 +431,7 @@ TEST(VM_Decode_Test, ShouldDecodeMovImm32InstructionSuccess){
      ASSERT_EQ(instruction.immediate, 0x6400);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeMovReg32InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteMovReg32InstructionSuccess){
      u64 code = 0x00000000bc530000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -437,7 +440,7 @@ TEST(VM_Decode_Test, ShouldDecodeMovReg32InstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister, 0x03);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeArshImm32InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteArshImm32InstructionSuccess){
      u64 code = 0x00000000c4506400;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -446,7 +449,7 @@ TEST(VM_Decode_Test, ShouldDecodeArshImm32InstructionSuccess){
      ASSERT_EQ(instruction.immediate, 0x6400);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeArshReg32InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteArshReg32InstructionSuccess){
      u64 code = 0x00000000cc530000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -458,7 +461,7 @@ TEST(VM_Decode_Test, ShouldDecodeArshReg32InstructionSuccess){
 /**
  * byteswap
  */
-TEST(VM_Decode_Test, ShouldDecodeLeReg16InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteLeReg16InstructionSuccess){
      u64 code = 0xd450000000000010;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -466,7 +469,7 @@ TEST(VM_Decode_Test, ShouldDecodeLeReg16InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 16);
 }
-TEST(VM_Decode_Test, ShouldDecodeLeReg32InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteLeReg32InstructionSuccess){
      u64 code = 0xd450000000000020;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -474,7 +477,7 @@ TEST(VM_Decode_Test, ShouldDecodeLeReg32InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 32);
 }
-TEST(VM_Decode_Test, ShouldDecodeLeReg64InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteLeReg64InstructionSuccess){
      u64 code = 0xd450000000000040;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -483,7 +486,7 @@ TEST(VM_Decode_Test, ShouldDecodeLeReg64InstructionSuccess){
      ASSERT_EQ(instruction.immediate, 64);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeBeReg16InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteBeReg16InstructionSuccess){
      u64 code = 0xdc50000000000010;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -491,7 +494,7 @@ TEST(VM_Decode_Test, ShouldDecodeBeReg16InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 16);
 }
-TEST(VM_Decode_Test, ShouldDecodeBeReg32InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteBeReg32InstructionSuccess){
      u64 code = 0xdc50000000000020;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -499,7 +502,7 @@ TEST(VM_Decode_Test, ShouldDecodeBeReg32InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 32);
 }
-TEST(VM_Decode_Test, ShouldDecodeBeReg64InstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteBeReg64InstructionSuccess){
      u64 code = 0xdc50000000000040;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -511,7 +514,7 @@ TEST(VM_Decode_Test, ShouldDecodeBeReg64InstructionSuccess){
 /**
  * memory instructions
  */
-TEST(VM_Decode_Test, ShouldDecodeLddwInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteLddwInstructionSuccess){
      u64 code = 0x1850000000000040;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -520,7 +523,7 @@ TEST(VM_Decode_Test, ShouldDecodeLddwInstructionSuccess){
      ASSERT_EQ(instruction.immediate, 64);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeLdabswInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteLdabswInstructionSuccess){
      u64 code = 0x2054000000000040;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -530,7 +533,7 @@ TEST(VM_Decode_Test, ShouldDecodeLdabswInstructionSuccess){
      ASSERT_EQ(instruction.immediate, 64);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeLdabshInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteLdabshInstructionSuccess){
      u64 code = 0x2854000000000040;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -540,7 +543,7 @@ TEST(VM_Decode_Test, ShouldDecodeLdabshInstructionSuccess){
      ASSERT_EQ(instruction.immediate, 64);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeLdabsbInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteLdabsbInstructionSuccess){
      u64 code = 0x3054000000000040;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -550,7 +553,7 @@ TEST(VM_Decode_Test, ShouldDecodeLdabsbInstructionSuccess){
      ASSERT_EQ(instruction.immediate, 64);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeLdabsdwInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteLdabsdwInstructionSuccess){
      u64 code = 0x3854000000000040;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -559,7 +562,7 @@ TEST(VM_Decode_Test, ShouldDecodeLdabsdwInstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister,0x4);
      ASSERT_EQ(instruction.immediate, 64);
 }
-TEST(VM_Decode_Test, ShouldDecodeLdindwInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteLdindwInstructionSuccess){
      u64 code = 0x4054000000000040;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -569,7 +572,7 @@ TEST(VM_Decode_Test, ShouldDecodeLdindwInstructionSuccess){
      ASSERT_EQ(instruction.immediate, 64);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeLdindhInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteLdindhInstructionSuccess){
      u64 code = 0x4854000000000040;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -579,7 +582,7 @@ TEST(VM_Decode_Test, ShouldDecodeLdindhInstructionSuccess){
      ASSERT_EQ(instruction.immediate, 64);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeLdindbInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteLdindbInstructionSuccess){
      u64 code = 0x5054000000000040;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -590,7 +593,7 @@ TEST(VM_Decode_Test, ShouldDecodeLdindbInstructionSuccess){
 }
 
 
-TEST(VM_Decode_Test, ShouldDecodeLdinddwInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteLdinddwInstructionSuccess){
      u64 code = 0x5854000000000040;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -600,7 +603,7 @@ TEST(VM_Decode_Test, ShouldDecodeLdinddwInstructionSuccess){
      ASSERT_EQ(instruction.immediate, 64);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeLdxwInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteLdxwInstructionSuccess){
      u64 code = 0x6154004000000000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -610,7 +613,7 @@ TEST(VM_Decode_Test, ShouldDecodeLdxwInstructionSuccess){
      ASSERT_EQ(instruction.offset, 64);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeLdxhInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteLdxhInstructionSuccess){
      u64 code = 0x6954004000000000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -620,7 +623,7 @@ TEST(VM_Decode_Test, ShouldDecodeLdxhInstructionSuccess){
      ASSERT_EQ(instruction.offset, 64);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeLdxbInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteLdxbInstructionSuccess){
      u64 code = 0x7154004000000000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -630,7 +633,7 @@ TEST(VM_Decode_Test, ShouldDecodeLdxbInstructionSuccess){
      ASSERT_EQ(instruction.offset, 64);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeLdxdwInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteLdxdwInstructionSuccess){
      u64 code = 0x7954004000000000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -640,7 +643,7 @@ TEST(VM_Decode_Test, ShouldDecodeLdxdwInstructionSuccess){
      ASSERT_EQ(instruction.offset, 64);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeStwInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteStwInstructionSuccess){
      u64 code = 0x6250004000000040;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -650,7 +653,7 @@ TEST(VM_Decode_Test, ShouldDecodeStwInstructionSuccess){
      ASSERT_EQ(instruction.immediate, 64);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeSthInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteSthInstructionSuccess){
      u64 code = 0x6a50004000000040;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -660,7 +663,7 @@ TEST(VM_Decode_Test, ShouldDecodeSthInstructionSuccess){
      ASSERT_EQ(instruction.immediate, 64);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeStbInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteStbInstructionSuccess){
      u64 code = 0x7250004000000040;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -670,7 +673,7 @@ TEST(VM_Decode_Test, ShouldDecodeStbInstructionSuccess){
      ASSERT_EQ(instruction.immediate, 64);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeStdwInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteStdwInstructionSuccess){
      u64 code = 0x7a50004000000040;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -680,7 +683,7 @@ TEST(VM_Decode_Test, ShouldDecodeStdwInstructionSuccess){
      ASSERT_EQ(instruction.immediate, 64);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeStxwInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteStxwInstructionSuccess){
      u64 code = 0x6354004000000040;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -690,7 +693,7 @@ TEST(VM_Decode_Test, ShouldDecodeStxwInstructionSuccess){
      ASSERT_EQ(instruction.offset,64);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeStxhInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteStxhInstructionSuccess){
      u64 code = 0x6b54004000000040;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -700,7 +703,7 @@ TEST(VM_Decode_Test, ShouldDecodeStxhInstructionSuccess){
      ASSERT_EQ(instruction.offset,64);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeStxbInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteStxbInstructionSuccess){
      u64 code = 0x7354004000000040;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -710,7 +713,7 @@ TEST(VM_Decode_Test, ShouldDecodeStxbInstructionSuccess){
      ASSERT_EQ(instruction.offset,64);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeStxdwInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteStxdwInstructionSuccess){
      u64 code = 0x7b54004000000040;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -724,7 +727,7 @@ TEST(VM_Decode_Test, ShouldDecodeStxdwInstructionSuccess){
  * branch instructions
  */
 
-TEST(VM_Decode_Test, ShouldDecodeJaInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteJaInstructionSuccess){
      u64 code = 0x0500004000000000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -733,7 +736,7 @@ TEST(VM_Decode_Test, ShouldDecodeJaInstructionSuccess){
 }
 
 
-TEST(VM_Decode_Test, ShouldDecodeJeqImmInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteJeqImmInstructionSuccess){
      u64 code = 0x1550004000000040;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -743,7 +746,7 @@ TEST(VM_Decode_Test, ShouldDecodeJeqImmInstructionSuccess){
      ASSERT_EQ(instruction.immediate, 64);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeJeqRegInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteJeqRegInstructionSuccess){
      u64 code = 0x1d54004000000000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -753,7 +756,7 @@ TEST(VM_Decode_Test, ShouldDecodeJeqRegInstructionSuccess){
      ASSERT_EQ(instruction.offset, 64);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeJgtImmInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteJgtImmInstructionSuccess){
      u64 code = 0x2550004000000040;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -763,7 +766,7 @@ TEST(VM_Decode_Test, ShouldDecodeJgtImmInstructionSuccess){
      ASSERT_EQ(instruction.immediate, 64);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeJgtRegInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteJgtRegInstructionSuccess){
      u64 code = 0x2d54004000000000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -773,7 +776,7 @@ TEST(VM_Decode_Test, ShouldDecodeJgtRegInstructionSuccess){
      ASSERT_EQ(instruction.offset, 64);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeJgeImmInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteJgeImmInstructionSuccess){
      u64 code = 0x3550004000000040;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -783,7 +786,7 @@ TEST(VM_Decode_Test, ShouldDecodeJgeImmInstructionSuccess){
      ASSERT_EQ(instruction.immediate, 64);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeJgeRegInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteJgeRegInstructionSuccess){
      u64 code = 0x3d54004000000000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -793,7 +796,7 @@ TEST(VM_Decode_Test, ShouldDecodeJgeRegInstructionSuccess){
      ASSERT_EQ(instruction.offset, 64);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeJltImmInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteJltImmInstructionSuccess){
      u64 code = 0xa550004000000040;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -803,7 +806,7 @@ TEST(VM_Decode_Test, ShouldDecodeJltImmInstructionSuccess){
      ASSERT_EQ(instruction.immediate, 64);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeJltRegInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteJltRegInstructionSuccess){
      u64 code = 0xad54004000000000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -813,7 +816,7 @@ TEST(VM_Decode_Test, ShouldDecodeJltRegInstructionSuccess){
      ASSERT_EQ(instruction.offset, 64);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeJleImmInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteJleImmInstructionSuccess){
      u64 code = 0xb550004000000040;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -823,7 +826,7 @@ TEST(VM_Decode_Test, ShouldDecodeJleImmInstructionSuccess){
      ASSERT_EQ(instruction.immediate, 64);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeJleRegInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteJleRegInstructionSuccess){
      u64 code = 0xbd54004000000000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -834,7 +837,7 @@ TEST(VM_Decode_Test, ShouldDecodeJleRegInstructionSuccess){
 }
 
 
-TEST(VM_Decode_Test, ShouldDecodeJsetImmInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteJsetImmInstructionSuccess){
      u64 code = 0x4550004000000040;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -844,7 +847,7 @@ TEST(VM_Decode_Test, ShouldDecodeJsetImmInstructionSuccess){
      ASSERT_EQ(instruction.immediate, 64);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeJsetRegInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteJsetRegInstructionSuccess){
      u64 code = 0x4d54004000000000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -855,7 +858,7 @@ TEST(VM_Decode_Test, ShouldDecodeJsetRegInstructionSuccess){
 }
 
 
-TEST(VM_Decode_Test, ShouldDecodeJneImmInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteJneImmInstructionSuccess){
      u64 code = 0x5550004000000040;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -865,7 +868,7 @@ TEST(VM_Decode_Test, ShouldDecodeJneImmInstructionSuccess){
      ASSERT_EQ(instruction.immediate, 64);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeJneRegInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteJneRegInstructionSuccess){
      u64 code = 0x5d54004000000000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -875,7 +878,7 @@ TEST(VM_Decode_Test, ShouldDecodeJneRegInstructionSuccess){
      ASSERT_EQ(instruction.offset, 64);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeJsgtImmInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteJsgtImmInstructionSuccess){
      u64 code = 0x6550004000000040;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -885,7 +888,7 @@ TEST(VM_Decode_Test, ShouldDecodeJsgtImmInstructionSuccess){
      ASSERT_EQ(instruction.immediate, 64);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeJsgtRegInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteJsgtRegInstructionSuccess){
      u64 code = 0x6d54004000000000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -895,7 +898,7 @@ TEST(VM_Decode_Test, ShouldDecodeJsgtRegInstructionSuccess){
      ASSERT_EQ(instruction.offset, 64);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeJsgeImmInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteJsgeImmInstructionSuccess){
      u64 code = 0x7550004000000040;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -905,7 +908,7 @@ TEST(VM_Decode_Test, ShouldDecodeJsgeImmInstructionSuccess){
      ASSERT_EQ(instruction.immediate, 64);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeJsgeRegInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteJsgeRegInstructionSuccess){
      u64 code = 0x7d54004000000000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -916,7 +919,7 @@ TEST(VM_Decode_Test, ShouldDecodeJsgeRegInstructionSuccess){
 }
 
 
-TEST(VM_Decode_Test, ShouldDecodeJsltImmInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteJsltImmInstructionSuccess){
      u64 code = 0xc550004000000040;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -926,7 +929,7 @@ TEST(VM_Decode_Test, ShouldDecodeJsltImmInstructionSuccess){
      ASSERT_EQ(instruction.immediate, 64);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeJsltRegInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteJsltRegInstructionSuccess){
      u64 code = 0xcd54004000000000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -936,7 +939,7 @@ TEST(VM_Decode_Test, ShouldDecodeJsltRegInstructionSuccess){
      ASSERT_EQ(instruction.offset, 64);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeJsleImmInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteJsleImmInstructionSuccess){
      u64 code = 0xd550004000000040;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -946,7 +949,7 @@ TEST(VM_Decode_Test, ShouldDecodeJsleImmInstructionSuccess){
      ASSERT_EQ(instruction.immediate, 64);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeJsleRegInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteJsleRegInstructionSuccess){
      u64 code = 0xdd54004000000000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -957,7 +960,7 @@ TEST(VM_Decode_Test, ShouldDecodeJsleRegInstructionSuccess){
 }
 
 
-TEST(VM_Decode_Test, ShouldDecodeCallImmInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteCallImmInstructionSuccess){
      u64 code = 0x8500000000000040;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
@@ -965,7 +968,7 @@ TEST(VM_Decode_Test, ShouldDecodeCallImmInstructionSuccess){
      ASSERT_EQ(instruction.immediate, 64);
 }
 
-TEST(VM_Decode_Test, ShouldDecodeExitInstructionSuccess){
+TEST(VM_Execute_Test, ShouldExecuteExitInstructionSuccess){
      u64 code = 0x9500000000000000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);

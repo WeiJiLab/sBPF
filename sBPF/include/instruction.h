@@ -14,15 +14,15 @@
 
 #define u64 unsigned long
 
-typedef struct BPFInstruction{
+typedef struct BPFInstruction {
     u8 opcode;
-    u8 destRegister:4;
-    u8 sourceRegister:4;
+    u8 destRegister: 4;
+    u8 sourceRegister: 4;
     s16 offset;
     s32 immediate;
 } BPFInstruction_t;
 
-enum ALUInstructions{
+enum ALUInstructions {
     // 64 bits
     ADD_IMM_64 = 0x07, // 0x07	add dst, imm	dst += imm
     ADD_REG_64 = 0x0f,// 0x0f	add dst, src	dst += src
@@ -79,11 +79,11 @@ enum ALUInstructions{
 
     // Byteswap instructions
     LE_REG = 0xd4,// 0xd4 (imm == 16)	le16 dst	dst = htole16(dst)
-                  // 0xd4 (imm == 32)	le32 dst	dst = htole32(dst)
-                  // 0xd4 (imm == 64)	le64 dst	dst = htole64(dst)
+    // 0xd4 (imm == 32)	le32 dst	dst = htole32(dst)
+    // 0xd4 (imm == 64)	le64 dst	dst = htole64(dst)
     BE_REG = 0xdc,// 0xdc (imm == 16)	be16 dst	dst = htobe16(dst)
-                  // 0xdc (imm == 32)	be32 dst	dst = htobe32(dst)
-                  // 0xdc (imm == 64)	be64 dst	dst = htobe64(dst)
+    // 0xdc (imm == 32)	be32 dst	dst = htobe32(dst)
+    // 0xdc (imm == 64)	be64 dst	dst = htobe64(dst)
 
     // Memory Instructions
     LDDW = 0x18,// 0x18	lddw dst, imm	dst = imm
@@ -137,59 +137,59 @@ enum ALUInstructions{
 };
 
 
-
-typedef struct VM{
+typedef struct VM VM_t;
+typedef struct VM {
     u64 *memory;
     u64 regs[10];
     BPFInstruction_t currentInstruction;
     u64 currentCode;
     u32 pc;
     u32 sp;
-    void(*handlers[0xFF])(BPFInstruction_t instruction);
+    void (*handlers[0xFF])(VM_t &vm, BPFInstruction_t instruction);
 } VM_t;
 
 /**
  * init the vm and it's memory space
  **/
-void vm_init(u32 memorySize);
+void vm_init(VM_t &vm, u32 memorySize);
 
 
 /**
  * verify code
  **/
-bool vm_verify_code(u64 code);
+bool vm_verify_code(VM_t &vm, u64 code);
 
 
 /**
  * load program (u64 vector)
  **/
-void vm_load_program(u64 *program);
+void vm_load_program(VM_t &vm, u64 *program);
 
 
 /**
  * fetch code from memory[pc]
  **/
-u64 vm_fetch_code(u32 pc);
+u64 vm_fetch_code(VM_t &vm, u32 pc);
 
 /**
  * decode the innstruction from u64 code
  **/
-BPFInstruction_t vm_decode_code(u64 code);
+BPFInstruction_t vm_decode_code(VM_t &vm, u64 code);
 
 /**
  * execute the current instruction
  **/
-void vm_execute();
+void vm_execute(VM_t &vm, BPFInstruction_t instruction);
 
 /**
  * run the vm
  **/
-void vm_run();
+void vm_run(VM_t &vm);
 
 /**
- * print the instruction 
+ * print the instruction
  **/
-void vm_print_instruction(BPFInstruction_t instruction);
+void vm_print_instruction(VM_t &vm, BPFInstruction_t instruction);
 
 
 #endif //NMCS_INSTRUCTION_H
