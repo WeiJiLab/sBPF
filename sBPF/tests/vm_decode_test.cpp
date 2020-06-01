@@ -465,7 +465,7 @@ TEST(VM_Decode_Test, ShouldDecodeLddwInstructionSuccess){
 }
 
 TEST(VM_Decode_Test, ShouldDecodeLdabswInstructionSuccess){
-     u64 code = 0x1854000000000040;
+     u64 code = 0x2054000000000040;
      BPFInstruction_t instruction =  vm_decode_code(code);
      ASSERT_EQ(instruction.opcode, LDABSW);
      ASSERT_EQ(instruction.destRegister, 0x05);
@@ -534,6 +534,114 @@ TEST(VM_Decode_Test, ShouldDecodeLdinddwInstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister,0x4);
      ASSERT_EQ(instruction.immediate, 64);
+}
+
+TEST(VM_Decode_Test, ShouldDecodeLdxwInstructionSuccess){
+     u64 code = 0x6154004000000000;
+     BPFInstruction_t instruction =  vm_decode_code(code);
+     ASSERT_EQ(instruction.opcode, LDXW);
+     ASSERT_EQ(instruction.destRegister, 0x05);
+     ASSERT_EQ(instruction.sourceRegister,0x4);
+     ASSERT_EQ(instruction.offset, 64);
+}
+
+TEST(VM_Decode_Test, ShouldDecodeLdxhInstructionSuccess){
+     u64 code = 0x6954004000000000;
+     BPFInstruction_t instruction =  vm_decode_code(code);
+     ASSERT_EQ(instruction.opcode, LDXH);
+     ASSERT_EQ(instruction.destRegister, 0x05);
+     ASSERT_EQ(instruction.sourceRegister,0x4);
+     ASSERT_EQ(instruction.offset, 64);
+}
+
+TEST(VM_Decode_Test, ShouldDecodeLdxbInstructionSuccess){
+     u64 code = 0x7154004000000000;
+     BPFInstruction_t instruction =  vm_decode_code(code);
+     ASSERT_EQ(instruction.opcode, LDXB);
+     ASSERT_EQ(instruction.destRegister, 0x05);
+     ASSERT_EQ(instruction.sourceRegister,0x4);
+     ASSERT_EQ(instruction.offset, 64);
+}
+
+TEST(VM_Decode_Test, ShouldDecodeLdxdwInstructionSuccess){
+     u64 code = 0x7954004000000000;
+     BPFInstruction_t instruction =  vm_decode_code(code);
+     ASSERT_EQ(instruction.opcode, LDXDW);
+     ASSERT_EQ(instruction.destRegister, 0x05);
+     ASSERT_EQ(instruction.sourceRegister,0x4);
+     ASSERT_EQ(instruction.offset, 64);
+}
+
+TEST(VM_Decode_Test, ShouldDecodeStwInstructionSuccess){
+     u64 code = 0x6250004000000040;
+     BPFInstruction_t instruction =  vm_decode_code(code);
+     ASSERT_EQ(instruction.opcode, STW);
+     ASSERT_EQ(instruction.destRegister, 0x05);
+     ASSERT_EQ(instruction.offset,64);
+     ASSERT_EQ(instruction.immediate, 64);
+}
+
+TEST(VM_Decode_Test, ShouldDecodeSthInstructionSuccess){
+     u64 code = 0x6a50004000000040;
+     BPFInstruction_t instruction =  vm_decode_code(code);
+     ASSERT_EQ(instruction.opcode, STH);
+     ASSERT_EQ(instruction.destRegister, 0x05);
+     ASSERT_EQ(instruction.offset,64);
+     ASSERT_EQ(instruction.immediate, 64);
+}
+
+TEST(VM_Decode_Test, ShouldDecodeStbInstructionSuccess){
+     u64 code = 0x7250004000000040;
+     BPFInstruction_t instruction =  vm_decode_code(code);
+     ASSERT_EQ(instruction.opcode, STB);
+     ASSERT_EQ(instruction.destRegister, 0x05);
+     ASSERT_EQ(instruction.offset,64);
+     ASSERT_EQ(instruction.immediate, 64);
+}
+
+TEST(VM_Decode_Test, ShouldDecodeStdwInstructionSuccess){
+     u64 code = 0x7a50004000000040;
+     BPFInstruction_t instruction =  vm_decode_code(code);
+     ASSERT_EQ(instruction.opcode, STDW);
+     ASSERT_EQ(instruction.destRegister, 0x05);
+     ASSERT_EQ(instruction.offset,64);
+     ASSERT_EQ(instruction.immediate, 64);
+}
+
+TEST(VM_Decode_Test, ShouldDecodeStxwInstructionSuccess){
+     u64 code = 0x6354004000000040;
+     BPFInstruction_t instruction =  vm_decode_code(code);
+     ASSERT_EQ(instruction.opcode, STXW);
+     ASSERT_EQ(instruction.destRegister, 0x05);
+     ASSERT_EQ(instruction.sourceRegister, 0x4);
+     ASSERT_EQ(instruction.offset,64);
+}
+
+TEST(VM_Decode_Test, ShouldDecodeStxhInstructionSuccess){
+     u64 code = 0x6b54004000000040;
+     BPFInstruction_t instruction =  vm_decode_code(code);
+     ASSERT_EQ(instruction.opcode, STXH);
+     ASSERT_EQ(instruction.destRegister, 0x05);
+     ASSERT_EQ(instruction.sourceRegister, 0x4);
+     ASSERT_EQ(instruction.offset,64);
+}
+
+TEST(VM_Decode_Test, ShouldDecodeStxbInstructionSuccess){
+     u64 code = 0x7354004000000040;
+     BPFInstruction_t instruction =  vm_decode_code(code);
+     ASSERT_EQ(instruction.opcode, STXB);
+     ASSERT_EQ(instruction.destRegister, 0x05);
+     ASSERT_EQ(instruction.sourceRegister, 0x4);
+     ASSERT_EQ(instruction.offset,64);
+}
+
+TEST(VM_Decode_Test, ShouldDecodeStxdwInstructionSuccess){
+     u64 code = 0x7b54004000000040;
+     BPFInstruction_t instruction =  vm_decode_code(code);
+     ASSERT_EQ(instruction.opcode, STXDW);
+     ASSERT_EQ(instruction.destRegister, 0x05);
+     ASSERT_EQ(instruction.sourceRegister, 0x4);
+     ASSERT_EQ(instruction.offset,64);
 }
 
 /**
