@@ -137,7 +137,6 @@ enum ALUInstructions {
 };
 
 
-typedef struct VM VM_t;
 typedef struct VM {
     u64 *memory;
     u64 regs[10];
@@ -145,8 +144,8 @@ typedef struct VM {
     u64 currentCode;
     u32 pc;
     u32 sp;
-    void (*handlers[0xFF])(VM_t &vm, BPFInstruction_t instruction);
 } VM_t;
+void (*handlers[0xFF])(VM_t &vm, BPFInstruction_t instruction);
 
 /**
  * init the vm and it's memory space

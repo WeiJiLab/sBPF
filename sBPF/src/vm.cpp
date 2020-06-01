@@ -381,7 +381,7 @@ BPFInstruction_t vm_decode_code(VM_t &vm, u64 code) {
 }
 
 void vm_execute(VM_t &vm, BPFInstruction_t instruction) {
-    vm.handlers[instruction.opcode](vm, instruction);
+    handlers[instruction.opcode](vm, instruction);
 }
 
 void vm_run(VM_t &vm) {
