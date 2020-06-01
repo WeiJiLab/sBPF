@@ -117,19 +117,19 @@ void vm_init(u32 memorySize){
         // exceed max memory, vm exited.
     }
     vm.memory = (u64*)malloc(memorySize*sizeof(u64));
-    vm.regs = {
-        .r0 = 0,
-        .r1 = 0,
-        .r2 = 0,
-        .r3 = 0,
-        .r4 = 0,
-        .r5 = 0,
-        .r6 = 0,
-        .r7 = 0,
-        .r8 = 0,
-        .r9 = 0,
-        .r10 = 0,
-    };
+    
+    vm.regs[0] = 0;
+    vm.regs[1] = 0;
+    vm.regs[2] = 0;
+    vm.regs[3] = 0;
+    vm.regs[4] = 0;
+    vm.regs[5] = 0;
+    vm.regs[6] = 0;
+    vm.regs[7] = 0;
+    vm.regs[8] = 0;
+    vm.regs[9] = 0;
+    vm.regs[10] = 0;
+
     vm.pc = 0;
     vm.sp = 0;
 
@@ -238,12 +238,23 @@ void vm_init(u32 memorySize){
     ADD_HANDLER(EXIT);
 }
 
+bool vm_verify_code(u64 code){
+    return true;
+}
+
 void vm_load_program(u64 *program){
-    
+    while(*program){
+        if(!vm_verify_code(*program)){
+            break;
+        }
+
+        program++;
+    }
 }
 
 u64 vm_fetch_code(u32 pc){
-
+    return vm.memory[pc];
+    pc++;
 }
 
 BPFInstruction_t vm_decode_code(u64 code){
@@ -258,7 +269,7 @@ BPFInstruction_t vm_decode_code(u64 code){
         destRegister   = (code >> 20) & 0xF;
         sourceRegister = (code >> 16) & 0xF;
         immediate      = code & 0xFFFF;
-    }else{
+    } else {
         opCode         = (code >> 56) & 0xFF;
         destRegister   = (code >> 52) & 0xF;
         sourceRegister = (code >> 48) & 0xF;
@@ -284,203 +295,227 @@ void vm_run(){
 }
 
 void vm_handler_ADD_IMM_64(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister]+instruction.immediate;
 }
 
 void vm_handler_ADD_REG_64(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister]+vm.regs[instruction.sourceRegister];
 }
 
 void vm_handler_SUB_IMM_64(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister]-instruction.immediate;
 }
 
 void vm_handler_SUB_REG_64(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister]-vm.regs[instruction.sourceRegister];
 }
 
 void vm_handler_MUL_IMM_64(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister]*instruction.immediate;
 }
 
 void vm_handler_MUL_REG_64(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister]*vm.regs[instruction.sourceRegister];
 }
 
 void vm_handler_DIV_IMM_64(BPFInstruction_t instruction){
-
+    if(instruction.immediate==0){
+        exit(0);
+    }
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister]/instruction.immediate;
 }
 
 void vm_handler_DIV_REG_64(BPFInstruction_t instruction){
-
+     if(vm.regs[instruction.sourceRegister]==0){
+        exit(0);
+    }
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister]/vm.regs[instruction.sourceRegister];
 }
 
 void vm_handler_OR_IMM_64(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister] | instruction.immediate;
 }
 
 void vm_handler_OR_REG_64(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister] | vm.regs[instruction.sourceRegister];
 }
 
 void vm_handler_AND_IMM_64(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister] & instruction.immediate;
 }
 
 void vm_handler_AND_REG_64(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister] & vm.regs[instruction.sourceRegister];
 }
 
 void vm_handler_LSH_IMM_64(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister] << instruction.immediate;
 }
 
 void vm_handler_LSH_REG_64(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister] << vm.regs[instruction.sourceRegister];
 }
 
 void vm_handler_RSH_IMM_64(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister] >> instruction.immediate;
 }
 
 void vm_handler_RSH_REG_64(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister] >> vm.regs[instruction.sourceRegister];
 }
 
 void vm_handler_NEG_REG_64(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = -vm.regs[instruction.destRegister];
 }
 
 void vm_handler_MOD_IMM_64(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister] % instruction.immediate;
 }
 
 void vm_handler_MOD_REG_64(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister] % vm.regs[instruction.sourceRegister];
 }
 
 void vm_handler_XOR_IMM_64(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister] ^ instruction.immediate;
 }
 
 void vm_handler_XOR_REG_64(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister] ^ vm.regs[instruction.sourceRegister];
 }
 
 void vm_handler_MOV_IMM_64(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = instruction.immediate;
 }
 
 void vm_handler_MOV_REG_64(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.sourceRegister];
 }
 
 void vm_handler_ARSH_IMM_64(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister] >> instruction.immediate;
+    if((vm.regs[instruction.destRegister]>>65) && 0x1){ // signed
+        vm.regs[instruction.destRegister] |= 0xA000000000000000; // set the highest bit to 1
+    }
 }
 
 void vm_handler_ARSH_REG_64(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister] >> vm.regs[instruction.sourceRegister];
+    if((vm.regs[instruction.destRegister]>>65) && 0x1){ // signed
+        vm.regs[instruction.destRegister] |= 0xA000000000000000; // set the highest bit to 1
+    }
 }
 
 void vm_handler_ADD_IMM_32(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister]+instruction.immediate;
 }
 
 void vm_handler_ADD_REG_32(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister]+vm.regs[instruction.sourceRegister];
 }
 
 void vm_handler_SUB_IMM_32(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister]-instruction.immediate;
 }
 
 void vm_handler_SUB_REG_32(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister]-vm.regs[instruction.sourceRegister];
 }
 
 void vm_handler_MUL_IMM_32(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister]*instruction.immediate;
 }
 
 void vm_handler_MUL_REG_32(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister]*vm.regs[instruction.sourceRegister];
 }
 
 void vm_handler_DIV_IMM_32(BPFInstruction_t instruction){
-
+    if(instruction.immediate==0){
+        exit(0);
+    }
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister]/instruction.immediate;
 }
 
 void vm_handler_DIV_REG_32(BPFInstruction_t instruction){
-
+    if(vm.regs[instruction.sourceRegister]==0){
+        exit(0);
+    }
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister]/vm.regs[instruction.sourceRegister];
 }
 
 void vm_handler_OR_IMM_32(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister] | instruction.immediate;
 }
 
 void vm_handler_OR_REG_32(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister] | vm.regs[instruction.sourceRegister];
 }
 
 void vm_handler_AND_IMM_32(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister] & instruction.immediate;
 }
 
 void vm_handler_AND_REG_32(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister] & vm.regs[instruction.sourceRegister];
 }
 
 void vm_handler_LSH_IMM_32(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister] << instruction.immediate;
 }
 
 void vm_handler_LSH_REG_32(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister] << vm.regs[instruction.sourceRegister];
 }
 
 void vm_handler_RSH_IMM_32(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister] >> instruction.immediate;
 }
 
 void vm_handler_RSH_REG_32(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister] >> vm.regs[instruction.sourceRegister];
 }
 
 void vm_handler_NEG_REG_32(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = -vm.regs[instruction.destRegister];
 }
 
 void vm_handler_MOD_IMM_32(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister] % instruction.immediate;
 }
 
 void vm_handler_MOD_REG_32(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister] % vm.regs[instruction.sourceRegister];
 }
 
 void vm_handler_XOR_IMM_32(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister] ^ instruction.immediate;
 }
 
 void vm_handler_XOR_REG_32(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister] ^ vm.regs[instruction.sourceRegister];
 }
 
 void vm_handler_MOV_IMM_32(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = instruction.immediate;
 }
 
 void vm_handler_MOV_REG_32(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.sourceRegister];
 }
 
 void vm_handler_ARSH_IMM_32(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister] >> instruction.immediate;
+    if((vm.regs[instruction.destRegister]>>31) && 0x1){ // signed
+        vm.regs[instruction.destRegister] |= 0xA0000000; // set the highest bit to 1
+    }
 }
 
 void vm_handler_ARSH_REG_32(BPFInstruction_t instruction){
-
+    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister] >> vm.regs[instruction.sourceRegister];
+    if((vm.regs[instruction.destRegister]>>31) && 0x1){ // signed
+        vm.regs[instruction.destRegister] |= 0xA0000000; // set the highest bit to 1
+    }
 }
 
 void vm_handler_LE_REG_16(BPFInstruction_t instruction){

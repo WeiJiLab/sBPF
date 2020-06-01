@@ -13,22 +13,6 @@
 
 #define u64 unsigned long
 
-
-
-typedef struct Regs{
-    unsigned long r0; // function return value
-    unsigned long r1;
-    unsigned long r2;
-    unsigned long r3;
-    unsigned long r4;
-    unsigned long r5;
-    unsigned long r6;
-    unsigned long r7;
-    unsigned long r8;
-    unsigned long r9;
-    unsigned long r10; // SP
-} Regs_t;
-
 typedef struct BPFInstruction{
     u8 opcode;
     u8 destRegister:4;
@@ -155,7 +139,7 @@ enum ALUInstructions{
 
 typedef struct VM{
     u64 *memory;
-    Regs_t regs;
+    u64 regs[10];
     BPFInstruction_t currentInstruction;
     u64 currentCode;
     u32 pc;
@@ -167,6 +151,12 @@ typedef struct VM{
  * init the vm and it's memory space
  **/
 void vm_init(u32 memorySize);
+
+
+/**
+ * verify code
+ **/
+bool vm_verify_code(u64 code);
 
 /**
  * load program (u64 vector)
