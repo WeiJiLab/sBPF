@@ -224,7 +224,7 @@ TEST(VM_Execute_Test, ShouldExecuteRshReg64InstructionSuccess){
 TEST(VM_Execute_Test, ShouldExecuteNegImm64InstructionSuccess){
      u64 code = 0x8750000000000000;
      VM_t vm;
-     BPFInstruction_t instruction =  vm_decode_code(vm, code);
+     BPFInstruction_t instruction = vm_decode_code(vm, code);
      ASSERT_EQ(instruction.opcode, NEG_REG_64);
      ASSERT_EQ(instruction.destRegister, 0x05);
      vm_init(vm,0);
@@ -236,7 +236,7 @@ TEST(VM_Execute_Test, ShouldExecuteNegImm64InstructionSuccess){
 TEST(VM_Execute_Test, ShouldExecuteModImm64InstructionSuccess){
      u64 code = 0x9750000000006400;
      VM_t vm;
-     BPFInstruction_t instruction =  vm_decode_code(vm, code);
+     BPFInstruction_t instruction = vm_decode_code(vm, code);
      ASSERT_EQ(instruction.opcode, MOD_IMM_64);
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 0x6400);
@@ -249,7 +249,7 @@ TEST(VM_Execute_Test, ShouldExecuteModImm64InstructionSuccess){
 TEST(VM_Execute_Test, ShouldExecuteModReg64InstructionSuccess){
      u64 code = 0x9f53000000000000;
      VM_t vm;
-     BPFInstruction_t instruction =  vm_decode_code(vm, code);
+     BPFInstruction_t instruction = vm_decode_code(vm, code);
      ASSERT_EQ(instruction.opcode, MOD_REG_64);
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x03);
@@ -263,7 +263,7 @@ TEST(VM_Execute_Test, ShouldExecuteModReg64InstructionSuccess){
 TEST(VM_Execute_Test, ShouldExecuteXorImm64InstructionSuccess){
      u64 code = 0xa750000000006400;
      VM_t vm;
-     BPFInstruction_t instruction =  vm_decode_code(vm, code);
+     BPFInstruction_t instruction = vm_decode_code(vm, code);
      ASSERT_EQ(instruction.opcode, XOR_IMM_64);
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 0x6400);
@@ -276,7 +276,7 @@ TEST(VM_Execute_Test, ShouldExecuteXorImm64InstructionSuccess){
 TEST(VM_Execute_Test, ShouldExecuteXorReg64InstructionSuccess){
      u64 code = 0xaf53000000000000;
      VM_t vm;
-     BPFInstruction_t instruction =  vm_decode_code(vm, code);
+     BPFInstruction_t instruction = vm_decode_code(vm, code);
      ASSERT_EQ(instruction.opcode, XOR_REG_64);
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x03);
@@ -290,7 +290,7 @@ TEST(VM_Execute_Test, ShouldExecuteXorReg64InstructionSuccess){
 TEST(VM_Execute_Test, ShouldExecuteMovImm64InstructionSuccess){
      u64 code = 0xb750000000006400;
      VM_t vm;
-     BPFInstruction_t instruction =  vm_decode_code(vm, code);
+     BPFInstruction_t instruction = vm_decode_code(vm, code);
      ASSERT_EQ(instruction.opcode, MOV_IMM_64);
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 0x6400);
@@ -303,7 +303,7 @@ TEST(VM_Execute_Test, ShouldExecuteMovImm64InstructionSuccess){
 TEST(VM_Execute_Test, ShouldExecuteMovReg64InstructionSuccess){
      u64 code = 0xbf53000000000000;
      VM_t vm;
-     BPFInstruction_t instruction =  vm_decode_code(vm, code);
+     BPFInstruction_t instruction = vm_decode_code(vm, code);
      ASSERT_EQ(instruction.opcode, MOV_REG_64);
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x03);
@@ -315,21 +315,30 @@ TEST(VM_Execute_Test, ShouldExecuteMovReg64InstructionSuccess){
 }
 
 TEST(VM_Execute_Test, ShouldExecuteArshImm64InstructionSuccess){
-     u64 code = 0xc750000000006400;
+     u64 code = 0xc750000000000004;
      VM_t vm;
-     BPFInstruction_t instruction =  vm_decode_code(vm, code);
+     BPFInstruction_t instruction = vm_decode_code(vm, code);
      ASSERT_EQ(instruction.opcode, ARSH_IMM_64);
      ASSERT_EQ(instruction.destRegister, 0x05);
-     ASSERT_EQ(instruction.immediate, 0x6400);
+     ASSERT_EQ(instruction.immediate, 0x04);
+     vm_init(vm,0);
+     vm.regs[0x5] = -10;
+     vm_execute(vm, instruction);
+     ASSERT_EQ(vm.regs[0x05], -(10>>0x04));
 }
 
 TEST(VM_Execute_Test, ShouldExecuteArshReg64InstructionSuccess){
      u64 code = 0xcf53000000000000;
      VM_t vm;
-     BPFInstruction_t instruction =  vm_decode_code(vm, code);
+     BPFInstruction_t instruction = vm_decode_code(vm, code);
      ASSERT_EQ(instruction.opcode, ARSH_REG_64);
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x03);
+     vm_init(vm,0);
+     vm.regs[0x5] = -20;
+     vm.regs[0x3] = 2;
+     vm_execute(vm, instruction);
+     ASSERT_EQ(vm.regs[0x05], -(20>>2));
 }
 
 /**
