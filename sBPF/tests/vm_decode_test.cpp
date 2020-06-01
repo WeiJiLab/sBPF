@@ -229,7 +229,7 @@ TEST(VM_Decode_Test, ShouldDecodeArshReg64InstructionSuccess){
 }
 
 /**
- * 64 bits instruction
+ * 32 bits instruction
  **/
 TEST(VM_Decode_Test, ShouldDecodeAddImm32InstructionSuccess){
      u64 code = 0x0000000004506400;
