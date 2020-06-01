@@ -5,11 +5,17 @@
 #ifndef NMCS_INSTRUCTION_H
 #define NMCS_INSTRUCTION_H
 
-#define u8 unsigned char;
-#define s16 signed short;
-#define s32 signed int;
+#define u8 unsigned char
+#define s16 signed short
 
-struct Regs{
+#define u32 unsigned int
+#define s32 signed int
+
+#define u64 unsigned long
+
+
+
+typedef struct Regs{
     unsigned long r0; // function return value
     unsigned long r1;
     unsigned long r2;
@@ -21,15 +27,15 @@ struct Regs{
     unsigned long r8;
     unsigned long r9;
     unsigned long r10; // SP
-};
+} Regs_t;
 
-struct BPFInstruction{
+typedef struct BPFInstruction{
     u8 opcode;
     u8 destRegister:4;
     u8 sourceRegister:4;
     s16 offset;
     s32 immediate;
-};
+} BPFInstruction_t;
 
 enum ALUInstructions{
     // 64 bits
@@ -87,12 +93,12 @@ enum ALUInstructions{
     ARSH_REG_32 = 0xcc,// 0xcc	arsh32 dst, src	dst >>= src (arithmetic)
 
     // Byteswap instructions
-    LE_REG = 0xd4,// 0xd4 (imm == 16)	le16 dst	dst = htole16(dst)
-    LE_REG = 0xd4,// 0xd4 (imm == 32)	le32 dst	dst = htole32(dst)
-    LE_REG = 0xd4,// 0xd4 (imm == 64)	le64 dst	dst = htole64(dst)
-    BE_REG = 0xdc,// 0xdc (imm == 16)	be16 dst	dst = htobe16(dst)
-    BE_REG = 0xdc,// 0xdc (imm == 32)	be32 dst	dst = htobe32(dst)
-    BE_REG = 0xdc,// 0xdc (imm == 64)	be64 dst	dst = htobe64(dst)
+    LE_REG_16 = 0xd4,// 0xd4 (imm == 16)	le16 dst	dst = htole16(dst)
+    LE_REG_32 = 0xd4,// 0xd4 (imm == 32)	le32 dst	dst = htole32(dst)
+    LE_REG_64 = 0xd4,// 0xd4 (imm == 64)	le64 dst	dst = htole64(dst)
+    BE_REG_16 = 0xdc,// 0xdc (imm == 16)	be16 dst	dst = htobe16(dst)
+    BE_REG_32 = 0xdc,// 0xdc (imm == 32)	be32 dst	dst = htobe32(dst)
+    BE_REG_64 = 0xdc,// 0xdc (imm == 64)	be64 dst	dst = htobe64(dst)
 
     // Memory Instructions
     LDDW = 0x18,// 0x18	lddw dst, imm	dst = imm
@@ -144,5 +150,52 @@ enum ALUInstructions{
     CALL_IMM = 0x85,// 0x85	call imm	Function call
     EXIT = 0x95,// 0x95	exit	return r0
 };
+
+
+
+typedef struct VM{
+    u64 *memory;
+    Regs_t regs;
+    BPFInstruction_t currentInstruction;
+    u64 currentCode;
+    u32 pc;
+    u32 sp;
+} VM_t;
+
+/**
+ * init the vm and it's memory space
+ **/
+void vm_init(u32 memorySize);
+
+/**
+ * load program (u64 vector)
+ **/
+void vm_load_program(u64 *program);
+
+
+/**
+ * fetch code from memory[pc]
+ **/
+u64 vm_fetch_code(u32 pc);
+
+/**
+ * decode the innstruction from u64 code
+ **/
+BPFInstruction_t vm_decode_code(u64 code);
+
+/**
+ * execute the current instruction
+ **/
+void vm_execute();
+
+/**
+ * run the vm
+ **/
+void vm_run();
+
+/**
+ * print the instruction 
+ **/
+void vm_print_instruction(BPFInstruction_t instruction);
 
 #endif //NMCS_INSTRUCTION_H
