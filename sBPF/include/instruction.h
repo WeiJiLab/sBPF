@@ -84,7 +84,7 @@ enum ALUInstructions{
     RSH_REG_32 = 0x7c,// 0x7c	rsh32 dst, src	dst >>= src (logical)
     NEG_REG_32 = 0x84,// 0x84	neg32 dst	dst = -dst
     MOD_IMM_32 = 0x94,// 0x94	mod32 dst, imm	dst %= imm
-    MOD_REG__32 = 0x9c,// 0x9c	mod32 dst, src	dst %= src
+    MOD_REG_32 = 0x9c,// 0x9c	mod32 dst, src	dst %= src
     XOR_IMM_32 = 0xa4,// 0xa4	xor32 dst, imm	dst ^= imm
     XOR_REG_32 = 0xac,// 0xac	xor32 dst, src	dst ^= src
     MOV_IMM_32 = 0xb4,// 0xb4	mov32 dst, imm	dst = imm

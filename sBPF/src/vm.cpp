@@ -23,11 +23,24 @@ u64 vm_fetch_code(u32 pc){
 }
 
 BPFInstruction_t vm_decode_code(u64 code){
-    u8  opCode         = (code >> 56) & 0xFF;
-    u8  destRegister   = (code >> 52) & 0xF;
-    u8  sourceRegister = (code >> 48) & 0xF;
-    s16 offset         = (code >> 32) & 0xFFFF;
-    s32 immediate      = code & 0xFFFFFFFF;
+    u8  opCode         = 0;
+    u8  destRegister   = 0;
+    u8  sourceRegister = 0;
+    s16 offset         = 0;
+    s32 immediate      = 0;
+
+    if(((code >> 32) & 0xFFFFFFFF) == 0){ // 32 bits
+        opCode         = (code >> 24) & 0xFF;
+        destRegister   = (code >> 20) & 0xF;
+        sourceRegister = (code >> 16) & 0xF;
+        immediate      = code & 0xFFFF;
+    }else{
+        opCode         = (code >> 56) & 0xFF;
+        destRegister   = (code >> 52) & 0xF;
+        sourceRegister = (code >> 48) & 0xF;
+        offset         = (code >> 32) & 0xFFFF;
+        immediate      = code & 0xFFFFFFFF;
+    }
 
     return {
         .opcode = opCode,
