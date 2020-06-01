@@ -3,3 +3,4 @@ project(NMCS)
 
 add_subdirectory(NetD)
 add_subdirectory(NetManagementServiceSDK)
+add_subdirectory(sBPF)
