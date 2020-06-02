@@ -857,6 +857,12 @@ TEST(VM_Execute_Test, ShouldExecuteLdxhInstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister,0x4);
      ASSERT_EQ(instruction.offset, 64);
+     vm_init(vm, 100);
+     vm.memory[74] = 30;
+     vm.regs[0x5] = 10;
+     vm.regs[0x4] = 10;
+     vm_execute(vm, instruction);
+     ASSERT_EQ(vm.regs[0x05],30);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteLdxbInstructionSuccess){
@@ -867,6 +873,12 @@ TEST(VM_Execute_Test, ShouldExecuteLdxbInstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister,0x4);
      ASSERT_EQ(instruction.offset, 64);
+     vm_init(vm, 100);
+     vm.memory[74] = 30;
+     vm.regs[0x5] = 10;
+     vm.regs[0x4] = 10;
+     vm_execute(vm, instruction);
+     ASSERT_EQ(vm.regs[0x05],30);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteLdxdwInstructionSuccess){
@@ -877,6 +889,12 @@ TEST(VM_Execute_Test, ShouldExecuteLdxdwInstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister,0x4);
      ASSERT_EQ(instruction.offset, 64);
+     vm_init(vm, 100);
+     vm.memory[74] = 30;
+     vm.regs[0x5] = 10;
+     vm.regs[0x4] = 10;
+     vm_execute(vm, instruction);
+     ASSERT_EQ(vm.regs[0x05],30);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteStwInstructionSuccess){
