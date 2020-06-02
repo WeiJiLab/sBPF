@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "../include/vm/instruction.h"
+#include "../include/vm/vm.h"
 
 /**
  * 64 bits instruction

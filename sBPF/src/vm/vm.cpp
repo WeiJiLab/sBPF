@@ -2,7 +2,7 @@
 // Created by XingfengYang on 2020/5/29.
 //
 
-#include "../../include/vm/instruction.h"
+#include "../../include/vm/vm.h"
 #include <stdio.h>
 #include <memory>
 #include <endian.h>
@@ -345,6 +345,10 @@ void vm_load_program(VM_t &vm, u64 *program) {
 
         program++;
     }
+}
+
+void vm_install_program(VM_t &vm, char *elfFile){
+    
 }
 
 u64 vm_fetch_code(VM_t &vm, u32 pc) {
