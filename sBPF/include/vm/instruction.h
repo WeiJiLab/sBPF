@@ -139,7 +139,13 @@ enum ALUInstructions {
 
 typedef struct VM {
     u64 *memory;
-    u64 regs[10];
+    /**
+     * r0 for vm return
+     * r1-r6 for function return
+     * r7-r9 for general useage
+     * r10 for  stack pointer
+     */
+    u64 regs[10]; 
     BPFInstruction_t currentInstruction;
     u64 currentCode;
     u32 pc;
