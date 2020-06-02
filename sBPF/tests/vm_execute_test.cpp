@@ -905,6 +905,10 @@ TEST(VM_Execute_Test, ShouldExecuteStwInstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.offset,64);
      ASSERT_EQ(instruction.immediate, 64);
+     vm_init(vm, 100);
+     vm.regs[0x5] = 10;
+     vm_execute(vm, instruction);
+     ASSERT_EQ(vm.memory[74],64);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteSthInstructionSuccess){
@@ -915,6 +919,10 @@ TEST(VM_Execute_Test, ShouldExecuteSthInstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.offset,64);
      ASSERT_EQ(instruction.immediate, 64);
+     vm_init(vm, 100);
+     vm.regs[0x5] = 10;
+     vm_execute(vm, instruction);
+     ASSERT_EQ(vm.memory[74],64);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteStbInstructionSuccess){
@@ -925,6 +933,10 @@ TEST(VM_Execute_Test, ShouldExecuteStbInstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.offset,64);
      ASSERT_EQ(instruction.immediate, 64);
+     vm_init(vm, 100);
+     vm.regs[0x5] = 10;
+     vm_execute(vm, instruction);
+     ASSERT_EQ(vm.memory[74],64);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteStdwInstructionSuccess){
@@ -935,46 +947,70 @@ TEST(VM_Execute_Test, ShouldExecuteStdwInstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.offset,64);
      ASSERT_EQ(instruction.immediate, 64);
+     vm_init(vm, 100);
+     vm.regs[0x5] = 10;
+     vm_execute(vm, instruction);
+     ASSERT_EQ(vm.memory[74],64);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteStxwInstructionSuccess){
-     u64 code = 0x6354004000000040;
+     u64 code = 0x6354004000000000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
      ASSERT_EQ(instruction.opcode, STXW);
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x4);
      ASSERT_EQ(instruction.offset,64);
+     vm_init(vm, 100);
+     vm.regs[0x5] = 10;
+     vm.regs[0x4] = 35;
+     vm_execute(vm, instruction);
+     ASSERT_EQ(vm.memory[74],35);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteStxhInstructionSuccess){
-     u64 code = 0x6b54004000000040;
+     u64 code = 0x6b54004000000000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
      ASSERT_EQ(instruction.opcode, STXH);
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x4);
      ASSERT_EQ(instruction.offset,64);
+     vm_init(vm, 100);
+     vm.regs[0x5] = 10;
+     vm.regs[0x4] = 35;
+     vm_execute(vm, instruction);
+     ASSERT_EQ(vm.memory[74],35);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteStxbInstructionSuccess){
-     u64 code = 0x7354004000000040;
+     u64 code = 0x7354004000000000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
      ASSERT_EQ(instruction.opcode, STXB);
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x4);
      ASSERT_EQ(instruction.offset,64);
+     vm_init(vm, 100);
+     vm.regs[0x5] = 10;
+     vm.regs[0x4] = 35;
+     vm_execute(vm, instruction);
+     ASSERT_EQ(vm.memory[74],35);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteStxdwInstructionSuccess){
-     u64 code = 0x7b54004000000040;
+     u64 code = 0x7b54004000000000;
      VM_t vm;
      BPFInstruction_t instruction =  vm_decode_code(vm, code);
      ASSERT_EQ(instruction.opcode, STXDW);
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x4);
      ASSERT_EQ(instruction.offset,64);
+     vm_init(vm, 100);
+     vm.regs[0x5] = 10;
+     vm.regs[0x4] = 35;
+     vm_execute(vm, instruction);
+     ASSERT_EQ(vm.memory[74],35);
 }
 
 /**
