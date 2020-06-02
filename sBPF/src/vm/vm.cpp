@@ -488,16 +488,20 @@ void vm_handler_MOV_REG_64(VM_t &vm, BPFInstruction_t instruction) {
 }
 
 void vm_handler_ARSH_IMM_64(VM_t &vm, BPFInstruction_t instruction) {
-    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister] >> instruction.immediate;
-    if ((vm.regs[instruction.destRegister] >> 65) && 0x1) { // signed
-        vm.regs[instruction.destRegister] |= 0xA000000000000000; // set the highest bit to 1
+    if ((vm.regs[instruction.destRegister] >> 63) & 0x1) { // signed
+        vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister] >> instruction.immediate;
+        vm.regs[instruction.destRegister] |= ((u64)(1<<instruction.immediate)-1)<<(64-instruction.immediate); // set higher bit to 1
+    }else{
+        vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister] >> instruction.immediate;
     }
 }
 
 void vm_handler_ARSH_REG_64(VM_t &vm, BPFInstruction_t instruction) {
-    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister] >> vm.regs[instruction.sourceRegister];
-    if ((vm.regs[instruction.destRegister] >> 65) && 0x1) { // signed
-        vm.regs[instruction.destRegister] |= 0xA000000000000000; // set the highest bit to 1
+    if ((vm.regs[instruction.destRegister] >> 63) & 0x1) { // signed
+        vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister] >> vm.regs[instruction.sourceRegister];
+        vm.regs[instruction.destRegister] |= ((u64)(1<<vm.regs[instruction.sourceRegister])-1)<<(64-vm.regs[instruction.sourceRegister]); // set higher bit to 1
+    }else{
+        vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister] >> vm.regs[instruction.sourceRegister];
     }
 }
 
@@ -600,16 +604,20 @@ void vm_handler_MOV_REG_32(VM_t &vm, BPFInstruction_t instruction) {
 }
 
 void vm_handler_ARSH_IMM_32(VM_t &vm, BPFInstruction_t instruction) {
-    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister] >> instruction.immediate;
-    if ((vm.regs[instruction.destRegister] >> 31) && 0x1) { // signed
-        vm.regs[instruction.destRegister] |= 0xA0000000; // set the highest bit to 1
+    if ((vm.regs[instruction.destRegister] >> 31) & 0x1) { // signed
+        vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister] >> instruction.immediate;
+        vm.regs[instruction.destRegister] |= ((1<<instruction.immediate)-1)<<(32-instruction.immediate); // set higher bit to 1
+    }else{
+        vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister] >> instruction.immediate;
     }
 }
 
 void vm_handler_ARSH_REG_32(VM_t &vm, BPFInstruction_t instruction) {
-    vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister] >> vm.regs[instruction.sourceRegister];
-    if ((vm.regs[instruction.destRegister] >> 31) && 0x1) { // signed
-        vm.regs[instruction.destRegister] |= 0xA0000000; // set the highest bit to 1
+    if ((vm.regs[instruction.destRegister] >> 31) & 0x1) { // signed
+        vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister] >> vm.regs[instruction.sourceRegister];
+        vm.regs[instruction.destRegister] |= ((1<<vm.regs[instruction.sourceRegister])-1)<<(32-vm.regs[instruction.sourceRegister]); // set higher bit to 1
+    }else{
+        vm.regs[instruction.destRegister] = vm.regs[instruction.destRegister] >> vm.regs[instruction.sourceRegister];
     }
 }
 

@@ -13,6 +13,7 @@
 #define s32 signed int
 
 #define u64 unsigned long
+#define s64 signed long
 
 typedef struct BPFInstruction {
     u8 opcode;
