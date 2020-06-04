@@ -6,7 +6,9 @@ set(CMAKE_CXX_STANDARD 14)
 SET(Sources src/vm/vm.cpp
         tests/vm_decode_test.cpp
         tests/vm_execute_test.cpp
-        main.cpp)
+        src/vm/hashmap.cpp
+        tests/hashmap_test.cpp
+        sBPF.cpp)
 
 set(SRC_LIST ${SEC_LIST} ${Sources})
 
