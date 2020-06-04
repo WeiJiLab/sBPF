@@ -16,7 +16,7 @@ typedef struct HashMap *HashMap_t;
 typedef int(*HashCodeFunction_t)(HashMap_t, void *key);
 typedef bool(*EqualFunction_t)(void *key1,void * key2);
 typedef void (*PutFunction_t)(HashMap_t hashMap, void *key, void * value);
-typedef void *(*GetFunction_t)(HashMap_t hashMap,void *key);
+typedef void* (*GetFunction_t)(HashMap_t hashMap,void *key);
 typedef bool(*RemoveFunction_t)(HashMap_t hashMap, void *key);
 typedef void(*ClearFunction_t)(HashMap_t hashMap);
 typedef bool(*ExistsFunction_t)(HashMap_t hashMap, void *key);
@@ -35,7 +35,7 @@ typedef struct HashMap{
     bool autoAssign;
 }*HashMap_t;
 
-HashMap_t createHashMap(HashCodeFunction_t hashCode, EqualFunction_t Equal);
+HashMap_t createHashMap(HashCodeFunction_t hashCode, EqualFunction_t equal);
 
 void resetHashMap(HashMap_t hashMap,int listSize);
 
@@ -45,7 +45,7 @@ bool defaultEqual(void *key1,void *key2);
 
 void defaultPut(HashMap_t hashMap,void *key,void *value);
 
-void defaultGut(HashMap_t hashMap,void *key);
+void* defaultGet(HashMap_t hashMap,void *key);
 
 bool defaultRemove(HashMap_t hashMap, void *key);
 
