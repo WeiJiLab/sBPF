@@ -874,6 +874,7 @@ void vm_handler_CALL_IMM(VM_t &vm, BPFInstruction_t instruction) {
 }
 
 void vm_handler_EXIT(VM_t &vm, BPFInstruction_t instruction) {
+    free(vm.memory);
     exit(vm.regs[0]);
 }
 
