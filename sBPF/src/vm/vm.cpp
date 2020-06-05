@@ -218,12 +218,16 @@ void vm_handler_EXIT(VM_t &vm, BPFInstruction_t instruction);
 
 
 bool u64Equal(void *key1,void * key2){
-     int uKey1 = *(int *)key1;
-     int uKey2 = *(int *)key2;
-     return uKey1==uKey2; 
+    int uKey1 = *(int *)key1;
+    int uKey2 = *(int *)key2;
+
+    // printf("\nk1: %d\n",uKey1);
+    // printf("\nk2: %d\n",uKey2);
+    return uKey1==uKey2; 
 }
 
-int inKernelPrintFunctionWrapper(VM_t &vm){
+int WRAPPER_print(VM_t &vm){
+    printf("Wrapper print invoked.");
     return 0;
 }
 
@@ -243,8 +247,9 @@ void setInstructionhandler(){
 }
 
 void setInKernelWrapper(){
-    s32 key = 0x01;
-    inKernelFuncWrapperMap->putFunc(inKernelFuncWrapperMap,(void*)&key,(void*)&inKernelPrintFunctionWrapper);
+    int* key = (int*)malloc(sizeof(int));
+    *key = 1;
+    inKernelFuncWrapperMap->putFunc(inKernelFuncWrapperMap,(void*)key,(void*)&WRAPPER_print);
 }
 
 void vm_init(VM_t &vm, u32 memorySize) {
@@ -299,9 +304,10 @@ void vm_install_program(VM_t &vm, char *elfFile){
     
 }
 
-u64 vm_fetch_code(VM_t &vm, u32 pc) {
-    return vm.memory[pc];
-    pc++;
+u64 vm_fetch_code(VM_t &vm) {
+    u64 code = vm.memory[vm.pc];
+    vm.pc++;
+    return code;
 }
 
 BPFInstruction_t vm_decode_code(VM_t &vm, u64 code) {
@@ -339,7 +345,7 @@ void vm_execute(VM_t &vm, BPFInstruction_t instruction) {
 
 void vm_run(VM_t &vm) {
     while(vm.pc < vm.memorySize){
-        u64 code = vm_fetch_code(vm,vm.pc);
+        u64 code = vm_fetch_code(vm);
         BPFInstruction_t ins =  vm_decode_code(vm,code);
         vm_print_instruction(vm, ins);
         vm_execute(vm, ins);

@@ -47,7 +47,7 @@ void vm_install_program(VM_t &vm, char *elfFile);
 /**
  * fetch code from memory[pc]
  **/
-u64 vm_fetch_code(VM_t &vm, u32 pc);
+u64 vm_fetch_code(VM_t &vm);
 
 /**
  * decode the innstruction from u64 code

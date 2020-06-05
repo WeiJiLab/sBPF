@@ -129,6 +129,7 @@ bool defaultEqual(void *key1,void *key2){
 }
 
 void defaultPut(HashMap_t hashMap,void *key,void *value){
+
     if(hashMap->autoAssign && hashMap->size >= hashMap->listSize){
         resetHashMap(hashMap, hashMap->listSize*2);
     }
