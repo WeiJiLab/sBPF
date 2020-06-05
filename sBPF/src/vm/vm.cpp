@@ -3,6 +3,7 @@
 //
 
 #include "../../include/vm/vm.h"
+#include "../../include/vm/hashmap.h"
 #include <stdio.h>
 #include <memory>
 #include <endian.h>
@@ -12,8 +13,12 @@ bool is_little_endion() {
     return *((u8 *) &usFlag) == 1;
 }
 
-void (*handlers[0xFF])(VM_t &vm, BPFInstruction_t instruction);
 #define ADD_HANDLER(INS) handlers[INS] = *(vm_handler_##INS)
+void (*handlers[0xFF])(VM_t &vm, BPFInstruction_t instruction);
+HashMap_t inKernelFuncWrapperMap;
+HashMapIterator_t wrapperFuncIterator;
+
+int (*wrapperFunc)(VM_t &vm);
 
 void vm_handler_ADD_IMM_64(VM_t &vm, BPFInstruction_t instruction);
 
@@ -211,6 +216,17 @@ void vm_handler_CALL_IMM(VM_t &vm, BPFInstruction_t instruction);
 
 void vm_handler_EXIT(VM_t &vm, BPFInstruction_t instruction);
 
+
+bool u64Equal(void *key1,void * key2){
+     int uKey1 = *(int *)key1;
+     int uKey2 = *(int *)key2;
+     return uKey1==uKey2; 
+}
+
+int inKernelPrintFunctionWrapper(VM_t &vm){
+    return 0;
+}
+
 void vm_init(VM_t &vm, u32 memorySize) {
     if (memorySize > 65535) {
         // exceed max memory, vm exited.
@@ -332,6 +348,13 @@ void vm_init(VM_t &vm, u32 memorySize) {
     ADD_HANDLER(JSLE_REG);
     ADD_HANDLER(CALL_IMM);
     ADD_HANDLER(EXIT);
+
+
+    inKernelFuncWrapperMap = createHashMap(defaultHashCode,u64Equal);
+    wrapperFuncIterator = createHashMapIterator(inKernelFuncWrapperMap);
+
+    s32 key = 0x01;
+    inKernelFuncWrapperMap->putFunc(inKernelFuncWrapperMap,(void*)&key,(void*)&inKernelPrintFunctionWrapper);
 }
 
 bool vm_verify_code(VM_t &vm, u64 code) {
@@ -878,10 +901,8 @@ void vm_handler_JSLE_REG(VM_t &vm, BPFInstruction_t instruction) {
 }
 
 void vm_handler_CALL_IMM(VM_t &vm, BPFInstruction_t instruction) {
-    // todo: function call
-    // todo: 1. find the inkernel function wapper in InKernelFunctionMap by immidate
-    // todo: 2. use wapper read the argument from vm
-    // todo: 3. invoke inkernel function
+    void * wrapper = inKernelFuncWrapperMap->getFunc(inKernelFuncWrapperMap,(void*)&instruction.immediate);
+    ((int(*)(VM_t&))wrapper)(vm);
 }
 
 void vm_handler_EXIT(VM_t &vm, BPFInstruction_t instruction) {
