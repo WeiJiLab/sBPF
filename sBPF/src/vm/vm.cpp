@@ -217,13 +217,21 @@ void vm_handler_CALL_IMM(VM_t &vm, BPFInstruction_t instruction);
 void vm_handler_EXIT(VM_t &vm, BPFInstruction_t instruction);
 
 
-bool u64Equal(void *key1,void * key2){
+bool s32Equal(void *key1,void * key2){
     int uKey1 = *(int *)key1;
     int uKey2 = *(int *)key2;
 
     // printf("\nk1: %d\n",uKey1);
     // printf("\nk2: %d\n",uKey2);
     return uKey1==uKey2; 
+}
+
+int s32HashCode(HashMap_t hashMap, void *key){
+    int uKey = *(int *)key;
+    if(uKey < 0){
+        return -uKey % hashMap->listSize;
+    }
+    return uKey % hashMap->listSize;
 }
 
 int WRAPPER_print(VM_t &vm){
@@ -284,7 +292,7 @@ void vm_init(VM_t &vm, u32 memorySize) {
 
     setInstructionhandler();
 
-    inKernelFuncWrapperMap = createHashMap(defaultHashCode,u64Equal);
+    inKernelFuncWrapperMap = createHashMap(s32HashCode,s32Equal);
     wrapperFuncIterator = createHashMapIterator(inKernelFuncWrapperMap);
 
     setInKernelWrapper();
