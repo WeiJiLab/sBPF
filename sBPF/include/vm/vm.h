@@ -9,6 +9,7 @@
 
 typedef struct VM {
     u64 *memory;
+    u32 memorySize;
     /**
      * r0 for vm return
      * r1-r6 for function return

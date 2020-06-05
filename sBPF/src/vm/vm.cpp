@@ -216,6 +216,7 @@ void vm_init(VM_t &vm, u32 memorySize) {
         // exceed max memory, vm exited.
     }
     vm.memory = (u64 *) malloc(memorySize * sizeof(u64));
+    vm.memorySize = memorySize;
 
     vm.regs[0] = 0;
     vm.regs[1] = 0;
@@ -338,11 +339,13 @@ bool vm_verify_code(VM_t &vm, u64 code) {
 }
 
 void vm_load_program(VM_t &vm, u64 *program) {
+    int index = 0;
     while (*program) {
         if (!vm_verify_code(vm, *program)) {
             break;
         }
-
+        vm.memory[index] = *program;
+        index++;
         program++;
     }
 }
@@ -390,7 +393,12 @@ void vm_execute(VM_t &vm, BPFInstruction_t instruction) {
 }
 
 void vm_run(VM_t &vm) {
-
+    while(vm.pc < vm.memorySize){
+        u64 code = vm_fetch_code(vm,vm.pc);
+        BPFInstruction_t ins =  vm_decode_code(vm,code);
+        vm_print_instruction(vm, ins);
+        vm_execute(vm, ins);
+    }
 }
 
 void vm_handler_ADD_IMM_64(VM_t &vm, BPFInstruction_t instruction) {
@@ -871,6 +879,9 @@ void vm_handler_JSLE_REG(VM_t &vm, BPFInstruction_t instruction) {
 
 void vm_handler_CALL_IMM(VM_t &vm, BPFInstruction_t instruction) {
     // todo: function call
+    // todo: 1. find the inkernel function wapper in InKernelFunctionMap by immidate
+    // todo: 2. use wapper read the argument from vm
+    // todo: 3. invoke inkernel function
 }
 
 void vm_handler_EXIT(VM_t &vm, BPFInstruction_t instruction) {
