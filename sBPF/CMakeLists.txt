@@ -14,4 +14,5 @@ set(SRC_LIST ${SEC_LIST} ${Sources})
 
 add_executable(sBPF ${SRC_LIST})
 
-target_link_libraries(sBPF pthread gtest gtest_main)
+target_link_libraries(sBPF gtest gtest_main pthread)
+
