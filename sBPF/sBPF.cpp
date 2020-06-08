@@ -24,7 +24,6 @@ unsigned long *readEBPFBinaryFile(const char *elfPath){
 }
 
 void bpf_attach_vm(const char* symbol,VM_t &vm){
-
     // todo : 1. get return from inkernel function
     // todo : 2. push them into register6 - register9
     // todo : 3. just run the vm

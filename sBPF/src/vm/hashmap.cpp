@@ -167,13 +167,82 @@ void* defaultGet(HashMap_t hashMap,void *key){
 }
 
 bool defaultRemove(HashMap_t hashMap, void *key){
+    int index = hashMap->hashCodeFunction(hashMap,key);
+    Entry_t entry = &hashMap->list[index];
+    if(entry->key==NULL){
+        return false;
+    }
 
+    bool result = false;
+    if(hashMap->equalFunc(entry->key,key)){
+        hashMap->size--;
+        if(entry->next!=NULL){
+            Entry_t temp = entry->next;
+            entry->key = temp->key;
+            entry->value = temp->value;
+            entry->next = temp->next;
+            free(temp);
+        }else{
+            entry->key = entry->value = NULL;
+        }
+        result = true;
+    }else{
+        Entry_t p = entry;
+        entry = entry->next;
+        while (entry != NULL) {
+            if (hashMap->equalFunc(entry->key, key)) {
+                hashMap->size--;
+                p->next = entry->next;
+                free(entry);
+                result = true;
+                break;
+            }
+            p = entry;
+            entry = entry->next;
+        };
+    }
+
+    if (result && hashMap->autoAssign &&  hashMap->size < hashMap->listSize / 2) {
+        resetHashMap(hashMap, hashMap->listSize / 2);
+    }
+    return result;
 }
 
 bool defaultExists(HashMap_t hashMap, void *key){
+    int index = hashMap->hashCodeFunction(hashMap, key);
+    Entry_t entry = &hashMap->list[index];
+    if (entry->key == NULL) {
+        return false;
+    }
+    if (hashMap->equalFunc(entry->key, key)) {
+        return true;
+    }
+    if (entry->next != NULL) {
+        do {
+            if (hashMap->equalFunc(entry->key, key)) {
+                return true;
+            }
+            entry = entry->next;
 
+        } while (entry != NULL);
+        return false;
+    } else {
+        return false;
+    }
 }
 
 void defaultClear(HashMap_t hashMap){
-
+    for (int i = 0; i < hashMap->listSize; i++) {
+        Entry_t entry = hashMap->list[i].next;
+        while (entry != NULL) {
+            Entry_t next = entry->next;
+            free(entry);
+            entry = next;
+        }
+        hashMap->list[i].next = NULL;
+    }
+    free(hashMap->list);
+    hashMap->list = NULL;
+    hashMap->size = -1;
+    hashMap->listSize = 0;
 }
