@@ -12,6 +12,7 @@ int WRAPPER_print(VM_t vm){
     return 0;
 }
 
+
 void setInKernelWrapper(){
     int* key = (int*)kmalloc(sizeof(int), GFP_KERNEL);
     *key = 1;
@@ -45,6 +46,20 @@ static int handler_fault(struct kprobe *p, struct pt_regs *regs, int trapnr){
     return 0;
 }
 
+
+_Bool s32Equal(void *key1,void * key2){
+    int uKey1 = *(int *)key1;
+    int uKey2 = *(int *)key2;
+    return uKey1==uKey2; 
+}
+
+int s32HashCode(HashMap_t hashMap, void *key){
+    int uKey = *(int *)key;
+    if(uKey < 0){
+        return -uKey % hashMap->listSize;
+    }
+    return uKey % hashMap->listSize;
+}
 static int __init kprobe_init(void){
 
     inKernelFuncWrapperMap = createHashMap(s32HashCode,s32Equal);

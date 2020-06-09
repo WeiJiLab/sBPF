@@ -214,21 +214,6 @@ void vm_handler_CALL_IMM(VM_t vm, BPFInstruction_t instruction);
 
 void vm_handler_EXIT(VM_t vm, BPFInstruction_t instruction);
 
-
-_Bool s32Equal(void *key1,void * key2){
-    int uKey1 = *(int *)key1;
-    int uKey2 = *(int *)key2;
-    return uKey1==uKey2; 
-}
-
-int s32HashCode(HashMap_t hashMap, void *key){
-    int uKey = *(int *)key;
-    if(uKey < 0){
-        return -uKey % hashMap->listSize;
-    }
-    return uKey % hashMap->listSize;
-}
-
 void setInstructionhandler(){
     ADD_HANDLER(ADD_IMM_64);    ADD_HANDLER(ADD_IMM_64);    ADD_HANDLER(ADD_REG_64);    ADD_HANDLER(SUB_IMM_64);    ADD_HANDLER(SUB_REG_64);
     ADD_HANDLER(MUL_IMM_64);    ADD_HANDLER(MUL_REG_64);    ADD_HANDLER(DIV_IMM_64);    ADD_HANDLER(DIV_REG_64);    ADD_HANDLER(OR_IMM_64);
