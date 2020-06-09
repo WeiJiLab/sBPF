@@ -4,8 +4,7 @@
 
 #include "../../include/vm/vm.h"
 #include "../../include/vm/hashmap.h"
-#include <stdio.h>
-#include <malloc.h>
+#include <linux/slab.h>
 #include <endian.h>
 
 bool is_little_endion() {
@@ -266,7 +265,7 @@ void setInKernelWrapper(){
 }
 
 VM_t vm_create(){
-    VM_t vm = (VM_t) malloc(sizeof(VM));
+    VM_t vm = (VM_t) kmalloc(sizeof(VM));
     vm->regs[0] = 0;
     vm->regs[1] = 0;
     vm->regs[2] = 0;
@@ -288,7 +287,7 @@ void vm_init(VM_t vm, u32 memorySize) {
     if (memorySize > 65535) {
         // exceed max memory, vm exited.
     }
-    vm->memory = (u64 *) malloc(memorySize * sizeof(u64));
+    vm->memory = (u64 *) kmalloc(memorySize * sizeof(u64));
     vm->memorySize = memorySize;
 
     setInstructionhandler();
@@ -853,14 +852,6 @@ void vm_handler_CALL_IMM(VM_t vm, BPFInstruction_t instruction) {
 }
 
 void vm_handler_EXIT(VM_t vm, BPFInstruction_t instruction) {
-    free(vm->memory);
+    kfree(vm->memory);
     exit(vm->regs[0]);
-}
-
-void vm_print_instruction(VM_t vm, BPFInstruction_t instruction) {
-    printf("{\n\topcode: %d\n", instruction.opcode);
-    printf("\tdestRegister: %d\n", instruction.destRegister);
-    printf("\tsourceRegister: %d\n", instruction.sourceRegister);
-    printf("\toffset: %d\n", instruction.offset);
-    printf("\timmediate: %d\n}\n", instruction.immediate);
 }

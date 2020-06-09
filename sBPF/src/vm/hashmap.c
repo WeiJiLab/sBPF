@@ -1,9 +1,9 @@
 #include "../../include/vm/hashmap.h"
-#include <malloc.h>
+#include <linux/slab.h>
 
 
 HashMapIterator_t createHashMapIterator(HashMap_t hashMap){
-    HashMapIterator_t iterator = (HashMapIterator_t) malloc(sizeof(HashMapIterator));
+    HashMapIterator_t iterator = (HashMapIterator_t) kmalloc(sizeof(HashMapIterator));
     iterator->count = 0;
     iterator->hashCode = -1;
     iterator->entry = NULL;
@@ -35,12 +35,12 @@ HashMapIterator_t nextHashMapIterator(HashMapIterator_t iterator){
 }
 
 void freeHashMapIterator(HashMapIterator_t *iterator){
-    free(*iterator);
+    kfree(*iterator);
     *iterator = NULL;
 }
 
 HashMap_t createHashMap(HashCodeFunction_t hashCode, EqualFunction_t equal){
-    HashMap_t hashMap = (HashMap_t) malloc(sizeof(HashMap));
+    HashMap_t hashMap = (HashMap_t) kmalloc(sizeof(HashMap));
     hashMap->hashCodeFunction = hashCode;
     hashMap->equalFunc = equal;
     hashMap->size = 0;
@@ -54,7 +54,7 @@ HashMap_t createHashMap(HashCodeFunction_t hashCode, EqualFunction_t equal){
     hashMap->existsFunc=defaultExists;
     hashMap->autoAssign=true;
 
-    hashMap->list = (Entry_t)malloc(hashMap->listSize*sizeof(Entry));
+    hashMap->list = (Entry_t)kmalloc(hashMap->listSize*sizeof(Entry));
     for(int i =0 ;i<hashMap->listSize;i++){
         hashMap->list[i].key = hashMap->list[i].value = hashMap->list[i].next = NULL;
     }
@@ -66,7 +66,7 @@ void resetHashMap(HashMap_t hashMap,int listSize){
         return;
     }
     // 1. create temp list to store the data of hashMap
-    Entry_t tempList = (Entry_t)malloc(sizeof(Entry)*hashMap->size);
+    Entry_t tempList = (Entry_t)kmalloc(sizeof(Entry)*hashMap->size);
     int size = hashMap->size;
 
     HashMapIterator_t iterator = createHashMapIterator(hashMap);
@@ -77,7 +77,7 @@ void resetHashMap(HashMap_t hashMap,int listSize){
         tempList[i].value = iterator->entry->value;
         tempList[i].next = NULL;
     }
-    free(iterator);
+    kfree(iterator);
 
 
     // 2. clear the hashMap
@@ -89,7 +89,7 @@ void resetHashMap(HashMap_t hashMap,int listSize){
         if(first->next!=NULL){
             while(first->next!=NULL){
                 Entry_t temp = first->next->next;
-                free(first->next);
+                kfree(first->next);
                 first->next = temp;
             }
         }
@@ -97,7 +97,7 @@ void resetHashMap(HashMap_t hashMap,int listSize){
 
     // 3. create new hashMap and store the temp data 
     hashMap->listSize = listSize;
-    Entry_t newList = (Entry_t) malloc(sizeof(Entry)*listSize);
+    Entry_t newList = (Entry_t) kmalloc(sizeof(Entry)*listSize);
     if(newList!=NULL){
         hashMap->list = newList;
         newList = NULL;
@@ -113,7 +113,7 @@ void resetHashMap(HashMap_t hashMap,int listSize){
     for(int i = 0;i<size;i++){
         hashMap->putFunc(hashMap, tempList[i].key,tempList[i].value);
     }
-    free(tempList);
+    kfree(tempList);
 }
 
 int defaultHashCode(HashMap_t hashMap, void *key){
@@ -148,7 +148,7 @@ void defaultPut(HashMap_t hashMap,void *key,void *value){
             }
             first = first->next;
         }
-        Entry_t entry = (Entry_t)malloc(sizeof(Entry));
+        Entry_t entry = (Entry_t)kmalloc(sizeof(Entry));
         entry->key = key;
         entry->value = value;
         entry->next =  hashMap->list[index].next;
@@ -181,7 +181,7 @@ bool defaultRemove(HashMap_t hashMap, void *key){
             entry->key = temp->key;
             entry->value = temp->value;
             entry->next = temp->next;
-            free(temp);
+            kfree(temp);
         }else{
             entry->key = entry->value = NULL;
         }
@@ -193,7 +193,7 @@ bool defaultRemove(HashMap_t hashMap, void *key){
             if (hashMap->equalFunc(entry->key, key)) {
                 hashMap->size--;
                 p->next = entry->next;
-                free(entry);
+                kfree(entry);
                 result = true;
                 break;
             }
@@ -236,12 +236,12 @@ void defaultClear(HashMap_t hashMap){
         Entry_t entry = hashMap->list[i].next;
         while (entry != NULL) {
             Entry_t next = entry->next;
-            free(entry);
+            kfree(entry);
             entry = next;
         }
         hashMap->list[i].next = NULL;
     }
-    free(hashMap->list);
+    kfree(hashMap->list);
     hashMap->list = NULL;
     hashMap->size = -1;
     hashMap->listSize = 0;
