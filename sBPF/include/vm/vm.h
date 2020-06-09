@@ -6,6 +6,7 @@
 #define NMCS_EBPF_VM_H
 
 #include "instruction.h"
+#include "hashmap.h"
 
 typedef struct VM {
     u64 *memory;

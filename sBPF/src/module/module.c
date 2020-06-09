@@ -2,7 +2,7 @@
 #include <linux/kernel.h>
 #include <linux/kprobes.h>
 #include "../../include/vm/vm.h"
-#include "../../include/vm/hashmap.h"
+#include <linux/slab.h>
 
 HashMap_t inKernelFuncWrapperMap;
 HashMapIterator_t wrapperFuncIterator;
