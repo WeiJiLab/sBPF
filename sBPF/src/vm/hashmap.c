@@ -34,9 +34,9 @@ HashMapIterator_t nextHashMapIterator(HashMapIterator_t iterator){
     return iterator;
 }
 
-void freeHashMapIterator(HashMapIterator_t *iterator){
-    kfree(*iterator);
-    *iterator = NULL;
+void freeHashMapIterator(HashMapIterator_t iterator){
+    kfree(iterator);
+    iterator = NULL;
 }
 
 HashMap_t createHashMap(HashCodeFunction_t hashCode, EqualFunction_t equal){

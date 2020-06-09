@@ -69,6 +69,6 @@ _Bool hasNextHashMapIterator(HashMapIterator_t iterator);
 
 HashMapIterator_t nextHashMapIterator(HashMapIterator_t iterator);
 
-void freeHashMapIterator(HashMapIterator_t *iterator);
+void freeHashMapIterator(HashMapIterator_t iterator);
 
 #endif // NMCS_EBPF_HASHMAP_H
