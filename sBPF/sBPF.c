@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <gtest/gtest.h>
+// #include <gtest/gtest.h>
 #include <stdlib.h>
 #include "include/vm/vm.h"
 #include <elf.h>
@@ -23,21 +23,21 @@ unsigned long *readEBPFBinaryFile(const char *elfPath){
     printf("entry: %d\n",header.e_machine);
 }
 
-void bpf_attach_vm(const char* symbol,VM_t &vm){
+void bpf_attach_vm(const char* symbol,VM_t vm){
     // todo : 1. get return from inkernel function
     // todo : 2. push them into register6 - register9
     // todo : 3. just run the vm
-    vm.regs[6] = 1;
-    vm.regs[7] = 2;
-    vm.regs[8] = 3;
-    vm.regs[9] = 4;
+    vm->regs[6] = 1;
+    vm->regs[7] = 2;
+    vm->regs[8] = 3;
+    vm->regs[9] = 4;
 
     vm_run(vm);
 }
 
 int main(int argc,char *argv[]){
-    testing::InitGoogleTest(&argc, argv);
-    RUN_ALL_TESTS();
+    // testing::InitGoogleTest(&argc, argv);
+    // RUN_ALL_TESTS();
 
     // readEBPFBinaryFile("/workspaces/NMCS/sBPF/example/bpf_program.o");
 

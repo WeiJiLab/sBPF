@@ -42,7 +42,7 @@ TEST(HashMap_Test, ShouldPutHashMap){
      resetHashMap(hashMap,16);
      u64* key = (u64*)malloc(sizeof(u64));
      *key = 0x60000;
-     int(*wrapperFunc)(VM_t &vm);
+     int(*wrapperFunc)(VM_t vm);
      hashMap->putFunc(hashMap,(void*)&key,(void*)&inKernelFunctionWrapper);
      ASSERT_EQ(hashMap->listSize, 16);
 }
@@ -59,7 +59,7 @@ TEST(HashMap_Test, ShouldGetHashMap){
      resetHashMap(hashMap,16);
      u64* key = (u64*)malloc(sizeof(u64));
      *key = 0x60000;
-     int(*wrapperFunc)(VM_t &vm);
+     int(*wrapperFunc)(VM_t vm);
      hashMap->equalFunc = equal;
      hashMap->putFunc(hashMap,(void*)&key,(void*)&inKernelFunctionWrapper);
      ASSERT_EQ(hashMap->listSize, 16);
@@ -75,7 +75,7 @@ TEST(HashMap_Test, ShouldExistsHashMap){
      resetHashMap(hashMap,16);
      u64* key = (u64*)malloc(sizeof(u64));
      *key = 0x60000;
-     int(*wrapperFunc)(VM_t &vm);
+     int(*wrapperFunc)(VM_t vm);
      hashMap->equalFunc = equal;
      hashMap->putFunc(hashMap,(void*)&key,(void*)&inKernelFunctionWrapper);
      ASSERT_EQ(hashMap->listSize, 16);
@@ -89,7 +89,7 @@ TEST(HashMap_Test, ShouldRemoveHashMap){
      resetHashMap(hashMap,16);
      u64* key = (u64*)malloc(sizeof(u64));
      *key = 0x60000;
-     int(*wrapperFunc)(VM_t &vm);
+     int(*wrapperFunc)(VM_t vm);
      hashMap->equalFunc = equal;
      hashMap->putFunc(hashMap,(void*)&key,(void*)&inKernelFunctionWrapper);
      ASSERT_EQ(hashMap->listSize, 16);
@@ -107,7 +107,7 @@ TEST(HashMap_Test, ShouldClearHashMap){
      resetHashMap(hashMap,16);
      u64* key = (u64*)malloc(sizeof(u64));
      *key = 0x60000;
-     int(*wrapperFunc)(VM_t &vm);
+     int(*wrapperFunc)(VM_t vm);
      hashMap->equalFunc = equal;
      hashMap->putFunc(hashMap,(void*)&key,(void*)&inKernelFunctionWrapper);
      ASSERT_EQ(hashMap->listSize, 16);

@@ -4,7 +4,7 @@
 
 
 static struct kprobe kp = {
-    .symbol_name = ""
+    .symbol_name = "do_fork"
 };
 
 static int handler_pre(struct kprobe *p, struct pt_regs *regs){

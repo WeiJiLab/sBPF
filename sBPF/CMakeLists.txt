@@ -3,12 +3,12 @@ project(sBPF)
 
 set(CMAKE_CXX_STANDARD 14)
 
-SET(Sources src/vm/vm.cpp
-        tests/vm_decode_test.cpp
-        tests/vm_execute_test.cpp
-        src/vm/hashmap.cpp
-        tests/hashmap_test.cpp
-        sBPF.cpp)
+SET(Sources src/vm/vm.c
+        # tests/vm_decode_test.c
+        # tests/vm_execute_test.c
+        src/vm/hashmap.c
+        # tests/hashmap_test.c
+        sBPF.c)
 
 set(SRC_LIST ${SEC_LIST} ${Sources})
 

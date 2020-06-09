@@ -13,9 +13,9 @@ TEST(VM_Execute_Test, ShouldExecuteAddImm64InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 0x6400);
      vm_init(vm,0);
-     vm.regs[0x5] = 10;
+     vm->regs[0x5] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 0x6400+10);
+     ASSERT_EQ(vm->regs[0x05], 0x6400+10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteAddReg64InstructionSuccess){
@@ -26,10 +26,10 @@ TEST(VM_Execute_Test, ShouldExecuteAddReg64InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x03);
      vm_init(vm,0);
-     vm.regs[0x5] = 10;
-     vm.regs[0x3] = 10;
+     vm->regs[0x5] = 10;
+     vm->regs[0x3] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 10+10);
+     ASSERT_EQ(vm->regs[0x05], 10+10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteSubImm64InstructionSuccess){
@@ -40,9 +40,9 @@ TEST(VM_Execute_Test, ShouldExecuteSubImm64InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 0x6400);
      vm_init(vm,0);
-     vm.regs[0x5] = 10;
+     vm->regs[0x5] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 10-0x6400);
+     ASSERT_EQ(vm->regs[0x05], 10-0x6400);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteSubReg64InstructionSuccess){
@@ -53,10 +53,10 @@ TEST(VM_Execute_Test, ShouldExecuteSubReg64InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x03);
      vm_init(vm,0);
-     vm.regs[0x5] = 20;
-     vm.regs[0x3] = 10;
+     vm->regs[0x5] = 20;
+     vm->regs[0x3] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 20-10);
+     ASSERT_EQ(vm->regs[0x05], 20-10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteMulImm64InstructionSuccess){
@@ -67,9 +67,9 @@ TEST(VM_Execute_Test, ShouldExecuteMulImm64InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 0x6400);
      vm_init(vm,0);
-     vm.regs[0x5] = 10;
+     vm->regs[0x5] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 0x6400*10);
+     ASSERT_EQ(vm->regs[0x05], 0x6400*10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteMulReg64InstructionSuccess){
@@ -80,10 +80,10 @@ TEST(VM_Execute_Test, ShouldExecuteMulReg64InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x03);
      vm_init(vm,0);
-     vm.regs[0x5] = 20;
-     vm.regs[0x3] = 10;
+     vm->regs[0x5] = 20;
+     vm->regs[0x3] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 20*10);
+     ASSERT_EQ(vm->regs[0x05], 20*10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteDivImm64InstructionSuccess){
@@ -94,9 +94,9 @@ TEST(VM_Execute_Test, ShouldExecuteDivImm64InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 0x6400);
      vm_init(vm,0);
-     vm.regs[0x5] = 10;
+     vm->regs[0x5] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 10/0x6400);
+     ASSERT_EQ(vm->regs[0x05], 10/0x6400);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteDivReg64InstructionSuccess){
@@ -107,10 +107,10 @@ TEST(VM_Execute_Test, ShouldExecuteDivReg64InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x03);
      vm_init(vm,0);
-     vm.regs[0x5] = 20;
-     vm.regs[0x3] = 10;
+     vm->regs[0x5] = 20;
+     vm->regs[0x3] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 20/10);
+     ASSERT_EQ(vm->regs[0x05], 20/10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteOrImm64InstructionSuccess){
@@ -121,9 +121,9 @@ TEST(VM_Execute_Test, ShouldExecuteOrImm64InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 0x6400);
      vm_init(vm,0);
-     vm.regs[0x5] = 10;
+     vm->regs[0x5] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 10 | 0x6400);
+     ASSERT_EQ(vm->regs[0x05], 10 | 0x6400);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteOrReg64InstructionSuccess){
@@ -134,10 +134,10 @@ TEST(VM_Execute_Test, ShouldExecuteOrReg64InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x03);
      vm_init(vm,0);
-     vm.regs[0x5] = 20;
-     vm.regs[0x3] = 10;
+     vm->regs[0x5] = 20;
+     vm->regs[0x3] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 20 | 10);
+     ASSERT_EQ(vm->regs[0x05], 20 | 10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteAndImm64InstructionSuccess){
@@ -148,9 +148,9 @@ TEST(VM_Execute_Test, ShouldExecuteAndImm64InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 0x6400);
      vm_init(vm,0);
-     vm.regs[0x5] = 10;
+     vm->regs[0x5] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 10 & 0x6400);
+     ASSERT_EQ(vm->regs[0x05], 10 & 0x6400);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteAndReg64InstructionSuccess){
@@ -161,10 +161,10 @@ TEST(VM_Execute_Test, ShouldExecuteAndReg64InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x03);
      vm_init(vm,0);
-     vm.regs[0x5] = 20;
-     vm.regs[0x3] = 10;
+     vm->regs[0x5] = 20;
+     vm->regs[0x3] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 20 & 10);
+     ASSERT_EQ(vm->regs[0x05], 20 & 10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteLshImm64InstructionSuccess){
@@ -175,9 +175,9 @@ TEST(VM_Execute_Test, ShouldExecuteLshImm64InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 0x04);
      vm_init(vm,0);
-     vm.regs[0x5] = 10;
+     vm->regs[0x5] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 10 << 0x04);
+     ASSERT_EQ(vm->regs[0x05], 10 << 0x04);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteLshReg64InstructionSuccess){
@@ -188,10 +188,10 @@ TEST(VM_Execute_Test, ShouldExecuteLshReg64InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x03);
      vm_init(vm,0);
-     vm.regs[0x5] = 20;
-     vm.regs[0x3] = 10;
+     vm->regs[0x5] = 20;
+     vm->regs[0x3] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 20 << 10);
+     ASSERT_EQ(vm->regs[0x05], 20 << 10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteRshImm64InstructionSuccess){
@@ -202,9 +202,9 @@ TEST(VM_Execute_Test, ShouldExecuteRshImm64InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 0x04);
      vm_init(vm,0);
-     vm.regs[0x5] = 10;
+     vm->regs[0x5] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 10 >> 0x04);
+     ASSERT_EQ(vm->regs[0x05], 10 >> 0x04);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteRshReg64InstructionSuccess){
@@ -215,10 +215,10 @@ TEST(VM_Execute_Test, ShouldExecuteRshReg64InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x03);
      vm_init(vm,0);
-     vm.regs[0x5] = 20;
-     vm.regs[0x3] = 10;
+     vm->regs[0x5] = 20;
+     vm->regs[0x3] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 20 >> 10);
+     ASSERT_EQ(vm->regs[0x05], 20 >> 10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteNegImm64InstructionSuccess){
@@ -228,9 +228,9 @@ TEST(VM_Execute_Test, ShouldExecuteNegImm64InstructionSuccess){
      ASSERT_EQ(instruction.opcode, NEG_REG_64);
      ASSERT_EQ(instruction.destRegister, 0x05);
      vm_init(vm,0);
-     vm.regs[0x5] = 10;
+     vm->regs[0x5] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], -10);
+     ASSERT_EQ(vm->regs[0x05], -10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteModImm64InstructionSuccess){
@@ -241,9 +241,9 @@ TEST(VM_Execute_Test, ShouldExecuteModImm64InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 0x6400);
      vm_init(vm,0);
-     vm.regs[0x5] = 10;
+     vm->regs[0x5] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 10 % 0x6400);
+     ASSERT_EQ(vm->regs[0x05], 10 % 0x6400);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteModReg64InstructionSuccess){
@@ -254,10 +254,10 @@ TEST(VM_Execute_Test, ShouldExecuteModReg64InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x03);
      vm_init(vm,0);
-     vm.regs[0x5] = 20;
-     vm.regs[0x3] = 10;
+     vm->regs[0x5] = 20;
+     vm->regs[0x3] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 20 % 10);
+     ASSERT_EQ(vm->regs[0x05], 20 % 10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteXorImm64InstructionSuccess){
@@ -268,9 +268,9 @@ TEST(VM_Execute_Test, ShouldExecuteXorImm64InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 0x6400);
      vm_init(vm,0);
-     vm.regs[0x5] = 10;
+     vm->regs[0x5] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 10 ^ 0x6400);
+     ASSERT_EQ(vm->regs[0x05], 10 ^ 0x6400);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteXorReg64InstructionSuccess){
@@ -281,10 +281,10 @@ TEST(VM_Execute_Test, ShouldExecuteXorReg64InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x03);
      vm_init(vm,0);
-     vm.regs[0x5] = 20;
-     vm.regs[0x3] = 10;
+     vm->regs[0x5] = 20;
+     vm->regs[0x3] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 20 ^ 10);
+     ASSERT_EQ(vm->regs[0x05], 20 ^ 10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteMovImm64InstructionSuccess){
@@ -295,9 +295,9 @@ TEST(VM_Execute_Test, ShouldExecuteMovImm64InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 0x6400);
      vm_init(vm,0);
-     vm.regs[0x5] = 10;
+     vm->regs[0x5] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 0x6400);
+     ASSERT_EQ(vm->regs[0x05], 0x6400);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteMovReg64InstructionSuccess){
@@ -308,10 +308,10 @@ TEST(VM_Execute_Test, ShouldExecuteMovReg64InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x03);
      vm_init(vm,0);
-     vm.regs[0x5] = 20;
-     vm.regs[0x3] = 10;
+     vm->regs[0x5] = 20;
+     vm->regs[0x3] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 10);
+     ASSERT_EQ(vm->regs[0x05], 10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteArshImm64InstructionSuccess){
@@ -322,9 +322,9 @@ TEST(VM_Execute_Test, ShouldExecuteArshImm64InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 0x04);
      vm_init(vm,0);
-     vm.regs[0x5] = (u64)(-64);
+     vm->regs[0x5] = (u64)(-64);
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], (-64)>>0x04);
+     ASSERT_EQ(vm->regs[0x05], (-64)>>0x04);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteArshReg64InstructionSuccess){
@@ -335,10 +335,10 @@ TEST(VM_Execute_Test, ShouldExecuteArshReg64InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x03);
      vm_init(vm,0);
-     vm.regs[0x5] = (u64)(-64);
-     vm.regs[0x3] = 2;
+     vm->regs[0x5] = (u64)(-64);
+     vm->regs[0x3] = 2;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], (-64)>>2);
+     ASSERT_EQ(vm->regs[0x05], (-64)>>2);
 }
 
 /**
@@ -352,9 +352,9 @@ TEST(VM_Execute_Test, ShouldExecuteAddImm32InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 0x6400);
      vm_init(vm,0);
-     vm.regs[0x5] = 10;
+     vm->regs[0x5] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 0x6400+10);
+     ASSERT_EQ(vm->regs[0x05], 0x6400+10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteAddReg32InstructionSuccess){
@@ -365,10 +365,10 @@ TEST(VM_Execute_Test, ShouldExecuteAddReg32InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x03);
      vm_init(vm,0);
-     vm.regs[0x5] = 10;
-     vm.regs[0x3] = 10;
+     vm->regs[0x5] = 10;
+     vm->regs[0x3] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 10+10);
+     ASSERT_EQ(vm->regs[0x05], 10+10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteSubImm32InstructionSuccess){
@@ -379,9 +379,9 @@ TEST(VM_Execute_Test, ShouldExecuteSubImm32InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 0x6400);
      vm_init(vm,0);
-     vm.regs[0x5] = 10;
+     vm->regs[0x5] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 10-0x6400);
+     ASSERT_EQ(vm->regs[0x05], 10-0x6400);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteSubReg32InstructionSuccess){
@@ -392,10 +392,10 @@ TEST(VM_Execute_Test, ShouldExecuteSubReg32InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x03);
      vm_init(vm,0);
-     vm.regs[0x5] = 20;
-     vm.regs[0x3] = 10;
+     vm->regs[0x5] = 20;
+     vm->regs[0x3] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 20-10);
+     ASSERT_EQ(vm->regs[0x05], 20-10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteMulImm32InstructionSuccess){
@@ -406,9 +406,9 @@ TEST(VM_Execute_Test, ShouldExecuteMulImm32InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 0x6400);
      vm_init(vm,0);
-     vm.regs[0x5] = 10;
+     vm->regs[0x5] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 0x6400*10);
+     ASSERT_EQ(vm->regs[0x05], 0x6400*10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteMulReg32InstructionSuccess){
@@ -419,10 +419,10 @@ TEST(VM_Execute_Test, ShouldExecuteMulReg32InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x03);
      vm_init(vm,0);
-     vm.regs[0x5] = 20;
-     vm.regs[0x3] = 10;
+     vm->regs[0x5] = 20;
+     vm->regs[0x3] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 20*10);
+     ASSERT_EQ(vm->regs[0x05], 20*10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteDivImm32InstructionSuccess){
@@ -433,9 +433,9 @@ TEST(VM_Execute_Test, ShouldExecuteDivImm32InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 0x6400);
      vm_init(vm,0);
-     vm.regs[0x5] = 10;
+     vm->regs[0x5] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 10/0x6400);
+     ASSERT_EQ(vm->regs[0x05], 10/0x6400);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteDivReg32InstructionSuccess){
@@ -446,10 +446,10 @@ TEST(VM_Execute_Test, ShouldExecuteDivReg32InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x03);
      vm_init(vm,0);
-     vm.regs[0x5] = 20;
-     vm.regs[0x3] = 10;
+     vm->regs[0x5] = 20;
+     vm->regs[0x3] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 20/10);
+     ASSERT_EQ(vm->regs[0x05], 20/10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteOrImm32InstructionSuccess){
@@ -460,9 +460,9 @@ TEST(VM_Execute_Test, ShouldExecuteOrImm32InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 0x6400);
      vm_init(vm,0);
-     vm.regs[0x5] = 10;
+     vm->regs[0x5] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 0x6400|10);
+     ASSERT_EQ(vm->regs[0x05], 0x6400|10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteOrReg32InstructionSuccess){
@@ -473,10 +473,10 @@ TEST(VM_Execute_Test, ShouldExecuteOrReg32InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x03);
      vm_init(vm,0);
-     vm.regs[0x5] = 20;
-     vm.regs[0x3] = 10;
+     vm->regs[0x5] = 20;
+     vm->regs[0x3] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 20|10);
+     ASSERT_EQ(vm->regs[0x05], 20|10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteAndImm32InstructionSuccess){
@@ -487,9 +487,9 @@ TEST(VM_Execute_Test, ShouldExecuteAndImm32InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 0x6400);
      vm_init(vm,0);
-     vm.regs[0x5] = 10;
+     vm->regs[0x5] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 0x6400 & 10);
+     ASSERT_EQ(vm->regs[0x05], 0x6400 & 10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteAndReg32InstructionSuccess){
@@ -500,10 +500,10 @@ TEST(VM_Execute_Test, ShouldExecuteAndReg32InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x03);
      vm_init(vm,0);
-     vm.regs[0x5] = 20;
-     vm.regs[0x3] = 10;
+     vm->regs[0x5] = 20;
+     vm->regs[0x3] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 20 & 10);
+     ASSERT_EQ(vm->regs[0x05], 20 & 10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteLshImm32InstructionSuccess){
@@ -514,9 +514,9 @@ TEST(VM_Execute_Test, ShouldExecuteLshImm32InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 0x04);
      vm_init(vm,0);
-     vm.regs[0x5] = 10;
+     vm->regs[0x5] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 10 << 0x04);
+     ASSERT_EQ(vm->regs[0x05], 10 << 0x04);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteLshReg32InstructionSuccess){
@@ -527,10 +527,10 @@ TEST(VM_Execute_Test, ShouldExecuteLshReg32InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x03);
      vm_init(vm,0);
-     vm.regs[0x5] = 20;
-     vm.regs[0x3] = 10;
+     vm->regs[0x5] = 20;
+     vm->regs[0x3] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 20 << 10);
+     ASSERT_EQ(vm->regs[0x05], 20 << 10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteRshImm32InstructionSuccess){
@@ -541,9 +541,9 @@ TEST(VM_Execute_Test, ShouldExecuteRshImm32InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 0x04);
      vm_init(vm,0);
-     vm.regs[0x5] = 10;
+     vm->regs[0x5] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 10 >> 0x04);
+     ASSERT_EQ(vm->regs[0x05], 10 >> 0x04);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteRshReg32InstructionSuccess){
@@ -554,10 +554,10 @@ TEST(VM_Execute_Test, ShouldExecuteRshReg32InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x03);
      vm_init(vm,0);
-     vm.regs[0x5] = 20;
-     vm.regs[0x3] = 10;
+     vm->regs[0x5] = 20;
+     vm->regs[0x3] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 20 >> 10);
+     ASSERT_EQ(vm->regs[0x05], 20 >> 10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteNegImm32InstructionSuccess){
@@ -567,9 +567,9 @@ TEST(VM_Execute_Test, ShouldExecuteNegImm32InstructionSuccess){
      ASSERT_EQ(instruction.opcode, NEG_REG_32);
      ASSERT_EQ(instruction.destRegister, 0x05);
      vm_init(vm,0);
-     vm.regs[0x5] = 20;
+     vm->regs[0x5] = 20;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], -20);
+     ASSERT_EQ(vm->regs[0x05], -20);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteModImm32InstructionSuccess){
@@ -580,9 +580,9 @@ TEST(VM_Execute_Test, ShouldExecuteModImm32InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 0x6400);
      vm_init(vm,0);
-     vm.regs[0x5] = 10;
+     vm->regs[0x5] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 10 % 0x6400);
+     ASSERT_EQ(vm->regs[0x05], 10 % 0x6400);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteModReg32InstructionSuccess){
@@ -593,10 +593,10 @@ TEST(VM_Execute_Test, ShouldExecuteModReg32InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x03);
      vm_init(vm,0);
-     vm.regs[0x5] = 20;
-     vm.regs[0x3] = 10;
+     vm->regs[0x5] = 20;
+     vm->regs[0x3] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 20 % 10);
+     ASSERT_EQ(vm->regs[0x05], 20 % 10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteXorImm32InstructionSuccess){
@@ -607,9 +607,9 @@ TEST(VM_Execute_Test, ShouldExecuteXorImm32InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 0x6400);
      vm_init(vm,0);
-     vm.regs[0x5] = 10;
+     vm->regs[0x5] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 10 ^ 0x6400);
+     ASSERT_EQ(vm->regs[0x05], 10 ^ 0x6400);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteXorReg32InstructionSuccess){
@@ -620,10 +620,10 @@ TEST(VM_Execute_Test, ShouldExecuteXorReg32InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x03);
      vm_init(vm,0);
-     vm.regs[0x5] = 20;
-     vm.regs[0x3] = 10;
+     vm->regs[0x5] = 20;
+     vm->regs[0x3] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 20 ^ 10);
+     ASSERT_EQ(vm->regs[0x05], 20 ^ 10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteMovImm32InstructionSuccess){
@@ -634,9 +634,9 @@ TEST(VM_Execute_Test, ShouldExecuteMovImm32InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 0x6400);
      vm_init(vm,0);
-     vm.regs[0x5] = 10;
+     vm->regs[0x5] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 0x6400);
+     ASSERT_EQ(vm->regs[0x05], 0x6400);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteMovReg32InstructionSuccess){
@@ -647,10 +647,10 @@ TEST(VM_Execute_Test, ShouldExecuteMovReg32InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x03);
      vm_init(vm,0);
-     vm.regs[0x5] = 20;
-     vm.regs[0x3] = 10;
+     vm->regs[0x5] = 20;
+     vm->regs[0x3] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], 10);
+     ASSERT_EQ(vm->regs[0x05], 10);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteArshImm32InstructionSuccess){
@@ -661,9 +661,9 @@ TEST(VM_Execute_Test, ShouldExecuteArshImm32InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 0x04);
      vm_init(vm,0);
-     vm.regs[0x5] = -64;
+     vm->regs[0x5] = -64;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], (-64)>>0x04);
+     ASSERT_EQ(vm->regs[0x05], (-64)>>0x04);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteArshReg32InstructionSuccess){
@@ -674,10 +674,10 @@ TEST(VM_Execute_Test, ShouldExecuteArshReg32InstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.sourceRegister, 0x03);
      vm_init(vm,0);
-     vm.regs[0x5] = -64;
-     vm.regs[0x3] = 2;
+     vm->regs[0x5] = -64;
+     vm->regs[0x3] = 2;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05], (-64)>>2);
+     ASSERT_EQ(vm->regs[0x05], (-64)>>2);
 }
 
 /**
@@ -748,9 +748,9 @@ TEST(VM_Execute_Test, ShouldExecuteLddwInstructionSuccess){
      ASSERT_EQ(instruction.destRegister, 0x05);
      ASSERT_EQ(instruction.immediate, 64);
      vm_init(vm, 100);
-     vm.regs[0x5] = 10;
+     vm->regs[0x5] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05],64);
+     ASSERT_EQ(vm->regs[0x05],64);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteLdabswInstructionSuccess){
@@ -842,11 +842,11 @@ TEST(VM_Execute_Test, ShouldExecuteLdxwInstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister,0x4);
      ASSERT_EQ(instruction.offset, 64);
      vm_init(vm, 100);
-     vm.memory[74] = 30;
-     vm.regs[0x5] = 10;
-     vm.regs[0x4] = 10;
+     vm->memory[74] = 30;
+     vm->regs[0x5] = 10;
+     vm->regs[0x4] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05],30);
+     ASSERT_EQ(vm->regs[0x05],30);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteLdxhInstructionSuccess){
@@ -858,11 +858,11 @@ TEST(VM_Execute_Test, ShouldExecuteLdxhInstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister,0x4);
      ASSERT_EQ(instruction.offset, 64);
      vm_init(vm, 100);
-     vm.memory[74] = 30;
-     vm.regs[0x5] = 10;
-     vm.regs[0x4] = 10;
+     vm->memory[74] = 30;
+     vm->regs[0x5] = 10;
+     vm->regs[0x4] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05],30);
+     ASSERT_EQ(vm->regs[0x05],30);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteLdxbInstructionSuccess){
@@ -874,11 +874,11 @@ TEST(VM_Execute_Test, ShouldExecuteLdxbInstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister,0x4);
      ASSERT_EQ(instruction.offset, 64);
      vm_init(vm, 100);
-     vm.memory[74] = 30;
-     vm.regs[0x5] = 10;
-     vm.regs[0x4] = 10;
+     vm->memory[74] = 30;
+     vm->regs[0x5] = 10;
+     vm->regs[0x4] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05],30);
+     ASSERT_EQ(vm->regs[0x05],30);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteLdxdwInstructionSuccess){
@@ -890,11 +890,11 @@ TEST(VM_Execute_Test, ShouldExecuteLdxdwInstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister,0x4);
      ASSERT_EQ(instruction.offset, 64);
      vm_init(vm, 100);
-     vm.memory[74] = 30;
-     vm.regs[0x5] = 10;
-     vm.regs[0x4] = 10;
+     vm->memory[74] = 30;
+     vm->regs[0x5] = 10;
+     vm->regs[0x4] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.regs[0x05],30);
+     ASSERT_EQ(vm->regs[0x05],30);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteStwInstructionSuccess){
@@ -906,9 +906,9 @@ TEST(VM_Execute_Test, ShouldExecuteStwInstructionSuccess){
      ASSERT_EQ(instruction.offset,64);
      ASSERT_EQ(instruction.immediate, 64);
      vm_init(vm, 100);
-     vm.regs[0x5] = 10;
+     vm->regs[0x5] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.memory[74],64);
+     ASSERT_EQ(vm->memory[74],64);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteSthInstructionSuccess){
@@ -920,9 +920,9 @@ TEST(VM_Execute_Test, ShouldExecuteSthInstructionSuccess){
      ASSERT_EQ(instruction.offset,64);
      ASSERT_EQ(instruction.immediate, 64);
      vm_init(vm, 100);
-     vm.regs[0x5] = 10;
+     vm->regs[0x5] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.memory[74],64);
+     ASSERT_EQ(vm->memory[74],64);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteStbInstructionSuccess){
@@ -934,9 +934,9 @@ TEST(VM_Execute_Test, ShouldExecuteStbInstructionSuccess){
      ASSERT_EQ(instruction.offset,64);
      ASSERT_EQ(instruction.immediate, 64);
      vm_init(vm, 100);
-     vm.regs[0x5] = 10;
+     vm->regs[0x5] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.memory[74],64);
+     ASSERT_EQ(vm->memory[74],64);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteStdwInstructionSuccess){
@@ -948,9 +948,9 @@ TEST(VM_Execute_Test, ShouldExecuteStdwInstructionSuccess){
      ASSERT_EQ(instruction.offset,64);
      ASSERT_EQ(instruction.immediate, 64);
      vm_init(vm, 100);
-     vm.regs[0x5] = 10;
+     vm->regs[0x5] = 10;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.memory[74],64);
+     ASSERT_EQ(vm->memory[74],64);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteStxwInstructionSuccess){
@@ -962,10 +962,10 @@ TEST(VM_Execute_Test, ShouldExecuteStxwInstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister, 0x4);
      ASSERT_EQ(instruction.offset,64);
      vm_init(vm, 100);
-     vm.regs[0x5] = 10;
-     vm.regs[0x4] = 35;
+     vm->regs[0x5] = 10;
+     vm->regs[0x4] = 35;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.memory[74],35);
+     ASSERT_EQ(vm->memory[74],35);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteStxhInstructionSuccess){
@@ -977,10 +977,10 @@ TEST(VM_Execute_Test, ShouldExecuteStxhInstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister, 0x4);
      ASSERT_EQ(instruction.offset,64);
      vm_init(vm, 100);
-     vm.regs[0x5] = 10;
-     vm.regs[0x4] = 35;
+     vm->regs[0x5] = 10;
+     vm->regs[0x4] = 35;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.memory[74],35);
+     ASSERT_EQ(vm->memory[74],35);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteStxbInstructionSuccess){
@@ -992,10 +992,10 @@ TEST(VM_Execute_Test, ShouldExecuteStxbInstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister, 0x4);
      ASSERT_EQ(instruction.offset,64);
      vm_init(vm, 100);
-     vm.regs[0x5] = 10;
-     vm.regs[0x4] = 35;
+     vm->regs[0x5] = 10;
+     vm->regs[0x4] = 35;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.memory[74],35);
+     ASSERT_EQ(vm->memory[74],35);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteStxdwInstructionSuccess){
@@ -1007,10 +1007,10 @@ TEST(VM_Execute_Test, ShouldExecuteStxdwInstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister, 0x4);
      ASSERT_EQ(instruction.offset,64);
      vm_init(vm, 100);
-     vm.regs[0x5] = 10;
-     vm.regs[0x4] = 35;
+     vm->regs[0x5] = 10;
+     vm->regs[0x4] = 35;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.memory[74],35);
+     ASSERT_EQ(vm->memory[74],35);
 }
 
 /**
@@ -1025,7 +1025,7 @@ TEST(VM_Execute_Test, ShouldExecuteJaInstructionSuccess){
      ASSERT_EQ(instruction.offset,64);
      vm_init(vm, 100);
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.pc,64);
+     ASSERT_EQ(vm->pc,64);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteJeqImmInstructionSuccess){
@@ -1037,9 +1037,9 @@ TEST(VM_Execute_Test, ShouldExecuteJeqImmInstructionSuccess){
      ASSERT_EQ(instruction.offset,64);
      ASSERT_EQ(instruction.immediate, 64);
      vm_init(vm, 100);
-     vm.regs[0x5] = 0x40;
+     vm->regs[0x5] = 0x40;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.pc,64);
+     ASSERT_EQ(vm->pc,64);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteJeqRegInstructionSuccess){
@@ -1051,10 +1051,10 @@ TEST(VM_Execute_Test, ShouldExecuteJeqRegInstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister,0x04);
      ASSERT_EQ(instruction.offset, 64);
      vm_init(vm, 100);
-     vm.regs[0x5] = 0x40;
-     vm.regs[0x4] = 0x40;
+     vm->regs[0x5] = 0x40;
+     vm->regs[0x4] = 0x40;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.pc,64);
+     ASSERT_EQ(vm->pc,64);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteJgtImmInstructionSuccess){
@@ -1066,9 +1066,9 @@ TEST(VM_Execute_Test, ShouldExecuteJgtImmInstructionSuccess){
      ASSERT_EQ(instruction.offset,64);
      ASSERT_EQ(instruction.immediate, 64);
      vm_init(vm, 100);
-     vm.regs[0x5] = 0x41;
+     vm->regs[0x5] = 0x41;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.pc,64);
+     ASSERT_EQ(vm->pc,64);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteJgtRegInstructionSuccess){
@@ -1080,10 +1080,10 @@ TEST(VM_Execute_Test, ShouldExecuteJgtRegInstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister,0x04);
      ASSERT_EQ(instruction.offset, 64);
      vm_init(vm, 100);
-     vm.regs[0x5] = 0x41;
-     vm.regs[0x4] = 0x40;
+     vm->regs[0x5] = 0x41;
+     vm->regs[0x4] = 0x40;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.pc,64);
+     ASSERT_EQ(vm->pc,64);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteJgeImmInstructionSuccess){
@@ -1095,9 +1095,9 @@ TEST(VM_Execute_Test, ShouldExecuteJgeImmInstructionSuccess){
      ASSERT_EQ(instruction.offset,64);
      ASSERT_EQ(instruction.immediate, 64);
      vm_init(vm, 100);
-     vm.regs[0x5] = 0x41;
+     vm->regs[0x5] = 0x41;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.pc,64);
+     ASSERT_EQ(vm->pc,64);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteJgeRegInstructionSuccess){
@@ -1109,10 +1109,10 @@ TEST(VM_Execute_Test, ShouldExecuteJgeRegInstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister,0x04);
      ASSERT_EQ(instruction.offset, 64);
      vm_init(vm, 100);
-     vm.regs[0x5] = 0x41;
-     vm.regs[0x4] = 0x40;
+     vm->regs[0x5] = 0x41;
+     vm->regs[0x4] = 0x40;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.pc,64);
+     ASSERT_EQ(vm->pc,64);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteJltImmInstructionSuccess){
@@ -1124,9 +1124,9 @@ TEST(VM_Execute_Test, ShouldExecuteJltImmInstructionSuccess){
      ASSERT_EQ(instruction.offset,64);
      ASSERT_EQ(instruction.immediate, 64);
      vm_init(vm, 100);
-     vm.regs[0x5] = 0x39;
+     vm->regs[0x5] = 0x39;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.pc,64);
+     ASSERT_EQ(vm->pc,64);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteJltRegInstructionSuccess){
@@ -1138,10 +1138,10 @@ TEST(VM_Execute_Test, ShouldExecuteJltRegInstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister,0x04);
      ASSERT_EQ(instruction.offset, 64);
      vm_init(vm, 100);
-     vm.regs[0x5] = 0x39;
-     vm.regs[0x4] = 0x40;
+     vm->regs[0x5] = 0x39;
+     vm->regs[0x4] = 0x40;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.pc,64);
+     ASSERT_EQ(vm->pc,64);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteJleImmInstructionSuccess){
@@ -1153,9 +1153,9 @@ TEST(VM_Execute_Test, ShouldExecuteJleImmInstructionSuccess){
      ASSERT_EQ(instruction.offset,64);
      ASSERT_EQ(instruction.immediate, 64);
      vm_init(vm, 100);
-     vm.regs[0x5] = 0x39;
+     vm->regs[0x5] = 0x39;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.pc,64);
+     ASSERT_EQ(vm->pc,64);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteJleRegInstructionSuccess){
@@ -1167,10 +1167,10 @@ TEST(VM_Execute_Test, ShouldExecuteJleRegInstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister,0x04);
      ASSERT_EQ(instruction.offset, 64);
      vm_init(vm, 100);
-     vm.regs[0x5] = 0x39;
-     vm.regs[0x4] = 0x40;
+     vm->regs[0x5] = 0x39;
+     vm->regs[0x4] = 0x40;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.pc,64);
+     ASSERT_EQ(vm->pc,64);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteJsetImmInstructionSuccess){
@@ -1182,9 +1182,9 @@ TEST(VM_Execute_Test, ShouldExecuteJsetImmInstructionSuccess){
      ASSERT_EQ(instruction.offset,64);
      ASSERT_EQ(instruction.immediate, 64);
      vm_init(vm, 100);
-     vm.regs[0x5] = 0x40;
+     vm->regs[0x5] = 0x40;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.pc,64);
+     ASSERT_EQ(vm->pc,64);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteJsetRegInstructionSuccess){
@@ -1196,10 +1196,10 @@ TEST(VM_Execute_Test, ShouldExecuteJsetRegInstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister,0x04);
      ASSERT_EQ(instruction.offset, 64);
      vm_init(vm, 100);
-     vm.regs[0x5] = 0x40;
-     vm.regs[0x4] = 0x40;
+     vm->regs[0x5] = 0x40;
+     vm->regs[0x4] = 0x40;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.pc,64);
+     ASSERT_EQ(vm->pc,64);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteJneImmInstructionSuccess){
@@ -1211,9 +1211,9 @@ TEST(VM_Execute_Test, ShouldExecuteJneImmInstructionSuccess){
      ASSERT_EQ(instruction.offset,64);
      ASSERT_EQ(instruction.immediate, 64);
      vm_init(vm, 100);
-     vm.regs[0x5] = 0x20;
+     vm->regs[0x5] = 0x20;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.pc,64);
+     ASSERT_EQ(vm->pc,64);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteJneRegInstructionSuccess){
@@ -1225,10 +1225,10 @@ TEST(VM_Execute_Test, ShouldExecuteJneRegInstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister,0x04);
      ASSERT_EQ(instruction.offset, 64);
      vm_init(vm, 100);
-     vm.regs[0x5] = 0x40;
-     vm.regs[0x4] = 0x20;
+     vm->regs[0x5] = 0x40;
+     vm->regs[0x4] = 0x20;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.pc,64);
+     ASSERT_EQ(vm->pc,64);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteJsgtImmInstructionSuccess){
@@ -1240,9 +1240,9 @@ TEST(VM_Execute_Test, ShouldExecuteJsgtImmInstructionSuccess){
      ASSERT_EQ(instruction.offset,64);
      ASSERT_EQ(instruction.immediate, 64);
      vm_init(vm, 100);
-     vm.regs[0x5] = 0x50;
+     vm->regs[0x5] = 0x50;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.pc,64);
+     ASSERT_EQ(vm->pc,64);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteJsgtRegInstructionSuccess){
@@ -1254,10 +1254,10 @@ TEST(VM_Execute_Test, ShouldExecuteJsgtRegInstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister,0x04);
      ASSERT_EQ(instruction.offset, 64);
      vm_init(vm, 100);
-     vm.regs[0x5] = 0x40;
-     vm.regs[0x4] = 0x20;
+     vm->regs[0x5] = 0x40;
+     vm->regs[0x4] = 0x20;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.pc,64);
+     ASSERT_EQ(vm->pc,64);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteJsgeImmInstructionSuccess){
@@ -1269,9 +1269,9 @@ TEST(VM_Execute_Test, ShouldExecuteJsgeImmInstructionSuccess){
      ASSERT_EQ(instruction.offset,64);
      ASSERT_EQ(instruction.immediate, 64);
      vm_init(vm, 100);
-     vm.regs[0x5] = 0x40;
+     vm->regs[0x5] = 0x40;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.pc,64);
+     ASSERT_EQ(vm->pc,64);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteJsgeRegInstructionSuccess){
@@ -1283,10 +1283,10 @@ TEST(VM_Execute_Test, ShouldExecuteJsgeRegInstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister,0x04);
      ASSERT_EQ(instruction.offset, 64);
      vm_init(vm, 100);
-     vm.regs[0x5] = 0x40;
-     vm.regs[0x4] = 0x40;
+     vm->regs[0x5] = 0x40;
+     vm->regs[0x4] = 0x40;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.pc,64);
+     ASSERT_EQ(vm->pc,64);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteJsltImmInstructionSuccess){
@@ -1298,9 +1298,9 @@ TEST(VM_Execute_Test, ShouldExecuteJsltImmInstructionSuccess){
      ASSERT_EQ(instruction.offset,64);
      ASSERT_EQ(instruction.immediate, 64);
      vm_init(vm, 100);
-     vm.regs[0x5] = 0x20;
+     vm->regs[0x5] = 0x20;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.pc,64);
+     ASSERT_EQ(vm->pc,64);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteJsltRegInstructionSuccess){
@@ -1312,10 +1312,10 @@ TEST(VM_Execute_Test, ShouldExecuteJsltRegInstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister,0x04);
      ASSERT_EQ(instruction.offset, 64);
      vm_init(vm, 100);
-     vm.regs[0x5] = 0x20;
-     vm.regs[0x4] = 0x40;
+     vm->regs[0x5] = 0x20;
+     vm->regs[0x4] = 0x40;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.pc,64);
+     ASSERT_EQ(vm->pc,64);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteJsleImmInstructionSuccess){
@@ -1327,9 +1327,9 @@ TEST(VM_Execute_Test, ShouldExecuteJsleImmInstructionSuccess){
      ASSERT_EQ(instruction.offset,64);
      ASSERT_EQ(instruction.immediate, 64);
      vm_init(vm, 100);
-     vm.regs[0x5] = 0x40;
+     vm->regs[0x5] = 0x40;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.pc,64);
+     ASSERT_EQ(vm->pc,64);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteJsleRegInstructionSuccess){
@@ -1341,10 +1341,10 @@ TEST(VM_Execute_Test, ShouldExecuteJsleRegInstructionSuccess){
      ASSERT_EQ(instruction.sourceRegister,0x04);
      ASSERT_EQ(instruction.offset, 64);
      vm_init(vm, 100);
-     vm.regs[0x5] = 0x40;
-     vm.regs[0x4] = 0x40;
+     vm->regs[0x5] = 0x40;
+     vm->regs[0x4] = 0x40;
      vm_execute(vm, instruction);
-     ASSERT_EQ(vm.pc,64);
+     ASSERT_EQ(vm->pc,64);
 }
 
 TEST(VM_Execute_Test, ShouldExecuteCallImmInstructionSuccess){

@@ -4,13 +4,15 @@
 
 #ifndef NMCS_EBPF_HASHMAP_H
 #define NMCS_EBPF_HASHMAP_H
+#include <stdbool.h>
 
 typedef struct Entry{
     void *key;
     void *value;
     struct Entry* next;
-} *Entry_t;
+}Entry;
 
+typedef struct Entry *Entry_t;
 typedef struct HashMap *HashMap_t;
 
 typedef int(*HashCodeFunction_t)(HashMap_t, void *key);
@@ -33,7 +35,7 @@ typedef struct HashMap{
     ClearFunction_t clearFunc;
     ExistsFunction_t existsFunc;
     bool autoAssign;
-}*HashMap_t;
+}HashMap;
 
 HashMap_t createHashMap(HashCodeFunction_t hashCode, EqualFunction_t equal);
 
@@ -58,7 +60,9 @@ typedef struct HashMapIterator{
     int count;
     int hashCode;
     HashMap_t hashMap;
-}*HashMapIterator_t;
+}HashMapIterator;
+
+typedef struct HashMapIterator *HashMapIterator_t;
 
 HashMapIterator_t createHashMapIterator(HashMap_t hashMap);
 
