@@ -26,6 +26,8 @@ typedef struct VM *VM_t;
 
 VM_t vm_create(void);
 
+VM_t vm_release(VM_t vm);
+
 void vm_init(VM_t vm, u32 memorySize);
 
 _Bool vm_verify_code(VM_t vm, u64 code);

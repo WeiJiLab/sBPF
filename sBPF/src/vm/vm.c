@@ -284,6 +284,17 @@ VM_t vm_create(){
     return vm;
 }
 
+VM_t vm_release(VM_t vm){
+    // todo : delete vm's memory
+
+    // todo : delete vm
+
+    // todo : free inKernelFuncWrapperMap
+    
+    // todo :free wrapperFuncIterator
+    
+}
+
 void vm_init(VM_t vm, u32 memorySize) {
     if (memorySize > 65535) {
         // exceed max memory, vm exited.
