@@ -1,4 +1,4 @@
-obj-m := sBPF.o
+obj-m += sBPF.o
 
 sBPF-y += src/module.o
 
