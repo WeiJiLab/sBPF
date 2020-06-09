@@ -2,15 +2,13 @@
 #include <linux/kernel.h>
 #include <linux/kprobes.h>
 
-#include <stdio.h>
-
 
 static struct kprobe kp = {
-    .symbol_name = "do_fork"
+    .symbol_name = "sys_execve"
 };
 
 static int handler_pre(struct kprobe *p, struct pt_regs *regs){
-    printf("helloworld");
+    printk("helloworld");
     return 0;
 }
  
