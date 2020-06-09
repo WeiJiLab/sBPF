@@ -259,13 +259,13 @@ void setInstructionhandler(){
 }
 
 void setInKernelWrapper(){
-    int* key = (int*)malloc(sizeof(int));
+    int* key = (int*)kmalloc(sizeof(int), GFP_KERNEL);
     *key = 1;
     inKernelFuncWrapperMap->putFunc(inKernelFuncWrapperMap,(void*)key,(void*)&WRAPPER_print);
 }
 
 VM_t vm_create(){
-    VM_t vm = (VM_t) kmalloc(sizeof(VM));
+    VM_t vm = (VM_t) kmalloc(sizeof(VM), GFP_KERNEL);
     vm->regs[0] = 0;
     vm->regs[1] = 0;
     vm->regs[2] = 0;
@@ -287,7 +287,7 @@ void vm_init(VM_t vm, u32 memorySize) {
     if (memorySize > 65535) {
         // exceed max memory, vm exited.
     }
-    vm->memory = (u64 *) kmalloc(memorySize * sizeof(u64));
+    vm->memory = (u64 *) kmalloc(memorySize * sizeof(u64), GFP_KERNEL);
     vm->memorySize = memorySize;
 
     setInstructionhandler();

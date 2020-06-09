@@ -3,7 +3,7 @@
 
 
 HashMapIterator_t createHashMapIterator(HashMap_t hashMap){
-    HashMapIterator_t iterator = (HashMapIterator_t) kmalloc(sizeof(HashMapIterator));
+    HashMapIterator_t iterator = (HashMapIterator_t) kmalloc(sizeof(HashMapIterator), GFP_KERNEL);
     iterator->count = 0;
     iterator->hashCode = -1;
     iterator->entry = NULL;
@@ -40,7 +40,7 @@ void freeHashMapIterator(HashMapIterator_t *iterator){
 }
 
 HashMap_t createHashMap(HashCodeFunction_t hashCode, EqualFunction_t equal){
-    HashMap_t hashMap = (HashMap_t) kmalloc(sizeof(HashMap));
+    HashMap_t hashMap = (HashMap_t) kmalloc(sizeof(HashMap), GFP_KERNEL);
     hashMap->hashCodeFunction = hashCode;
     hashMap->equalFunc = equal;
     hashMap->size = 0;
@@ -54,7 +54,7 @@ HashMap_t createHashMap(HashCodeFunction_t hashCode, EqualFunction_t equal){
     hashMap->existsFunc=defaultExists;
     hashMap->autoAssign=true;
 
-    hashMap->list = (Entry_t)kmalloc(hashMap->listSize*sizeof(Entry));
+    hashMap->list = (Entry_t)kmalloc(hashMap->listSize*sizeof(Entry), GFP_KERNEL);
     for(int i =0 ;i<hashMap->listSize;i++){
         hashMap->list[i].key = hashMap->list[i].value = hashMap->list[i].next = NULL;
     }
@@ -66,7 +66,7 @@ void resetHashMap(HashMap_t hashMap,int listSize){
         return;
     }
     // 1. create temp list to store the data of hashMap
-    Entry_t tempList = (Entry_t)kmalloc(sizeof(Entry)*hashMap->size);
+    Entry_t tempList = (Entry_t)kmalloc(sizeof(Entry)*hashMap->size, GFP_KERNEL);
     int size = hashMap->size;
 
     HashMapIterator_t iterator = createHashMapIterator(hashMap);
@@ -97,7 +97,7 @@ void resetHashMap(HashMap_t hashMap,int listSize){
 
     // 3. create new hashMap and store the temp data 
     hashMap->listSize = listSize;
-    Entry_t newList = (Entry_t) kmalloc(sizeof(Entry)*listSize);
+    Entry_t newList = (Entry_t) kmalloc(sizeof(Entry)*listSize, GFP_KERNEL);
     if(newList!=NULL){
         hashMap->list = newList;
         newList = NULL;
@@ -148,7 +148,7 @@ void defaultPut(HashMap_t hashMap,void *key,void *value){
             }
             first = first->next;
         }
-        Entry_t entry = (Entry_t)kmalloc(sizeof(Entry));
+        Entry_t entry = (Entry_t)kmalloc(sizeof(Entry), GFP_KERNEL);
         entry->key = key;
         entry->value = value;
         entry->next =  hashMap->list[index].next;
