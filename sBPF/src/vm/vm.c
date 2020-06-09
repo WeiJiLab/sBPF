@@ -265,13 +265,8 @@ void setInKernelWrapper(){
     inKernelFuncWrapperMap->putFunc(inKernelFuncWrapperMap,(void*)key,(void*)&WRAPPER_print);
 }
 
-void vm_init(VM_t vm, u32 memorySize) {
-    if (memorySize > 65535) {
-        // exceed max memory, vm exited.
-    }
-    vm->memory = (u64 *) malloc(memorySize * sizeof(u64));
-    vm->memorySize = memorySize;
-
+VM_t vm_create(){
+    VM_t vm = (VM_t) malloc(sizeof(VM));
     vm->regs[0] = 0;
     vm->regs[1] = 0;
     vm->regs[2] = 0;
@@ -286,6 +281,15 @@ void vm_init(VM_t vm, u32 memorySize) {
 
     vm->pc = 0;
     vm->sp = 0;
+    return vm;
+}
+
+void vm_init(VM_t vm, u32 memorySize) {
+    if (memorySize > 65535) {
+        // exceed max memory, vm exited.
+    }
+    vm->memory = (u64 *) malloc(memorySize * sizeof(u64));
+    vm->memorySize = memorySize;
 
     setInstructionhandler();
 

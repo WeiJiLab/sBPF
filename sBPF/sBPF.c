@@ -41,7 +41,7 @@ int main(int argc,char *argv[]){
 
     // readEBPFBinaryFile("/workspaces/NMCS/sBPF/example/bpf_program.o");
 
-    VM_t vm;
+    VM_t vm = vm_create();
     vm_init(vm, 1);
     u64 program[] = {
         // 0xb701000021000000, 0x6b1af8ff00000000,
