@@ -5,7 +5,8 @@
 #include "../../include/vm/vm.h"
 #include "../../include/vm/hashmap.h"
 #include <linux/slab.h>
-#include <endian.h>
+#include <linux/byteorder/big_endian.h>
+#include <linux/byteorder/little_endian.h>
 
 _Bool is_little_endion() {
     u16 usFlag = 1;
