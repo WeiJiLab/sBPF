@@ -1,6 +1,7 @@
 #include <linux/module.h>
 #include <linux/kernel.h>
 #include <linux/kprobes.h>
+#include "../../include/vm/vm.h"
 
 
 static struct kprobe kp = {
@@ -8,7 +9,13 @@ static struct kprobe kp = {
 };
 
 static int handler_pre(struct kprobe *p, struct pt_regs *regs){
-    printk("helloworld");
+    VM_t vm = vm_create();
+    vm_init(vm, 1);
+    u64 program[] = {
+         0x8500000000000001
+    };
+    vm_load_program(vm,program);
+    vm_run(vm);
     return 0;
 }
  
