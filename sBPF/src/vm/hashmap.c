@@ -11,7 +11,7 @@ HashMapIterator_t createHashMapIterator(HashMap_t hashMap){
     return iterator;
 }
 
-bool hasNextHashMapIterator(HashMapIterator_t iterator){
+_Bool hasNextHashMapIterator(HashMapIterator_t iterator){
     return iterator->count < iterator->hashMap->size ? true : false;
 }
 
@@ -124,7 +124,7 @@ int defaultHashCode(HashMap_t hashMap, void *key){
     return uKey % hashMap->listSize;
 }
 
-bool defaultEqual(void *key1,void *key2){
+_Bool defaultEqual(void *key1,void *key2){
     return key1 == key2;
 }
 
@@ -173,7 +173,7 @@ bool defaultRemove(HashMap_t hashMap, void *key){
         return false;
     }
 
-    bool result = false;
+    _Bool result = false;
     if(hashMap->equalFunc(entry->key,key)){
         hashMap->size--;
         if(entry->next!=NULL){
@@ -208,7 +208,7 @@ bool defaultRemove(HashMap_t hashMap, void *key){
     return result;
 }
 
-bool defaultExists(HashMap_t hashMap, void *key){
+_Bool defaultExists(HashMap_t hashMap, void *key){
     int index = hashMap->hashCodeFunction(hashMap, key);
     Entry_t entry = &hashMap->list[index];
     if (entry->key == NULL) {

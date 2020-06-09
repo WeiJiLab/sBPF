@@ -4,7 +4,6 @@
 
 #ifndef NMCS_EBPF_HASHMAP_H
 #define NMCS_EBPF_HASHMAP_H
-#include <stdbool.h>
 
 typedef struct Entry{
     void *key;
@@ -16,12 +15,12 @@ typedef struct Entry *Entry_t;
 typedef struct HashMap *HashMap_t;
 
 typedef int(*HashCodeFunction_t)(HashMap_t, void *key);
-typedef bool(*EqualFunction_t)(void *key1,void * key2);
+typedef _Bool(*EqualFunction_t)(void *key1,void * key2);
 typedef void (*PutFunction_t)(HashMap_t hashMap, void *key, void * value);
 typedef void* (*GetFunction_t)(HashMap_t hashMap,void *key);
-typedef bool(*RemoveFunction_t)(HashMap_t hashMap, void *key);
+typedef _Bool(*RemoveFunction_t)(HashMap_t hashMap, void *key);
 typedef void(*ClearFunction_t)(HashMap_t hashMap);
-typedef bool(*ExistsFunction_t)(HashMap_t hashMap, void *key);
+typedef _Bool(*ExistsFunction_t)(HashMap_t hashMap, void *key);
 
 typedef struct HashMap{
     int size;
@@ -34,7 +33,7 @@ typedef struct HashMap{
     RemoveFunction_t removeFunc;
     ClearFunction_t clearFunc;
     ExistsFunction_t existsFunc;
-    bool autoAssign;
+    _Bool autoAssign;
 }HashMap;
 
 HashMap_t createHashMap(HashCodeFunction_t hashCode, EqualFunction_t equal);
@@ -43,15 +42,15 @@ void resetHashMap(HashMap_t hashMap,int listSize);
 
 int defaultHashCode(HashMap_t hashMap, void *key);
 
-bool defaultEqual(void *key1,void *key2);
+_Bool defaultEqual(void *key1,void *key2);
 
 void defaultPut(HashMap_t hashMap,void *key,void *value);
 
 void* defaultGet(HashMap_t hashMap,void *key);
 
-bool defaultRemove(HashMap_t hashMap, void *key);
+_Bool defaultRemove(HashMap_t hashMap, void *key);
 
-bool defaultExists(HashMap_t hashMap, void *key);
+_Bool defaultExists(HashMap_t hashMap, void *key);
 
 void defaultClear(HashMap_t hashMap);
 
@@ -66,7 +65,7 @@ typedef struct HashMapIterator *HashMapIterator_t;
 
 HashMapIterator_t createHashMapIterator(HashMap_t hashMap);
 
-bool hasNextHashMapIterator(HashMapIterator_t iterator);
+_Bool hasNextHashMapIterator(HashMapIterator_t iterator);
 
 HashMapIterator_t nextHashMapIterator(HashMapIterator_t iterator);
 

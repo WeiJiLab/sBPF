@@ -6,7 +6,6 @@
 #define NMCS_EBPF_VM_H
 
 #include "instruction.h"
-#include <stdbool.h>
 
 typedef struct VM {
     u64 *memory;
@@ -29,7 +28,7 @@ VM_t vm_create();
 
 void vm_init(VM_t vm, u32 memorySize);
 
-bool vm_verify_code(VM_t vm, u64 code);
+_Bool vm_verify_code(VM_t vm, u64 code);
 
 void vm_load_program(VM_t vm, u64 *program);
 

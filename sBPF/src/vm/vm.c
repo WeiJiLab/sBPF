@@ -7,7 +7,7 @@
 #include <linux/slab.h>
 #include <endian.h>
 
-bool is_little_endion() {
+_Bool is_little_endion() {
     u16 usFlag = 1;
     return *((u8 *) &usFlag) == 1;
 }
@@ -216,7 +216,7 @@ void vm_handler_CALL_IMM(VM_t vm, BPFInstruction_t instruction);
 void vm_handler_EXIT(VM_t vm, BPFInstruction_t instruction);
 
 
-bool s32Equal(void *key1,void * key2){
+_Bool s32Equal(void *key1,void * key2){
     int uKey1 = *(int *)key1;
     int uKey2 = *(int *)key2;
     return uKey1==uKey2; 
@@ -300,7 +300,7 @@ void vm_init(VM_t vm, u32 memorySize) {
 
 
 
-bool vm_verify_code(VM_t vm, u64 code) {
+_Bool vm_verify_code(VM_t vm, u64 code) {
     return true;
 }
 
