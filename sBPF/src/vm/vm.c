@@ -232,7 +232,7 @@ int s32HashCode(HashMap_t hashMap, void *key){
 }
 
 int WRAPPER_print(VM_t vm){
-    printf("Wrapper print invoked.\n");
+    printk("Wrapper print invoked.\n");
     return 0;
 }
 
@@ -397,14 +397,14 @@ void vm_handler_MUL_REG_64(VM_t vm, BPFInstruction_t instruction) {
 
 void vm_handler_DIV_IMM_64(VM_t vm, BPFInstruction_t instruction) {
     if (instruction.immediate == 0) {
-        exit(0);
+        // todo : exit
     }
     vm->regs[instruction.destRegister] = vm->regs[instruction.destRegister] / instruction.immediate;
 }
 
 void vm_handler_DIV_REG_64(VM_t vm, BPFInstruction_t instruction) {
     if (vm->regs[instruction.sourceRegister] == 0) {
-        exit(0);
+        // todo : exit
     }
     vm->regs[instruction.destRegister] = vm->regs[instruction.destRegister] / vm->regs[instruction.sourceRegister];
 }
@@ -854,5 +854,4 @@ void vm_handler_CALL_IMM(VM_t vm, BPFInstruction_t instruction) {
 
 void vm_handler_EXIT(VM_t vm, BPFInstruction_t instruction) {
     kfree(vm->memory);
-    exit(vm->regs[0]);
 }
