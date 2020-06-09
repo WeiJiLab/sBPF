@@ -24,7 +24,7 @@ typedef struct VM {
 } VM;
 typedef struct VM *VM_t;
 
-VM_t vm_create();
+VM_t vm_create(void);
 
 void vm_init(VM_t vm, u32 memorySize);
 
@@ -44,10 +44,10 @@ void vm_run(VM_t vm);
 
 void vm_print_instruction(VM_t vm, BPFInstruction_t instruction);
 
-_Bool is_little_endion();
+_Bool is_little_endion(void);
 
-void setInKernelWrapper();
+void setInKernelWrapper(void);
 
-void setInstructionhandler();
+void setInstructionhandler(void);
 
 #endif // NMCS_EBPF_VM_H
