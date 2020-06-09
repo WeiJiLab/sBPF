@@ -87,6 +87,7 @@ static int __init kprobe_init(void){
 
 static void __exit kprobe_exit(void){
     unregister_kprobe(&kp);
+    // todo: free in kernel function wrapper map
     printk(KERN_DEBUG "kprobe at %p unregistered\n", kp.addr);
 }
 
