@@ -285,14 +285,16 @@ VM_t vm_create(){
 }
 
 VM_t vm_release(VM_t vm){
-    // todo : delete vm's memory
+    // delete vm's memory
+    kfree(vm->memory);
+    // delete vm
+    kfree(vm);
 
-    // todo : delete vm
-
-    // todo : free inKernelFuncWrapperMap
+    // free inKernelFuncWrapperMap
+    inKernelFuncWrapperMap->clearFunc(inKernelFuncWrapperMap);
     
-    // todo :free wrapperFuncIterator
-    
+    // free wrapperFuncIterator
+    freeHashMapIterator(wrapperFuncIterator);
 }
 
 void vm_init(VM_t vm, u32 memorySize) {
