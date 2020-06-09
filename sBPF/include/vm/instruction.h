@@ -4,6 +4,7 @@
 
 #ifndef NMCS_INSTRUCTION_H
 #define NMCS_INSTRUCTION_H
+#include <linux/types.h>
 
 typedef struct BPFInstruction {
     u8 opcode;
