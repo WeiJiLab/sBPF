@@ -44,4 +44,10 @@ void vm_run(VM_t vm);
 
 void vm_print_instruction(VM_t vm, BPFInstruction_t instruction);
 
+_Bool is_little_endion();
+
+void setInKernelWrapper();
+
+void setInstructionhandler();
+
 #endif // NMCS_EBPF_VM_H
