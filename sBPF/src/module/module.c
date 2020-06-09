@@ -12,40 +12,11 @@ int WRAPPER_print(VM_t vm){
     return 0;
 }
 
-
 void setInKernelWrapper(){
     int* key = (int*)kmalloc(sizeof(int), GFP_KERNEL);
     *key = 1;
     inKernelFuncWrapperMap->putFunc(inKernelFuncWrapperMap,(void*)key,(void*)&WRAPPER_print);
 }
-
-
-static struct kprobe kp = {
-    .symbol_name = "sys_execve"
-};
-
-static int handler_pre(struct kprobe *p, struct pt_regs *regs){
-    VM_t vm = vm_create();
-    vm_init(vm, 1);
-    vm_set_in_kernel_function_wrapper_map(vm, inKernelFuncWrapperMap);
-    u64 program[] = {
-         0x8500000000000001
-    };
-    vm_load_program(vm,program);
-    vm_run(vm);
-    vm_release(vm);
-    return 0;
-}
- 
-static void handler_post(struct kprobe *p, struct pt_regs *regs, unsigned long flags){
-
-}
-
-static int handler_fault(struct kprobe *p, struct pt_regs *regs, int trapnr){
-    printk(KERN_DEBUG "fault_handler: p->addr = 0x%p, trap #%dn", p->addr, trapnr);
-    return 0;
-}
-
 
 _Bool s32Equal(void *key1,void * key2){
     int uKey1 = *(int *)key1;
@@ -60,12 +31,46 @@ int s32HashCode(HashMap_t hashMap, void *key){
     }
     return uKey % hashMap->listSize;
 }
-static int __init kprobe_init(void){
 
+static void init_inKernel_funcction_wrapper_map(){
     inKernelFuncWrapperMap = createHashMap(s32HashCode,s32Equal);
     wrapperFuncIterator = createHashMapIterator(inKernelFuncWrapperMap);
     setInKernelWrapper();
+}
 
+static int attach_vm(struct pt_regs *regs,u64 program[], int size){
+    VM_t vm = vm_create();
+    vm_init(vm, size);
+    vm_set_in_kernel_function_wrapper_map(vm, inKernelFuncWrapperMap);
+    vm_load_program(vm,program);
+    vm_run(vm);
+    vm_release(vm);
+}
+
+static struct kprobe kp = {
+    .symbol_name = "sys_execve"
+};
+
+static int handler_pre(struct kprobe *p, struct pt_regs *regs){
+    u64 program[] = {
+         0x8500000000000001
+    };
+    attach_vm(regs,program,1);
+    return 0;
+}
+ 
+static void handler_post(struct kprobe *p, struct pt_regs *regs, unsigned long flags){
+
+}
+
+static int handler_fault(struct kprobe *p, struct pt_regs *regs, int trapnr){
+    printk(KERN_DEBUG "fault_handler: p->addr = 0x%p, trap #%dn", p->addr, trapnr);
+    return 0;
+}
+
+static int __init kprobe_init(void){
+    init_inKernel_funcction_wrapper_map();
+   
     int ret;
     kp.pre_handler = handler_pre;
     kp.post_handler = handler_post;
