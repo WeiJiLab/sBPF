@@ -24,20 +24,28 @@ TEST(HashMap_Test, ShouldResizeHashMap){
      ASSERT_EQ(hashMap->listSize, 16);
 }
 
+int u64HashCode(HashMap_t hashMap, void *key){
+    u64 ukey = *(u64*)key;
+    if(ukey < 0){
+        return -ukey % hashMap->listSize;
+    }
+    return ukey % hashMap->listSize; 
+}
+
 int inKernelFunctionWrapper(VM_t vm){
      printf("InKernel WrapperFunction Invoked.\n");
      return 88;
 }
 TEST(HashMap_Test, ShouldPutHashMap){
-     HashMap_t hashMap = createHashMap(defaultHashCode,defaultEqual);
+     HashMap_t hashMap = createHashMap(u64HashCode,defaultEqual);
      HashMapIterator_t iterator = createHashMapIterator(hashMap);
      resetHashMap(hashMap,16);
-     u64 key = 0x60000;
+     u64* key = (u64*)malloc(sizeof(u64));
+     *key = 0x60000;
      int(*wrapperFunc)(VM_t &vm);
      hashMap->putFunc(hashMap,(void*)&key,(void*)&inKernelFunctionWrapper);
      ASSERT_EQ(hashMap->listSize, 16);
 }
-
 
 bool equal(void *key1,void * key2){
      long uKey1 = *(long *)key1;
@@ -46,11 +54,11 @@ bool equal(void *key1,void * key2){
 }
 
 TEST(HashMap_Test, ShouldGetHashMap){
-     // note: default hash is for u64, so it's works.
-     HashMap_t hashMap = createHashMap(defaultHashCode,defaultEqual);
+     HashMap_t hashMap = createHashMap(u64HashCode,defaultEqual);
      HashMapIterator_t iterator = createHashMapIterator(hashMap);
      resetHashMap(hashMap,16);
-     u64 key = 0x60000;
+     u64* key = (u64*)malloc(sizeof(u64));
+     *key = 0x60000;
      int(*wrapperFunc)(VM_t &vm);
      hashMap->equalFunc = equal;
      hashMap->putFunc(hashMap,(void*)&key,(void*)&inKernelFunctionWrapper);
@@ -62,11 +70,11 @@ TEST(HashMap_Test, ShouldGetHashMap){
 }
 
 TEST(HashMap_Test, ShouldExistsHashMap){
-     // note: default hash is for u64, so it's works.
-     HashMap_t hashMap = createHashMap(defaultHashCode,defaultEqual);
+     HashMap_t hashMap = createHashMap(u64HashCode,defaultEqual);
      HashMapIterator_t iterator = createHashMapIterator(hashMap);
      resetHashMap(hashMap,16);
-     u64 key = 0x60000;
+     u64* key = (u64*)malloc(sizeof(u64));
+     *key = 0x60000;
      int(*wrapperFunc)(VM_t &vm);
      hashMap->equalFunc = equal;
      hashMap->putFunc(hashMap,(void*)&key,(void*)&inKernelFunctionWrapper);
@@ -76,11 +84,11 @@ TEST(HashMap_Test, ShouldExistsHashMap){
 }
 
 TEST(HashMap_Test, ShouldRemoveHashMap){
-     // note: default hash is for u64, so it's works.
-     HashMap_t hashMap = createHashMap(defaultHashCode,defaultEqual);
+     HashMap_t hashMap = createHashMap(u64HashCode,defaultEqual);
      HashMapIterator_t iterator = createHashMapIterator(hashMap);
      resetHashMap(hashMap,16);
-     u64 key = 0x60000;
+     u64* key = (u64*)malloc(sizeof(u64));
+     *key = 0x60000;
      int(*wrapperFunc)(VM_t &vm);
      hashMap->equalFunc = equal;
      hashMap->putFunc(hashMap,(void*)&key,(void*)&inKernelFunctionWrapper);
@@ -94,11 +102,11 @@ TEST(HashMap_Test, ShouldRemoveHashMap){
 }
 
 TEST(HashMap_Test, ShouldClearHashMap){
-     // note: default hash is for u64, so it's works.
-     HashMap_t hashMap = createHashMap(defaultHashCode,defaultEqual);
+     HashMap_t hashMap = createHashMap(u64HashCode,defaultEqual);
      HashMapIterator_t iterator = createHashMapIterator(hashMap);
      resetHashMap(hashMap,16);
-     u64 key = 0x60000;
+     u64* key = (u64*)malloc(sizeof(u64));
+     *key = 0x60000;
      int(*wrapperFunc)(VM_t &vm);
      hashMap->equalFunc = equal;
      hashMap->putFunc(hashMap,(void*)&key,(void*)&inKernelFunctionWrapper);
@@ -108,5 +116,5 @@ TEST(HashMap_Test, ShouldClearHashMap){
 
      hashMap->clearFunc(hashMap);
      ASSERT_EQ(hashMap->size, -1);
-     ASSERT_EQ(hashMap->existsFunc(hashMap,(void*)&key),false);
+     ASSERT_EQ(hashMap->listSize, 0);
 }
