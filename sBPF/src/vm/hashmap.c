@@ -55,7 +55,8 @@ HashMap_t createHashMap(HashCodeFunction_t hashCode, EqualFunction_t equal){
     hashMap->autoAssign=true;
 
     hashMap->list = (Entry_t)kmalloc(hashMap->listSize*sizeof(Entry), GFP_KERNEL);
-    for(int i =0 ;i<hashMap->listSize;i++){
+    int i = 0;
+    for(i = 0;i<hashMap->listSize;i++){
         hashMap->list[i].key = hashMap->list[i].value = hashMap->list[i].next = NULL;
     }
     return hashMap;
@@ -71,7 +72,8 @@ void resetHashMap(HashMap_t hashMap,int listSize){
 
     HashMapIterator_t iterator = createHashMapIterator(hashMap);
 
-    for(int i = 0;hasNextHashMapIterator(iterator);i++){
+    int i = 0;
+    for(i = 0;hasNextHashMapIterator(iterator);i++){
         iterator = nextHashMapIterator(iterator);
         tempList[i].key = iterator->entry->key;
         tempList[i].value = iterator->entry->value;
@@ -82,7 +84,7 @@ void resetHashMap(HashMap_t hashMap,int listSize){
 
     // 2. clear the hashMap
     hashMap->size = 0;
-    for(int i = 0; i<hashMap->listSize; i++){
+    for(i = 0; i<hashMap->listSize; i++){
         Entry_t first = &hashMap->list[i]; 
         first->key = NULL;
         first->value = NULL;
@@ -103,14 +105,13 @@ void resetHashMap(HashMap_t hashMap,int listSize){
         newList = NULL;
     }
 
-
-    for(int i = 0;i<hashMap->listSize;i++){
+    for(i = 0;i<hashMap->listSize;i++){
         hashMap->list[i].key = NULL;
         hashMap->list[i].value = NULL;
         hashMap->list[i].next = NULL;
     }
 
-    for(int i = 0;i<size;i++){
+    for(i = 0;i<size;i++){
         hashMap->putFunc(hashMap, tempList[i].key,tempList[i].value);
     }
     kfree(tempList);
@@ -232,7 +233,8 @@ _Bool defaultExists(HashMap_t hashMap, void *key){
 }
 
 void defaultClear(HashMap_t hashMap){
-    for (int i = 0; i < hashMap->listSize; i++) {
+    int i = 0;
+    for (i = 0; i < hashMap->listSize; i++) {
         Entry_t entry = hashMap->list[i].next;
         while (entry != NULL) {
             Entry_t next = entry->next;
