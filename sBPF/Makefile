@@ -1,6 +1,6 @@
-obj-m := kprobe_sbpf.o
+obj-m := sBPF.o
 
-kprobe_sbpf-y += src/module.o
+sBPF-y += src/module.o
 
 KDIR := /lib/modules/$(shell uname -r)/build
 
