@@ -16,6 +16,7 @@ static int handler_pre(struct kprobe *p, struct pt_regs *regs){
     };
     vm_load_program(vm,program);
     vm_run(vm);
+    vm_release(vm);
     return 0;
 }
  
