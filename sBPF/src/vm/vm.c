@@ -513,14 +513,14 @@ void vm_handler_MUL_REG_32(VM_t vm, BPFInstruction_t instruction) {
 
 void vm_handler_DIV_IMM_32(VM_t vm, BPFInstruction_t instruction) {
     if (instruction.immediate == 0) {
-        exit(0);
+       // todo : exit
     }
     vm->regs[instruction.destRegister] = vm->regs[instruction.destRegister] / instruction.immediate;
 }
 
 void vm_handler_DIV_REG_32(VM_t vm, BPFInstruction_t instruction) {
     if (vm->regs[instruction.sourceRegister] == 0) {
-        exit(0);
+        // todo : exit
     }
     vm->regs[instruction.destRegister] = vm->regs[instruction.destRegister] / vm->regs[instruction.sourceRegister];
 }
