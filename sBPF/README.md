@@ -1,3 +1,3 @@
 ## sBPF (simple Berkeley Packet Filter)
 
-#### it's a kernel mod
+#### it's a virtual machine running in kernel module, Boom Shakalak.
