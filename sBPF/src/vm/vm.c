@@ -15,8 +15,6 @@ _Bool is_little_endion() {
 
 #define ADD_HANDLER(INS) handlers[INS] = *(vm_handler_##INS)
 void (*handlers[0xFF])(VM_t vm, BPFInstruction_t instruction);
-HashMap_t inKernelFuncWrapperMap;
-HashMapIterator_t wrapperFuncIterator;
 
 int (*wrapperFunc)(VM_t vm);
 
@@ -231,11 +229,6 @@ int s32HashCode(HashMap_t hashMap, void *key){
     return uKey % hashMap->listSize;
 }
 
-int WRAPPER_print(VM_t vm){
-    printk("Wrapper print invoked.\n");
-    return 0;
-}
-
 void setInstructionhandler(){
     ADD_HANDLER(ADD_IMM_64);    ADD_HANDLER(ADD_IMM_64);    ADD_HANDLER(ADD_REG_64);    ADD_HANDLER(SUB_IMM_64);    ADD_HANDLER(SUB_REG_64);
     ADD_HANDLER(MUL_IMM_64);    ADD_HANDLER(MUL_REG_64);    ADD_HANDLER(DIV_IMM_64);    ADD_HANDLER(DIV_REG_64);    ADD_HANDLER(OR_IMM_64);
@@ -259,12 +252,6 @@ void setInstructionhandler(){
     ADD_HANDLER(JSLE_IMM);      ADD_HANDLER(JSLE_REG);      ADD_HANDLER(CALL_IMM);      ADD_HANDLER(EXIT);
 }
 
-void setInKernelWrapper(){
-    int* key = (int*)kmalloc(sizeof(int), GFP_KERNEL);
-    *key = 1;
-    inKernelFuncWrapperMap->putFunc(inKernelFuncWrapperMap,(void*)key,(void*)&WRAPPER_print);
-}
-
 VM_t vm_create(){
     VM_t vm = (VM_t) kmalloc(sizeof(VM), GFP_KERNEL);
     vm->regs[0] = 0;
@@ -284,19 +271,6 @@ VM_t vm_create(){
     return vm;
 }
 
-VM_t vm_release(VM_t vm){
-    // delete vm's memory
-    kfree(vm->memory);
-    // delete vm
-    kfree(vm);
-
-    // free inKernelFuncWrapperMap
-    inKernelFuncWrapperMap->clearFunc(inKernelFuncWrapperMap);
-    
-    // free wrapperFuncIterator
-    freeHashMapIterator(wrapperFuncIterator);
-}
-
 void vm_init(VM_t vm, u32 memorySize) {
     if (memorySize > 65535) {
         // exceed max memory, vm exited.
@@ -305,13 +279,18 @@ void vm_init(VM_t vm, u32 memorySize) {
     vm->memorySize = memorySize;
 
     setInstructionhandler();
-
-    inKernelFuncWrapperMap = createHashMap(s32HashCode,s32Equal);
-    wrapperFuncIterator = createHashMapIterator(inKernelFuncWrapperMap);
-
-    setInKernelWrapper();
 }
 
+void vm_set_in_kernel_function_wrapper_map(VM_t vm, HashMap_t inKernelFuncWrapperMap){
+    vm->inKernelFuncWrapperMap = inKernelFuncWrapperMap;
+}
+
+VM_t vm_release(VM_t vm){
+    // delete vm's memory
+    kfree(vm->memory);
+    // delete vm
+    kfree(vm);
+}
 
 
 _Bool vm_verify_code(VM_t vm, u64 code) {
@@ -867,7 +846,7 @@ void vm_handler_JSLE_REG(VM_t vm, BPFInstruction_t instruction) {
 }
 
 void vm_handler_CALL_IMM(VM_t vm, BPFInstruction_t instruction) {
-    void * wrapper = inKernelFuncWrapperMap->getFunc(inKernelFuncWrapperMap,(void*)&instruction.immediate);
+    void * wrapper = vm->inKernelFuncWrapperMap->getFunc(vm->inKernelFuncWrapperMap,(void*)&instruction.immediate);
     ((int(*)(VM_t))wrapper)(vm);
 }
 

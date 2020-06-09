@@ -10,6 +10,7 @@
 typedef struct VM {
     u64 *memory;
     u32 memorySize;
+    HashMap_t inKernelFuncWrapperMap;
     /**
      * r0 for vm return
      * r1-r6 for function return
@@ -27,6 +28,8 @@ typedef struct VM *VM_t;
 VM_t vm_create(void);
 
 VM_t vm_release(VM_t vm);
+
+void vm_set_in_kernel_function_wrapper_map(VM_t vm, HashMap_t inKernelFuncWrapperMap);
 
 void vm_init(VM_t vm, u32 memorySize);
 

@@ -2,6 +2,21 @@
 #include <linux/kernel.h>
 #include <linux/kprobes.h>
 #include "../../include/vm/vm.h"
+#include "../../include/vm/hashmap.h"
+
+HashMap_t inKernelFuncWrapperMap;
+HashMapIterator_t wrapperFuncIterator;
+
+int WRAPPER_print(VM_t vm){
+    printk("Wrapper print invoked.\n");
+    return 0;
+}
+
+void setInKernelWrapper(){
+    int* key = (int*)kmalloc(sizeof(int), GFP_KERNEL);
+    *key = 1;
+    inKernelFuncWrapperMap->putFunc(inKernelFuncWrapperMap,(void*)key,(void*)&WRAPPER_print);
+}
 
 
 static struct kprobe kp = {
@@ -11,6 +26,7 @@ static struct kprobe kp = {
 static int handler_pre(struct kprobe *p, struct pt_regs *regs){
     VM_t vm = vm_create();
     vm_init(vm, 1);
+    vm_set_in_kernel_function_wrapper_map(vm, inKernelFuncWrapperMap);
     u64 program[] = {
          0x8500000000000001
     };
@@ -30,6 +46,11 @@ static int handler_fault(struct kprobe *p, struct pt_regs *regs, int trapnr){
 }
 
 static int __init kprobe_init(void){
+
+    inKernelFuncWrapperMap = createHashMap(s32HashCode,s32Equal);
+    wrapperFuncIterator = createHashMapIterator(inKernelFuncWrapperMap);
+    setInKernelWrapper();
+
     int ret;
     kp.pre_handler = handler_pre;
     kp.post_handler = handler_post;
