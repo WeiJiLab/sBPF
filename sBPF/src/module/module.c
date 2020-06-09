@@ -32,7 +32,7 @@ int s32HashCode(HashMap_t hashMap, void *key){
     return uKey % hashMap->listSize;
 }
 
-static void init_inKernel_funcction_wrapper_map(){
+static void init_inKernel_funcction_wrapper_map(void){
     inKernelFuncWrapperMap = createHashMap(s32HashCode,s32Equal);
     wrapperFuncIterator = createHashMapIterator(inKernelFuncWrapperMap);
     setInKernelWrapper();
