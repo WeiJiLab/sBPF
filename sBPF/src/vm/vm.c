@@ -5,8 +5,8 @@
 #include "../../include/vm/vm.h"
 #include "../../include/vm/hashmap.h"
 #include <linux/slab.h>
-#include <linux/byteorder/big_endian.h>
-#include <linux/byteorder/little_endian.h>
+// #include <linux/byteorder/big_endian.h>
+// #include <linux/byteorder/little_endian.h>
 
 _Bool is_little_endion() {
     u16 usFlag = 1;
@@ -605,25 +605,31 @@ void vm_handler_ARSH_REG_32(VM_t vm, BPFInstruction_t instruction) {
 
 void vm_handler_LE_REG(VM_t vm, BPFInstruction_t instruction) {
     if (instruction.immediate == 16) {
-        vm->regs[instruction.destRegister] = htole16(vm->regs[instruction.destRegister]);
+        // todo :
+        // vm->regs[instruction.destRegister] = htole16(vm->regs[instruction.destRegister]);
     }
     if (instruction.immediate == 32) {
-        vm->regs[instruction.destRegister] = htole32(vm->regs[instruction.destRegister]);
+         // todo :
+        // vm->regs[instruction.destRegister] = htole32(vm->regs[instruction.destRegister]);
     }
     if (instruction.immediate == 64) {
-        vm->regs[instruction.destRegister] = htole64(vm->regs[instruction.destRegister]);
+         // todo :
+        // vm->regs[instruction.destRegister] = htole64(vm->regs[instruction.destRegister]);
     }
 }
 
 void vm_handler_BE_REG(VM_t vm, BPFInstruction_t instruction) {
     if (instruction.immediate == 16) {
-        vm->regs[instruction.destRegister] = htobe16(vm->regs[instruction.destRegister]);
+         // todo :
+        // vm->regs[instruction.destRegister] = htobe16(vm->regs[instruction.destRegister]);
     }
     if (instruction.immediate == 32) {
-        vm->regs[instruction.destRegister] = htobe32(vm->regs[instruction.destRegister]);
+         // todo :
+        // vm->regs[instruction.destRegister] = htobe32(vm->regs[instruction.destRegister]);
     }
     if (instruction.immediate == 64) {
-        vm->regs[instruction.destRegister] = htobe64(vm->regs[instruction.destRegister]);
+         // todo :
+        // vm->regs[instruction.destRegister] = htobe64(vm->regs[instruction.destRegister]);
     }
 }
 
