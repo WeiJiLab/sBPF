@@ -11,6 +11,8 @@
         u64 program[] = {   \
          0x8500000000000001 \
         };  \
+        // todo: put args into vm's register \
+        // todo: load program from mmap with symbol name \
         attach_vm(regs,program,1);  \
         return 0;   \
     }   \
@@ -36,10 +38,6 @@
 #define UNREGISTER_KPROBE(symbol) \
     unregister_kprobe(&symbol##_kp);    \
     printk(KERN_DEBUG "kprobe at %p unregistered\n", symbol##_kp.addr);
-
-
-
-
 
 extern void init_inKernel_funcction_wrapper_map(void);
 extern int attach_vm(struct pt_regs *regs, u64 program[], int size);
