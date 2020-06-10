@@ -16,6 +16,7 @@ int (*wrapperFunc)(VM_t vm);
 #define ADD_HANDLER(INS) \
     void vm_handler_##INS##(VM_t vm, BPFInstruction_t instruction);  \
     handlers[INS] = *(vm_handler_##INS);
+
 void (*handlers[0xFF])(VM_t vm, BPFInstruction_t instruction);
 
 ADD_HANDLER(ADD_IMM_64)    ADD_HANDLER(ADD_IMM_64)    ADD_HANDLER(ADD_REG_64)    ADD_HANDLER(SUB_IMM_64)    ADD_HANDLER(SUB_REG_64)
@@ -40,7 +41,7 @@ ADD_HANDLER(JSGT_REG)      ADD_HANDLER(JSGE_IMM)      ADD_HANDLER(JSGE_REG)     
 ADD_HANDLER(JSLE_IMM)      ADD_HANDLER(JSLE_REG)      ADD_HANDLER(CALL_IMM)      ADD_HANDLER(EXIT)
 
 
-VM_ vm_create(){
+VM_t vm_create(){
     VM_t vm = (VM_t) kmalloc(sizeof(VM), GFP_KERNEL);
     vm->regs[0] = 0;
     vm->regs[1] = 0;
