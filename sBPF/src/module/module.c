@@ -3,7 +3,7 @@
 #include <linux/kprobes.h>
 #include <linux/slab.h>
 
-#define ATTACH_VM(symbol) { \
+#define ATTACH_VM(symbol)  \
     static struct kprobe ##symbol_kp = {  \
         .symbol_name = #symbol  \
     };  \
@@ -19,10 +19,9 @@
     static int ##symbol_handler_fault(struct kprobe *p, struct pt_regs *regs, int trapnr){    \
         printk(KERN_DEBUG "fault_handler: p->addr = 0x%p, trap #%dn", p->addr, trapnr); \
         return 0;   \
-    }   \
-}
+    }
 
-#define REGISTER_KPROBE(symbol) {   \
+#define REGISTER_KPROBE(symbol)  \
     int ret;    \
     ##symbol_kp.pre_handler = ##symbol_handler_pre; \
     ##symbol_kp.post_handler = ##symbol_handler_post;   \
@@ -32,13 +31,11 @@
         printk(KERN_DEBUG "register_kprobe failed, returned %d\n", ret);    \
         return ret; \
     }   \
-    printk(KERN_DEBUG "Planted kprobe at %p\n", ##symbol_kp.addr);    \
-}
+    printk(KERN_DEBUG "Planted kprobe at %p\n", ##symbol_kp.addr);
 
-#define UNREGISTER_KPROBE(symbol) {   \
+#define UNREGISTER_KPROBE(symbol) \
     unregister_kprobe(&##symbol_kp);    \
-    printk(KERN_DEBUG "kprobe at %p unregistered\n", ##symbol_kp.addr); \
-}
+    printk(KERN_DEBUG "kprobe at %p unregistered\n", ##symbol_kp.addr);
 
 
 
