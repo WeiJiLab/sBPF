@@ -71,4 +71,4 @@ static void __exit kprobe_exit(void){
 module_init(kprobe_init)
 module_exit(kprobe_exit)
 MODULE_AUTHOR("Neo Yang");
-MODULE_LICENSE("ASS");
+MODULE_LICENSE("GPL");
