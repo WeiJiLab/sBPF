@@ -1,5 +1,6 @@
 #include "../../include/sbpf/sbpf.h"
 #include <linux/slab.h>
+#include <linux/kprobes.h>
 
 
 HashMap_t inKernelFuncWrapperMap;
