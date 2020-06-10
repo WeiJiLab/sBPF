@@ -40,6 +40,17 @@ extern void init_inKernel_funcction_wrapper_map(void);
 extern int attach_vm(struct pt_regs *regs, u64 program[], int size);
 
 
+/**
+ * 
+ *      __________________ 
+ *      | ___ \ ___ \  ___|
+ *  ___ | |_/ / |_/ / |_   
+ * / __|| ___ \  __/|  _|                   Why u wrote this fucking code?
+ * \__ \| |_/ / |   | |    
+ * |___/\____/\_|   \_|    
+ *                         
+ */                      
+
 // STEP 1: attach vm to kprobe symbol
 ATTACH_VM(sys_execve)
 
