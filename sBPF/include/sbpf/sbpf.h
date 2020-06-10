@@ -1,10 +1,10 @@
 //
 // Created by XingfengYang on 2020/6/10.
 //
-#include "../vm/vm.h"
-
 #ifndef NMCS_EBPF_H
 #define NMCS_EBPF_H
+
+#include "../vm/vm.h"
 
 int WRAPPER_print(VM_t vm);
 

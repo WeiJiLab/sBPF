@@ -30,13 +30,13 @@ int s32HashCode(HashMap_t hashMap, void *key){
     return uKey % hashMap->listSize;
 }
 
-static void init_inKernel_funcction_wrapper_map(void){
+void init_inKernel_funcction_wrapper_map(void){
     inKernelFuncWrapperMap = createHashMap(s32HashCode,s32Equal);
     wrapperFuncIterator = createHashMapIterator(inKernelFuncWrapperMap);
     setInKernelWrapper();
 }
 
-static int attach_vm(struct pt_regs *regs,u64 program[], int size){
+int attach_vm(struct pt_regs *regs,u64 program[], int size){
     VM_t vm = vm_create();
     vm_init(vm, size);
     vm_set_in_kernel_function_wrapper_map(vm, inKernelFuncWrapperMap);
