@@ -5,6 +5,7 @@
 #define NMCS_EBPF_H
 
 #include "../vm/vm.h"
+#include <linux/kprobes.h>
 
 int WRAPPER_print(VM_t vm);
 
