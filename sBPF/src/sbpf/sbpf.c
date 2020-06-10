@@ -1,7 +1,6 @@
 #include "../../include/sbpf/sbpf.h"
 #include <linux/slab.h>
 
-
 HashMap_t inKernelFuncWrapperMap;
 HashMapIterator_t wrapperFuncIterator;
 
