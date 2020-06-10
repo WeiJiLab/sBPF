@@ -22,11 +22,10 @@
     }
 
 #define REGISTER_KPROBE(symbol)  \
-    int ret;    \
     symbol##_kp.pre_handler = symbol##_handler_pre; \
     symbol##_kp.post_handler = symbol##_handler_post;   \
     symbol##_kp.fault_handler = symbol##_handler_fault; \
-    ret = register_kprobe(&symbol##_kp);    \
+    int ret = register_kprobe(&symbol##_kp);    \
     if (ret < 0) {  \
         printk(KERN_DEBUG "register_kprobe failed, returned %d\n", ret);    \
         return ret; \
