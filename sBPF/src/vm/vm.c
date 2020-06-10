@@ -13,11 +13,11 @@ _Bool is_little_endion() {
     return *((u8 *) &usFlag) == 1;
 }
 int (*wrapperFunc)(VM_t vm);
+void (*handlers[0xFF])(VM_t vm, BPFInstruction_t instruction);
+
 #define ADD_HANDLER(INS) \
     void vm_handler_##INS##(VM_t vm, BPFInstruction_t instruction);  \
     handlers[INS] = *(vm_handler_##INS);
-
-void (*handlers[0xFF])(VM_t vm, BPFInstruction_t instruction);
 
 ADD_HANDLER(ADD_IMM_64)    ADD_HANDLER(ADD_IMM_64)    ADD_HANDLER(ADD_REG_64)    ADD_HANDLER(SUB_IMM_64)    ADD_HANDLER(SUB_REG_64)
 ADD_HANDLER(MUL_IMM_64)    ADD_HANDLER(MUL_REG_64)    ADD_HANDLER(DIV_IMM_64)    ADD_HANDLER(DIV_REG_64)    ADD_HANDLER(OR_IMM_64)
