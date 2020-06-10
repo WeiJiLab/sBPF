@@ -14,7 +14,8 @@ _Bool is_little_endion() {
 }
 
 #define ADD_HANDLER(INS) handlers[INS] = *(vm_handler_##INS)
-#define HANDLER_PROP(INS) void vm_handler_##INS##(VM_t vm, BPFInstruction_t instruction);
+#define HANDLER_PROP(INS) \
+    void vm_handler_##INS##(VM_t vm, BPFInstruction_t instruction);
 
 void (*handlers[0xFF])(VM_t vm, BPFInstruction_t instruction);
 
