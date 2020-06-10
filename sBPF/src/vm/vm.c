@@ -12,230 +12,33 @@ _Bool is_little_endion() {
     u16 usFlag = 1;
     return *((u8 *) &usFlag) == 1;
 }
-
-#define ADD_HANDLER(INS) handlers[INS] = *(vm_handler_##INS)
-void (*handlers[0xFF])(VM_t vm, BPFInstruction_t instruction);
-
 int (*wrapperFunc)(VM_t vm);
+void (*handlers[0xFF])(VM_t vm, BPFInstruction_t instruction);
+#define ADD_HANDLER(INS) \
+    void vm_handler_##INS##(VM_t vm, BPFInstruction_t instruction);  \
+    handlers[INS] = *(vm_handler_##INS)
+
+ADD_HANDLER(ADD_IMM_64);    ADD_HANDLER(ADD_IMM_64);    ADD_HANDLER(ADD_REG_64);    ADD_HANDLER(SUB_IMM_64);    ADD_HANDLER(SUB_REG_64);
+ADD_HANDLER(MUL_IMM_64);    ADD_HANDLER(MUL_REG_64);    ADD_HANDLER(DIV_IMM_64);    ADD_HANDLER(DIV_REG_64);    ADD_HANDLER(OR_IMM_64);
+ADD_HANDLER(OR_REG_64);     ADD_HANDLER(AND_IMM_64);    ADD_HANDLER(AND_REG_64);    ADD_HANDLER(LSH_IMM_64);    ADD_HANDLER(LSH_REG_64);
+ADD_HANDLER(RSH_IMM_64);    ADD_HANDLER(RSH_REG_64);    ADD_HANDLER(NEG_REG_64);    ADD_HANDLER(MOD_IMM_64);    ADD_HANDLER(MOD_REG_64);
+ADD_HANDLER(XOR_IMM_64);    ADD_HANDLER(XOR_REG_64);    ADD_HANDLER(MOV_IMM_64);    ADD_HANDLER(MOV_REG_64);    ADD_HANDLER(ARSH_IMM_64);
+ADD_HANDLER(ARSH_REG_64);   ADD_HANDLER(ADD_IMM_32);    ADD_HANDLER(ADD_REG_32);    ADD_HANDLER(SUB_IMM_32);    ADD_HANDLER(SUB_REG_32);
+ADD_HANDLER(MUL_IMM_32);    ADD_HANDLER(MUL_REG_32);    ADD_HANDLER(DIV_IMM_32);    ADD_HANDLER(DIV_REG_32);    ADD_HANDLER(OR_IMM_32);
+ADD_HANDLER(OR_REG_32);     ADD_HANDLER(AND_IMM_32);    ADD_HANDLER(AND_REG_32);    ADD_HANDLER(LSH_IMM_32);    ADD_HANDLER(LSH_REG_32);
+ADD_HANDLER(RSH_IMM_32);    ADD_HANDLER(RSH_REG_32);    ADD_HANDLER(NEG_REG_32);    ADD_HANDLER(MOD_IMM_32);    ADD_HANDLER(MOD_REG_32);
+ADD_HANDLER(XOR_IMM_32);    ADD_HANDLER(XOR_REG_32);    ADD_HANDLER(MOV_IMM_32);    ADD_HANDLER(MOV_REG_32);    ADD_HANDLER(ARSH_IMM_32);
+ADD_HANDLER(ARSH_REG_32);   ADD_HANDLER(LE_REG);        ADD_HANDLER(BE_REG);        ADD_HANDLER(LDDW);          ADD_HANDLER(LDABSW);
+ADD_HANDLER(LDABSH);        ADD_HANDLER(LDABSB);        ADD_HANDLER(LDABSDW);       ADD_HANDLER(LDINDW);        ADD_HANDLER(LDINDH);
+ADD_HANDLER(LDINDB);        ADD_HANDLER(LDINDDW);       ADD_HANDLER(LDXW);          ADD_HANDLER(LDXH);          ADD_HANDLER(LDXB);
+ADD_HANDLER(LDXDW);         ADD_HANDLER(STW);           ADD_HANDLER(STH);           ADD_HANDLER(STB);           ADD_HANDLER(STDW);
+ADD_HANDLER(STXW);          ADD_HANDLER(STXH);          ADD_HANDLER(STXB);          ADD_HANDLER(STXDW);         ADD_HANDLER(JA);
+ADD_HANDLER(JEQ_IMM);       ADD_HANDLER(JEQ_REG);       ADD_HANDLER(JGT_IMM);       ADD_HANDLER(JGT_REG);       ADD_HANDLER(JGE_IMM);
+ADD_HANDLER(JGE_REG);       ADD_HANDLER(JLT_IMM);       ADD_HANDLER(JLT_REG);       ADD_HANDLER(JLE_IMM);       ADD_HANDLER(JLE_REG);
+ADD_HANDLER(JSET_IMM);      ADD_HANDLER(JSET_REG);      ADD_HANDLER(JNE_IMM);       ADD_HANDLER(JNE_REG);       ADD_HANDLER(JSGT_IMM);
+ADD_HANDLER(JSGT_REG);      ADD_HANDLER(JSGE_IMM);      ADD_HANDLER(JSGE_REG);      ADD_HANDLER(JSLT_IMM);      ADD_HANDLER(JSLT_REG);
+ADD_HANDLER(JSLE_IMM);      ADD_HANDLER(JSLE_REG);      ADD_HANDLER(CALL_IMM);      ADD_HANDLER(EXIT);
 
-void vm_handler_ADD_IMM_64(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_ADD_REG_64(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_SUB_IMM_64(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_SUB_REG_64(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_MUL_IMM_64(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_MUL_REG_64(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_DIV_IMM_64(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_DIV_REG_64(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_OR_IMM_64(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_OR_REG_64(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_AND_IMM_64(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_AND_REG_64(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_LSH_IMM_64(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_LSH_REG_64(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_RSH_IMM_64(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_RSH_REG_64(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_NEG_REG_64(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_MOD_IMM_64(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_MOD_REG_64(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_XOR_IMM_64(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_XOR_REG_64(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_MOV_IMM_64(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_MOV_REG_64(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_ARSH_IMM_64(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_ARSH_REG_64(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_ADD_IMM_32(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_ADD_REG_32(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_SUB_IMM_32(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_SUB_REG_32(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_MUL_IMM_32(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_MUL_REG_32(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_DIV_IMM_32(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_DIV_REG_32(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_OR_IMM_32(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_OR_REG_32(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_AND_IMM_32(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_AND_REG_32(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_LSH_IMM_32(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_LSH_REG_32(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_RSH_IMM_32(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_RSH_REG_32(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_NEG_REG_32(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_MOD_IMM_32(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_MOD_REG_32(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_XOR_IMM_32(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_XOR_REG_32(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_MOV_IMM_32(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_MOV_REG_32(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_ARSH_IMM_32(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_ARSH_REG_32(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_LE_REG(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_BE_REG(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_LDDW(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_LDABSW(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_LDABSH(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_LDABSB(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_LDABSDW(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_LDINDW(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_LDINDH(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_LDINDB(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_LDINDDW(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_LDXW(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_LDXH(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_LDXB(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_LDXDW(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_STW(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_STH(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_STB(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_STDW(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_STXW(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_STXH(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_STXB(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_STXDW(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_JA(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_JEQ_IMM(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_JEQ_REG(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_JGT_IMM(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_JGT_REG(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_JGE_IMM(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_JGE_REG(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_JLT_IMM(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_JLT_REG(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_JLE_IMM(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_JLE_REG(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_JSET_IMM(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_JSET_REG(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_JNE_IMM(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_JNE_REG(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_JSGT_IMM(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_JSGT_REG(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_JSGE_IMM(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_JSGE_REG(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_JSLT_IMM(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_JSLT_REG(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_JSLE_IMM(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_JSLE_REG(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_CALL_IMM(VM_t vm, BPFInstruction_t instruction);
-
-void vm_handler_EXIT(VM_t vm, BPFInstruction_t instruction);
-
-void setInstructionhandler(){
-    ADD_HANDLER(ADD_IMM_64);    ADD_HANDLER(ADD_IMM_64);    ADD_HANDLER(ADD_REG_64);    ADD_HANDLER(SUB_IMM_64);    ADD_HANDLER(SUB_REG_64);
-    ADD_HANDLER(MUL_IMM_64);    ADD_HANDLER(MUL_REG_64);    ADD_HANDLER(DIV_IMM_64);    ADD_HANDLER(DIV_REG_64);    ADD_HANDLER(OR_IMM_64);
-    ADD_HANDLER(OR_REG_64);     ADD_HANDLER(AND_IMM_64);    ADD_HANDLER(AND_REG_64);    ADD_HANDLER(LSH_IMM_64);    ADD_HANDLER(LSH_REG_64);
-    ADD_HANDLER(RSH_IMM_64);    ADD_HANDLER(RSH_REG_64);    ADD_HANDLER(NEG_REG_64);    ADD_HANDLER(MOD_IMM_64);    ADD_HANDLER(MOD_REG_64);
-    ADD_HANDLER(XOR_IMM_64);    ADD_HANDLER(XOR_REG_64);    ADD_HANDLER(MOV_IMM_64);    ADD_HANDLER(MOV_REG_64);    ADD_HANDLER(ARSH_IMM_64);
-    ADD_HANDLER(ARSH_REG_64);   ADD_HANDLER(ADD_IMM_32);    ADD_HANDLER(ADD_REG_32);    ADD_HANDLER(SUB_IMM_32);    ADD_HANDLER(SUB_REG_32);
-    ADD_HANDLER(MUL_IMM_32);    ADD_HANDLER(MUL_REG_32);    ADD_HANDLER(DIV_IMM_32);    ADD_HANDLER(DIV_REG_32);    ADD_HANDLER(OR_IMM_32);
-    ADD_HANDLER(OR_REG_32);     ADD_HANDLER(AND_IMM_32);    ADD_HANDLER(AND_REG_32);    ADD_HANDLER(LSH_IMM_32);    ADD_HANDLER(LSH_REG_32);
-    ADD_HANDLER(RSH_IMM_32);    ADD_HANDLER(RSH_REG_32);    ADD_HANDLER(NEG_REG_32);    ADD_HANDLER(MOD_IMM_32);    ADD_HANDLER(MOD_REG_32);
-    ADD_HANDLER(XOR_IMM_32);    ADD_HANDLER(XOR_REG_32);    ADD_HANDLER(MOV_IMM_32);    ADD_HANDLER(MOV_REG_32);    ADD_HANDLER(ARSH_IMM_32);
-    ADD_HANDLER(ARSH_REG_32);   ADD_HANDLER(LE_REG);        ADD_HANDLER(BE_REG);        ADD_HANDLER(LDDW);          ADD_HANDLER(LDABSW);
-    ADD_HANDLER(LDABSH);        ADD_HANDLER(LDABSB);        ADD_HANDLER(LDABSDW);       ADD_HANDLER(LDINDW);        ADD_HANDLER(LDINDH);
-    ADD_HANDLER(LDINDB);        ADD_HANDLER(LDINDDW);       ADD_HANDLER(LDXW);          ADD_HANDLER(LDXH);          ADD_HANDLER(LDXB);
-    ADD_HANDLER(LDXDW);         ADD_HANDLER(STW);           ADD_HANDLER(STH);           ADD_HANDLER(STB);           ADD_HANDLER(STDW);
-    ADD_HANDLER(STXW);          ADD_HANDLER(STXH);          ADD_HANDLER(STXB);          ADD_HANDLER(STXDW);         ADD_HANDLER(JA);
-    ADD_HANDLER(JEQ_IMM);       ADD_HANDLER(JEQ_REG);       ADD_HANDLER(JGT_IMM);       ADD_HANDLER(JGT_REG);       ADD_HANDLER(JGE_IMM);
-    ADD_HANDLER(JGE_REG);       ADD_HANDLER(JLT_IMM);       ADD_HANDLER(JLT_REG);       ADD_HANDLER(JLE_IMM);       ADD_HANDLER(JLE_REG);
-    ADD_HANDLER(JSET_IMM);      ADD_HANDLER(JSET_REG);      ADD_HANDLER(JNE_IMM);       ADD_HANDLER(JNE_REG);       ADD_HANDLER(JSGT_IMM);
-    ADD_HANDLER(JSGT_REG);      ADD_HANDLER(JSGE_IMM);      ADD_HANDLER(JSGE_REG);      ADD_HANDLER(JSLT_IMM);      ADD_HANDLER(JSLT_REG);
-    ADD_HANDLER(JSLE_IMM);      ADD_HANDLER(JSLE_REG);      ADD_HANDLER(CALL_IMM);      ADD_HANDLER(EXIT);
-}
 
 VM_t vm_create(){
     VM_t vm = (VM_t) kmalloc(sizeof(VM), GFP_KERNEL);
@@ -262,8 +65,6 @@ void vm_init(VM_t vm, u32 memorySize) {
     }
     vm->memory = (u64 *) kmalloc(memorySize * sizeof(u64), GFP_KERNEL);
     vm->memorySize = memorySize;
-
-    setInstructionhandler();
 }
 
 void vm_set_in_kernel_function_wrapper_map(VM_t vm, HashMap_t inKernelFuncWrapperMap){
