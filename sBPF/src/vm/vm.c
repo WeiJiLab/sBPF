@@ -106,24 +106,18 @@ VM_t vm_release(VM_t vm){
 }
 
 
-_Bool vm_verify_code(VM_t vm, u64 code) {
+_Bool vm_verify_code(VM_t vm, u64 *program){
+    // todo : verify instructions
     return true;
 }
 
 void vm_load_program(VM_t vm, u64 *program) {
     int index = 0;
     while (*program) {
-        if (!vm_verify_code(vm, *program)) {
-            break;
-        }
         vm->memory[index] = *program;
         index++;
         program++;
     }
-}
-
-void vm_install_program(VM_t vm, char *elfFile){
-    
 }
 
 u64 vm_fetch_code(VM_t vm) {

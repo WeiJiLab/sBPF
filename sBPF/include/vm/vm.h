@@ -34,11 +34,9 @@ void vm_set_in_kernel_function_wrapper_map(VM_t vm, HashMap_t inKernelFuncWrappe
 
 void vm_init(VM_t vm, u32 memorySize);
 
-_Bool vm_verify_code(VM_t vm, u64 code);
+_Bool vm_verify_code(VM_t vm, u64 *program);
 
 void vm_load_program(VM_t vm, u64 *program);
-
-void vm_install_program(VM_t vm, char *elfFile);
 
 u64 vm_fetch_code(VM_t vm);
 
