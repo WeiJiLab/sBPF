@@ -45,7 +45,7 @@ extern int attach_vm(struct pt_regs *regs, u64 program[], int size);
  *      __________________ 
  *      | ___ \ ___ \  ___|
  *  ___ | |_/ / |_/ / |_   
- * / __|| ___ \  __/|  _|                   Why u wrote this fucking code?
+ * / __|| ___ \  __/|  _|
  * \__ \| |_/ / |   | |    
  * |___/\____/\_|   \_|    
  *                         
