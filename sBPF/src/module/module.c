@@ -11,8 +11,6 @@
         u64 program[] = {   \
          0x8500000000000001 \
         };  \
-        // todo: put args into vm's register \
-        // todo: load program from mmap with symbol name \
         attach_vm(regs,program,1);  \
         return 0;   \
     }   \
