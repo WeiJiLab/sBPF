@@ -54,4 +54,6 @@ _Bool is_little_endion(void);
 
 void setInKernelWrapper(void);
 
+void setInstructionhandler(void);
+
 #endif // NMCS_EBPF_VM_H
