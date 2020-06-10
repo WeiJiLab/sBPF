@@ -1,8 +1,11 @@
 #include <linux/module.h>
 #include <linux/kernel.h>
 #include <linux/kprobes.h>
-#include "../../include/sbpf/sbpf.h"
 #include <linux/slab.h>
+
+
+extern void init_inKernel_funcction_wrapper_map(void);
+extern int attach_vm(struct pt_regs *regs, u64 program[], int size);
 
 static struct kprobe kp = {
     .symbol_name = "sys_execve"
