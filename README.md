@@ -20,6 +20,4 @@ apt install -y libgtest-dev
 会查询到相关的路由信息
 
 ## 其他
-sBPF 跟这个没啥关系，忽略它。
-
-Docker suuuuuuuuuuuucks!
+sBPF 跟NetD没关系，是我们自己写的ebpf执行引擎。
