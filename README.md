@@ -1,5 +1,5 @@
-# NMCS
-`netd` like network services for linux kernel
+# sBPF
+`ebpf` like simple bpf implement in kernel module
 
 ## env
 ``` shell
