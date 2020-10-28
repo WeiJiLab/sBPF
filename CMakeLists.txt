@@ -1,6 +1,4 @@
 cmake_minimum_required(VERSION 3.10)
-project(NMCS)
+project(SBPF)
 
-add_subdirectory(NetD)
-add_subdirectory(NetManagementServiceSDK)
 add_subdirectory(sBPF)
