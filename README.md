@@ -1,2 +1,2 @@
 # sBPF
-`ebpf` like simple bpf implement in kernel module
+`ebpf` like simple bpf implement in kernel module with kprobe
